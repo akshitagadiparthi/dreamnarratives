@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import HeroGallery from '@/components/HeroGallery';
-import { ServiceRow, ProcessSteps, Closing, FeaturedClient } from '@/components/Sections';
+import { ServiceRow, ProcessSteps, Closing, FeaturedClient, MoonPhases } from '@/components/Sections';
 import { Slot, TwoLine, Clouds, Sparkles } from '@/components/Basics';
-import { services, bespoke } from '@/content/services';
+import { services } from '@/content/services';
 import { story, testimonials, featured } from '@/content/studio';
 import { site } from '@/content/site';
 
@@ -27,7 +27,7 @@ export default function Home() {
           <h2 id="statement" className="heading" style={{ maxWidth: '18em', margin: '0 auto' }}>
             From invitations and keepsakes to spaces and brands, we transform ideas into <em>stories worth remembering.</em>
           </h2>
-          <hr className="rule center" />
+          <MoonPhases />
           <p className="lede">
             Across every form of design, our starting point is always the person behind the brief—their ideas, memories, taste, and hopes for what we can create together.
           </p>
@@ -43,18 +43,6 @@ export default function Home() {
 
       <FeaturedClient featured={featured} />
 
-      {/* Bespoke: an open door */}
-      <section className="section tight center has-clouds" aria-labelledby="bespoke-title">
-        <Clouds set="low" />
-        <div className="container reveal">
-          <span className="eyebrow">{bespoke.eyebrow}</span>
-          <h2 id="bespoke-title" className="heading">
-            {bespoke.title[0]} <em>{bespoke.title[1]}</em>
-          </h2>
-          <p className="lede" style={{ margin: 'var(--space-4) auto var(--space-5)' }}>{bespoke.body}</p>
-          <Link href="/enquiries?service=bespoke" className="text-link">Let’s talk</Link>
-        </div>
-      </section>
 
       {/* Founders preview */}
       <section className="section ground-bone" aria-labelledby="story-title">

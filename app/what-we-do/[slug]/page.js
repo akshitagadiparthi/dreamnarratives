@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Slot } from '@/components/Basics';
 import WorkGallery from '@/components/WorkGallery';
-import { Closing, PairedWith, ProcessSteps, Accounts } from '@/components/Sections';
+import { Closing, PairedWith, Accounts, NightStrip } from '@/components/Sections';
 import { services, getService } from '@/content/services';
 import { founders } from '@/content/studio';
 import { site } from '@/content/site';
@@ -35,7 +34,7 @@ export default async function ServicePage({ params }) {
   return (
     <>
       <section className="service-hero">
-        <div className="container split">
+        <div className="container service-head">
           <div className="reveal">
             <Link href="/what-we-do" className="crumb">What do we do? /</Link>
             <span className="eyebrow" style={{ marginTop: 'var(--space-5)' }}>{s.label}</span>
@@ -43,35 +42,19 @@ export default async function ServicePage({ params }) {
               {s.name[0]} <em>{s.name[1]}</em>
             </h1>
             <p className="lede" style={{ marginTop: 'var(--space-4)' }}>{s.promise}</p>
-            <hr className="rule" />
-            <p className="body">{s.intro}</p>
-            {lead ? <p className="caption">Led by {lead.name}, {lead.role}</p> : null}
+          </div>
+          <div className="reveal" style={{ '--delay': '150ms' }}>
+            <p className="body" style={{ margin: 0 }}>{s.intro}</p>
+            {lead ? <p className="caption" style={{ marginTop: 'var(--space-3)' }}>Led by {lead.name}, {lead.role}</p> : null}
             <div className="btn-row" style={{ marginTop: 'var(--space-5)' }}>
               <Link href={`/enquiries?service=${s.slug}`} className="btn btn-fill">Begin your story</Link>
               <a href="#work" className="btn btn-ghost">See the work</a>
             </div>
           </div>
-          <div className="media reveal" style={{ '--delay': '150ms' }}>
-            <Slot item={s.hero} arch priority sizes="(max-width: 900px) 100vw, 50vw" />
-          </div>
         </div>
       </section>
 
-      <section className="section tight ground-bone" aria-labelledby="offers-title">
-        <div className="container split top">
-          <div className="reveal">
-            <span className="eyebrow">What we create</span>
-            <h2 id="offers-title" className="heading">
-              Every piece,
-              <br />
-              <em>made for you alone.</em>
-            </h2>
-          </div>
-          <ul className="offer-list reveal" style={{ '--delay': '150ms' }}>
-            {s.offers.map((o) => <li key={o}>{o}</li>)}
-          </ul>
-        </div>
-      </section>
+      <NightStrip item={s.hero} />
 
       {s.accounts ? <Accounts accounts={s.accounts} id={hasRealWork ? 'accounts' : 'work'} /> : null}
 
@@ -92,7 +75,22 @@ export default async function ServicePage({ params }) {
         </section>
       ) : null}
 
-      <ProcessSteps ground="ground-bone" />
+      <section className="section tight ground-bone" aria-labelledby="offers-title">
+        <div className="container split top">
+          <div className="reveal">
+            <span className="eyebrow">What we create</span>
+            <h2 id="offers-title" className="heading">
+              Every piece,
+              <br />
+              <em>made for you alone.</em>
+            </h2>
+          </div>
+          <ul className="offer-list reveal" style={{ '--delay': '150ms' }}>
+            {s.offers.map((o) => <li key={o}>{o}</li>)}
+          </ul>
+        </div>
+      </section>
+
       <PairedWith slugs={s.pairs} />
       <Closing
         title={['Let’s begin', 'your story.']}

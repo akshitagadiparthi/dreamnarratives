@@ -1,5 +1,5 @@
-import { PageIntro, Slot, TwoLine } from '@/components/Basics';
-import { Closing } from '@/components/Sections';
+import { PageIntro, Slot, TwoLine, Stardust, Sparkles } from '@/components/Basics';
+import { Closing, MoonPhases } from '@/components/Sections';
 import { founders, story, values } from '@/content/studio';
 import { getService } from '@/content/services';
 import Link from 'next/link';
@@ -23,7 +23,7 @@ export default function WhoWeAre() {
           {founders.map((f, i) => (
             <article key={f.name} className="founder reveal" style={{ '--delay': `${i * 150}ms` }}>
               <div className="media">
-                <Slot item={{ src: f.portrait, caption: `Portrait of ${f.name}` }} arch={i === 0} sizes="(max-width: 900px) 100vw, 50vw" />
+                <Slot item={{ src: f.portrait, caption: `Portrait of ${f.name}` }} sizes="(max-width: 900px) 100vw, 50vw" />
               </div>
               <span className="eyebrow">{f.role}</span>
               <h2 className="display-l" style={{ fontSize: 'clamp(44px, 5vw, 72px)' }}>{f.name}</h2>
@@ -59,28 +59,15 @@ export default function WhoWeAre() {
         <div className="wide-photo"><Slot item={story.wide} sizes="100vw" /></div>
       </figure>
 
-      <section id="our-story" className="section ground-bone" aria-labelledby="story-title">
-        <div className="container story-layout">
-          <div className="story-aside reveal">
-            <span className="eyebrow">{story.eyebrow}</span>
-            <TwoLine parts={story.title} id="story-title" />
-            <figure className="story-photo">
-              <Slot item={story.photos[1]} sizes="(max-width: 900px) 100vw, 40vw" />
-            </figure>
-          </div>
-          <div className="story-text">
-            {story.full.map((p, i) =>
-              typeof p === 'string' ? (
-                <p key={i} className={`reveal${i === 0 ? ' lede' : ''}`}>{p}</p>
-              ) : p.pull ? (
-                <blockquote key={i} className="pull reveal">{p.pull}</blockquote>
-              ) : (
-                <p key={i} className="story-highlight reveal">{p.highlight}</p>
-              )
-            )}
-            <hr className="rule" />
-            <p className="story-sign reveal">{story.quote}</p>
-          </div>
+      <section id="our-story" className="section ground-dusk story-night center" aria-labelledby="story-title" data-cursor-dark>
+        <Stardust count={70} seed={9} />
+        <Sparkles items={[[12, 20, 14, 0.3], [86, 26, 12, 1.5], [80, 76, 16, 2.4], [16, 72, 10, 3.2]]} />
+        <div className="container reveal">
+          <span className="eyebrow">{story.eyebrow}</span>
+          <TwoLine parts={story.title} id="story-title" className="display-l" />
+          <MoonPhases />
+          <p className="lede story-short">{story.short}</p>
+          <p className="story-sign">{story.quote}</p>
         </div>
       </section>
 

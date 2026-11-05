@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { PageIntro, Slot } from '@/components/Basics';
-import { Closing, ProcessSteps } from '@/components/Sections';
+import { Closing } from '@/components/Sections';
 import { services, bespoke } from '@/content/services';
 
 export const metadata = {
   title: 'What do we do?',
-  description: 'Invitations, gifting, branding, social media and interiors: five ways Dream Narratives tells your story.',
+  description: 'Invitations, gifting, branding, social media and interiors: four ways Dream Narratives tells your story.',
 };
 
 export default function WhatWeDo() {
@@ -13,8 +13,8 @@ export default function WhatWeDo() {
     <>
       <PageIntro
         eyebrow="What do we do?"
-        title={['Five ways we tell', 'your story.']}
-        lede="Five disciplines, one philosophy: every project deserves to be told beautifully. Each carries its own work, so you can see the story before you begin yours."
+        title={['Four ways we tell', 'your story.']}
+        lede="Four disciplines, one philosophy: every project deserves to be told beautifully. Each carries its own work, so you can see the story before you begin yours."
       />
 
       <section className="section" style={{ paddingTop: 'var(--space-7)' }} aria-label="Services">
@@ -22,7 +22,7 @@ export default function WhatWeDo() {
           {services.map((s, i) => (
             <Link key={s.slug} href={`/what-we-do/${s.slug}`} className="service-card reveal" style={{ '--delay': `${(i % 3) * 120}ms` }} data-cursor="view">
               <div className="media">
-                <Slot item={s.hero} arch={i === 1 || i === 4} sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw" />
+                <Slot item={s.hero} sizes="(max-width: 620px) 100vw, (max-width: 1000px) 50vw, 33vw" />
               </div>
               <span className="eyebrow" style={{ marginBottom: 8 }}>{s.label}</span>
               <h2 style={{ fontSize: 34, lineHeight: 1.1 }}>
@@ -45,7 +45,6 @@ export default function WhatWeDo() {
         </div>
       </section>
 
-      <ProcessSteps />
       <Closing />
     </>
   );

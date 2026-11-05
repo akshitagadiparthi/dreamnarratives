@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { nav, enquireLink } from '@/content/site';
 import { services } from '@/content/services';
 import { Wordmark } from './Basics';
+import ThemeToggle from './ThemeToggle';
 
 export default function SiteHeader() {
   const pathname = usePathname();
@@ -47,7 +48,7 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header className={`site-header${scrolled ? ' scrolled' : ''}${panel ? ' panel-open' : ''}`} onMouseLeave={closePanelSoon}>
+      <header className={`site-header${scrolled ? ' scrolled' : ''}${panel ? ' panel-open' : ''}${pathname === '/' && !scrolled && !panel && !menu ? ' over-night' : ''}`} onMouseLeave={closePanelSoon}>
         <div className="container nav-bar">
           <Wordmark />
           <nav aria-label="Main">
@@ -80,9 +81,12 @@ export default function SiteHeader() {
               </li>
             </ul>
           </nav>
-          <button type="button" className="menu-toggle" aria-expanded={menu} aria-controls="mobile-menu" onClick={() => setMenu((m) => !m)}>
-            {menu ? 'Close' : 'Menu'}
-          </button>
+          <div className="nav-tools">
+            <ThemeToggle />
+            <button type="button" className="menu-toggle" aria-expanded={menu} aria-controls="mobile-menu" onClick={() => setMenu((m) => !m)}>
+              {menu ? 'Close' : 'Menu'}
+            </button>
+          </div>
         </div>
 
         <div id="services-panel" className={`services-panel${panel ? ' open' : ''}`} onMouseEnter={openPanel}>

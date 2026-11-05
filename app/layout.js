@@ -29,14 +29,22 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#f8f4ec',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f8f4ec' },
+    { media: '(prefers-color-scheme: dark)', color: '#1b1612' },
+  ],
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.remove('no-js')" }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.remove('no-js');try{var t=localStorage.getItem('dn-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}",
+          }}
+        />
       </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>

@@ -19,6 +19,10 @@
   --on-dusk: #efe6d6;
   --on-dusk-muted: #b3a48f;
   --error: #9a3b2a;
+  --ground-rgb: 248, 244, 236;  /* the page ground, for see-through tints */
+  --placeholder: #8f8070;
+  --sky-4: #7a6552;             /* where the night hero melts into the page */
+  --sky-5: #cdbca5;
 
   /* Type */
   --font-display: 'Bodoni Moda Variable', 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
@@ -44,6 +48,52 @@
 
   /* Shadow */
   --shadow-float: 0 30px 60px -30px rgba(43, 35, 29, 0.35);
+}
+
+/* Dark mode: follows the device unless the visitor picks one with the toggle */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+  --ivory: #1b1612;
+  --bone: #241d18;
+  --sand: #2f2620;
+  --hairline: #3d3229;
+  --espresso: #efe6d6;
+  --taupe: #b3a48f;
+  --gilt: #d6b679;
+  --champagne: #c9a96e;
+  --glow: #f1deb4;
+  --dusk: #110d0a;
+  --on-dusk: #efe6d6;
+  --on-dusk-muted: #b3a48f;
+  --error: #e3907a;
+  --ground-rgb: 27, 22, 18;
+  --placeholder: #8a7b69;
+  --sky-4: #241c16;
+  --sky-5: #1d1713;
+  --shadow-float: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ivory: #1b1612;
+  --bone: #241d18;
+  --sand: #2f2620;
+  --hairline: #3d3229;
+  --espresso: #efe6d6;
+  --taupe: #b3a48f;
+  --gilt: #d6b679;
+  --champagne: #c9a96e;
+  --glow: #f1deb4;
+  --dusk: #110d0a;
+  --on-dusk: #efe6d6;
+  --on-dusk-muted: #b3a48f;
+  --error: #e3907a;
+  --ground-rgb: 27, 22, 18;
+  --placeholder: #8a7b69;
+  --sky-4: #241c16;
+  --sky-5: #1d1713;
+  --shadow-float: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
 }
 
 @media (max-width: 760px) {
@@ -203,7 +253,7 @@ blockquote.pull {
   border-bottom: 1px solid transparent;
 }
 .site-header.scrolled, .site-header.panel-open {
-  background: rgba(248, 244, 236, 0.94);
+  background: rgba(var(--ground-rgb), 0.94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-color: var(--hairline);
@@ -277,7 +327,7 @@ main { display: block; }
 .hero {
   position: relative; min-height: 100svh; overflow: hidden;
   display: grid; place-items: center;
-  background: radial-gradient(55% 50% at 50% 50%, rgba(241, 222, 180, 0.5), rgba(248, 244, 236, 0) 72%), var(--ivory);
+  background: radial-gradient(55% 50% at 50% 50%, rgba(241, 222, 180, 0.5), rgba(var(--ground-rgb), 0) 72%), var(--ivory);
 }
 .hero-moon {
   position: absolute; left: 50%; top: 50%; width: min(42vw, 520px); height: auto;
@@ -502,7 +552,7 @@ a:hover .slot img, .slot.zoom:hover img { transform: scale(1.03); }
   background-position: calc(100% - 10px) 52%, calc(100% - 5px) 52%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 28px;
 }
 .field textarea { min-height: 120px; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: #8f8070; }
+.field input::placeholder, .field textarea::placeholder { color: var(--placeholder); }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gilt); }
 .field .help { font-size: 13px; line-height: 20px; color: var(--taupe); margin-top: 8px; }
 .field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--error); }
@@ -607,7 +657,7 @@ html.moon-cursor select, html.moon-cursor input[type='checkbox'], html.moon-curs
 .site-footer .wordmark img { height: 64px; }
 .hero-logo { margin: 0; line-height: 0; animation: fade-up 1.6s var(--ease) 0.6s both; }
 .hero-copy .hero-logo { animation: fade-up 1.6s var(--ease) 0.6s both; }
-.hero-logo img { width: min(86vw, 640px); height: auto; margin: 0 auto; filter: drop-shadow(0 0 18px rgba(248, 244, 236, 0.9)); }
+.hero-logo img { width: min(86vw, 640px); height: auto; margin: 0 auto; filter: drop-shadow(0 0 18px rgba(var(--ground-rgb), 0.9)); }
 .wide-photo { height: clamp(320px, 56vw, 760px); }
 @media (max-width: 760px) { .wordmark img { height: 42px; } }
 
@@ -664,7 +714,7 @@ html.moon-cursor select, html.moon-cursor input[type='checkbox'], html.moon-curs
 /* The scroll moon: waxes as you read */
 .scroll-moon {
   position: fixed; right: 22px; bottom: 22px; z-index: 90; width: 52px; height: 52px; padding: 6px;
-  border: 1px solid var(--hairline); border-radius: 50%; background: rgba(248, 244, 236, 0.85);
+  border: 1px solid var(--hairline); border-radius: 50%; background: rgba(var(--ground-rgb), 0.85);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); cursor: pointer;
   opacity: 0; transform: translateY(12px); pointer-events: none;
   transition: opacity 600ms var(--ease), transform 600ms var(--ease), box-shadow 600ms var(--ease);
@@ -697,7 +747,7 @@ html.moon-cursor select, html.moon-cursor input[type='checkbox'], html.moon-curs
 .hero-piece.cutout .drift { box-shadow: none; filter: drop-shadow(0 26px 30px rgba(43, 35, 29, 0.22)); }
 .hero-piece .slot img { transition: transform 900ms var(--ease); }
 .hero-piece:hover .slot img { transform: scale(1.04); }
-.hero-copy { background: radial-gradient(closest-side, rgba(248, 244, 236, 0.92), rgba(248, 244, 236, 0)); padding: var(--space-6) var(--space-7); }
+.hero-copy { background: radial-gradient(closest-side, rgba(var(--ground-rgb), 0.92), rgba(var(--ground-rgb), 0)); padding: var(--space-6) var(--space-7); }
 @media (max-width: 760px) { .hero-copy { padding: var(--space-5) var(--gutter); } }
 
 /* Work: masonry at natural proportions */
@@ -787,4 +837,206 @@ html.moon-cursor select, html.moon-cursor input[type='checkbox'], html.moon-curs
 }
 @media (prefers-reduced-motion: reduce) {
   .sparkles svg { animation: none; opacity: 0.35; }
+}
+
+/* ==========================================================================
+   v12: the moon and stars as the hero, sparkle throughout
+   ========================================================================== */
+
+/* Header sitting on the night sky */
+.wordmark .logo-light { display: none; }
+.site-header.over-night .wordmark .logo-ink { display: none; }
+.site-header.over-night .wordmark .logo-light { display: block; }
+.site-header.over-night .nav-links > li > a,
+.site-header.over-night .nav-links > li > button,
+.site-header.over-night .menu-toggle { color: var(--on-dusk); }
+.site-header.over-night .nav-links > li > a[aria-current="page"] { color: var(--champagne); border-color: var(--champagne); }
+.site-header.over-night .nav-links > li > a.btn { border-color: var(--on-dusk); }
+.site-header.over-night .nav-links > li > a.btn:hover { background: var(--on-dusk); color: var(--dusk); }
+
+/* The night hero */
+.hero.night { background: var(--dusk); color: var(--on-dusk); min-height: max(100svh, 760px); }
+.hero-sky {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(40% 36% at 58% 36%, rgba(241, 222, 180, 0.20), rgba(241, 222, 180, 0) 70%),
+    radial-gradient(90% 60% at 50% 0%, #2e241c 0%, rgba(46, 36, 28, 0) 70%),
+    linear-gradient(180deg, #17120e 0%, #211b16 40%, #3a2d23 66%, var(--sky-4) 80%, var(--sky-5) 90%, var(--ivory) 100%);
+}
+.hero-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 10%; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(var(--ground-rgb), 0), var(--ivory)); }
+.hero.night .stardust { z-index: 1; bottom: 22%; }
+.hero.night .stardust i { background: var(--glow); box-shadow: 0 0 6px 1px rgba(241, 222, 180, 0.85); animation-name: twinkle-night; }
+@keyframes twinkle-night { 0%, 100% { opacity: 0.18; transform: scale(0.7); } 50% { opacity: 0.95; transform: scale(1.1); } }
+
+.moon-wrap {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  transform: translate3d(calc(var(--mx, 0) * -22px), calc(var(--my, 0) * -14px + var(--part, 0) * 140px), 0);
+  transition: transform 1200ms var(--ease);
+}
+.moon-wrap .hero-moon {
+  position: absolute; left: 60%; top: 40%; width: min(48vw, 620px); height: auto;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 40px rgba(241, 222, 180, 0.55)) drop-shadow(0 0 120px rgba(201, 169, 110, 0.35));
+  animation: moon-rise-night 2.8s var(--ease) both, moon-float 10s ease-in-out 2.8s infinite;
+}
+.moon-halo {
+  position: absolute; left: 58%; top: 38%; width: min(60vw, 820px); aspect-ratio: 1; transform: translate(-50%, -50%);
+  border-radius: 50%; background: radial-gradient(closest-side, rgba(241, 222, 180, 0.22), rgba(241, 222, 180, 0.06) 60%, rgba(241, 222, 180, 0) 100%);
+  animation: halo 7s ease-in-out infinite;
+}
+@keyframes moon-rise-night { from { opacity: 0; transform: translate(-50%, -30%) rotate(-6deg); } to { opacity: 1; transform: translate(-50%, -50%) rotate(0deg); } }
+@keyframes moon-float { 0%, 100% { transform: translate(-50%, -50%) rotate(0deg); } 50% { transform: translate(-50%, -53%) rotate(2deg); } }
+@keyframes halo { 0%, 100% { opacity: 0.75; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); } }
+
+/* Shooting stars, now and then */
+.shooting-stars { position: absolute; inset: 0 0 30% 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.shooting-stars i {
+  position: absolute; top: 12%; left: 70%; width: 160px; height: 1.5px; border-radius: 2px;
+  background: linear-gradient(90deg, rgba(241, 222, 180, 0.95), rgba(241, 222, 180, 0));
+  transform: rotate(-24deg); opacity: 0; filter: drop-shadow(0 0 4px rgba(241, 222, 180, 0.9));
+  animation: shoot 9s linear infinite;
+}
+.shooting-stars i:nth-child(2) { top: 28%; left: 88%; width: 120px; animation-delay: 3.6s; animation-duration: 11s; }
+.shooting-stars i:nth-child(3) { top: 6%; left: 40%; width: 200px; animation-delay: 6.8s; animation-duration: 13s; }
+@keyframes shoot {
+  0% { opacity: 0; transform: rotate(-24deg) translateX(0); }
+  2% { opacity: 1; }
+  9% { opacity: 0; transform: rotate(-24deg) translateX(-520px); }
+  100% { opacity: 0; transform: rotate(-24deg) translateX(-520px); }
+}
+
+.hero.night .sparkles { z-index: 6; }
+.hero.night .sparkles svg { fill: var(--glow); opacity: 0.3; }
+.hero.night .clouds { z-index: 3; }
+.hero.night .hero-piece { z-index: 4; }
+.hero.night .hero-piece.front { z-index: 7; }
+.hero.night .hero-piece .drift { box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.6); }
+.hero.night .hero-piece.cutout .drift { box-shadow: none; filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.45)); }
+.hero.night .hero-copy { z-index: 8; background: radial-gradient(closest-side, rgba(23, 18, 14, 0.55), rgba(23, 18, 14, 0)); }
+.hero.night .hero-copy .eyebrow { color: var(--on-dusk-muted); }
+.hero.night .hero-copy .lede { color: var(--on-dusk); text-shadow: 0 0 18px rgba(23, 18, 14, 0.9); }
+.hero.night .hero-logo img { filter: drop-shadow(0 0 24px rgba(23, 18, 14, 0.8)) drop-shadow(0 0 2px rgba(23, 18, 14, 0.6)); }
+.hero.night .hero-scroll { z-index: 8; color: var(--taupe); }
+
+@media (max-width: 760px) {
+  .moon-wrap .hero-moon { width: 92vw; left: 58%; top: 34%; }
+  .moon-halo { width: 120vw; top: 32%; }
+  .hero.night .clouds .cloud { width: 90vw !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shooting-stars { display: none; }
+  .moon-wrap { transform: none; }
+}
+
+/* Sparkle on every eyebrow label */
+.eyebrow::before {
+  content: ''; display: inline-block; width: 9px; height: 9px; margin-right: 10px; vertical-align: 0;
+  background: var(--champagne);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+legend.eyebrow::before, .contact-list .eyebrow::before, .slot-label::before { display: none; }
+
+/* A gold sheen across buttons on hover */
+.btn { position: relative; overflow: hidden; }
+.btn::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; pointer-events: none;
+  background: linear-gradient(100deg, rgba(241, 222, 180, 0), rgba(241, 222, 180, 0.55), rgba(241, 222, 180, 0));
+  transform: skewX(-20deg); transition: left 900ms var(--ease);
+}
+.btn:hover::after { left: 130%; }
+
+/* Moon phases, used as a divider */
+.moon-phases { display: flex; gap: 14px; align-items: center; justify-content: center; margin: var(--space-5) 0; }
+.moon-phases svg { width: 14px; height: 14px; }
+.moon-phases svg:nth-child(3) { width: 18px; height: 18px; filter: drop-shadow(0 0 6px rgba(241, 222, 180, 0.9)); }
+
+/* Sparkle burst when you click */
+.burst { position: fixed; z-index: 9999; pointer-events: none; width: 10px; height: 10px; margin: -5px 0 0 -5px; }
+.burst svg { position: absolute; left: 0; top: 0; width: 10px; height: 10px; fill: var(--champagne); filter: drop-shadow(0 0 4px rgba(241, 222, 180, 0.95)); animation: burst 800ms var(--ease) forwards; }
+@keyframes burst { from { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); } to { opacity: 0; transform: translate(var(--bx), var(--by)) scale(0.3) rotate(120deg); } }
+
+/* The moon cursor: bigger and clearer */
+.cursor { width: 96px; height: 96px; margin: -48px 0 0 -48px; }
+.cursor img { width: 96px; height: 96px; transform: scale(0.5) rotate(-8deg); filter: drop-shadow(0 0 8px rgba(241, 222, 180, 0.9)) drop-shadow(0 2px 6px rgba(43, 35, 29, 0.25)); }
+.cursor.full img { transform: scale(0.72) rotate(6deg); filter: drop-shadow(0 0 16px rgba(241, 222, 180, 1)) drop-shadow(0 0 4px rgba(241, 222, 180, 0.9)); }
+.cursor.press img { transform: scale(0.42) rotate(-8deg); }
+.cursor.full.press img { transform: scale(0.62) rotate(6deg); }
+.dust { background: var(--glow); }
+
+/* Service pages: a two-column header, then a band of night sky */
+.service-hero { padding-bottom: var(--space-6); }
+.service-head { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-6); align-items: end; }
+@media (max-width: 900px) { .service-head { grid-template-columns: 1fr; gap: var(--space-4); } }
+.night-strip { position: relative; overflow: hidden; height: clamp(420px, 56vw, 720px); display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--dusk); isolation: isolate; }
+.night-strip .hero-sky { background:
+    radial-gradient(45% 50% at 50% 45%, rgba(241, 222, 180, 0.18), rgba(241, 222, 180, 0) 70%),
+    linear-gradient(180deg, #17120e 0%, #211b16 55%, #2e241c 100%); }
+.night-strip .stardust i { background: var(--glow); box-shadow: 0 0 6px 1px rgba(241, 222, 180, 0.85); animation-name: twinkle-night; }
+.night-strip .sparkles svg { fill: var(--glow); }
+.strip-piece { position: relative; z-index: 3; height: 74%; max-width: 86vw; }
+.strip-piece .slot { background: transparent; }
+.strip-piece .slot:not(.floating) { box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7); }
+.strip-piece .slot.floating img { filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55)); }
+.strip-caption { position: relative; z-index: 3; margin: var(--space-3) 0 0; font-size: 13px; color: var(--on-dusk-muted); letter-spacing: 0.04em; }
+@media (max-width: 760px) { .strip-piece { height: 66%; } }
+.moon-phases.left { justify-content: flex-start; margin: var(--space-5) 0; }
+.service-row .media .slot.is-cutout:not(.floating) { background: var(--dusk); }
+
+/* Who are we?: the short story under the stars */
+.story-night { position: relative; overflow: hidden; isolation: isolate; }
+.story-night > .container { position: relative; z-index: 2; }
+.story-night .stardust i { background: var(--glow); box-shadow: 0 0 6px 1px rgba(241, 222, 180, 0.8); animation-name: twinkle-night; }
+.story-short { max-width: 34em; margin: 0 auto; color: var(--on-dusk); }
+.story-night .story-sign { margin-top: var(--space-5); color: var(--champagne); }
+
+
+/* --------------------------------------------------------------------------
+   Theme details
+   -------------------------------------------------------------------------- */
+html { transition: background-color 400ms var(--ease); }
+body { transition: background-color 400ms var(--ease), color 400ms var(--ease); }
+
+/* the dark logo on dark pages */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .wordmark .logo-ink { display: none; }
+  :root:not([data-theme="light"]) .wordmark .logo-light { display: block; }
+  :root:not([data-theme="light"]) .site-footer { border-top: 1px solid var(--hairline); }
+}
+:root[data-theme="dark"] .wordmark .logo-ink { display: none; }
+:root[data-theme="dark"] .wordmark .logo-light { display: block; }
+:root[data-theme="dark"] .site-footer { border-top: 1px solid var(--hairline); }
+
+/* the theme toggle */
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0;
+  border: 1px solid var(--hairline); border-radius: 50%; background: transparent; color: var(--espresso); cursor: pointer;
+  transition: border-color var(--t-fast), color var(--t-fast), transform 600ms var(--ease);
+}
+.theme-toggle:hover { border-color: var(--champagne); color: var(--gilt); transform: rotate(-20deg); }
+.theme-toggle svg { width: 18px; height: 18px; }
+.site-header.over-night .theme-toggle { color: var(--on-dusk); border-color: rgba(239, 230, 214, 0.35); }
+.nav-tools { display: flex; align-items: center; gap: 18px; }
+.mobile-menu .theme-row { display: flex; align-items: center; gap: 14px; margin-top: var(--space-5); font: 500 11px/1 var(--font-sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--taupe); }
+
+/* Toggle icon: a crescent in light mode, a sun in dark mode */
+.theme-toggle .i-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .i-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .i-sun { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .i-moon { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .i-sun { display: block; }
+}
+.nav-bar > nav { margin-left: auto; margin-right: 24px; }
+@media (max-width: 1080px) { .nav-bar > nav { display: none; } .nav-tools { gap: 20px; } }
+::selection { background: var(--glow); color: #2b231d; }
+
+/* Dark mode: clouds on the page become faint, moonlit wisps */
+:root[data-theme="dark"] .has-clouds .clouds { opacity: 0.32; }
+:root[data-theme="dark"] .hero.night .clouds { opacity: calc(0.55 - var(--part, 0) * 0.4); }
+:root[data-theme="dark"] .hero-fade { height: 16%; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .has-clouds .clouds { opacity: 0.32; }
+  :root:not([data-theme="light"]) .hero.night .clouds { opacity: calc(0.55 - var(--part, 0) * 0.4); }
+  :root:not([data-theme="light"]) .hero-fade { height: 16%; }
 }

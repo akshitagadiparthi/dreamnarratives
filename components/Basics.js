@@ -82,8 +82,17 @@ export function Wordmark({ dark = false }) {
   return (
     <Link href="/" className="wordmark" aria-label={`${site.name}, home`}>
       {site.logo ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={dark ? site.logo.light : site.logo.ink} alt={site.name} width={site.logo.width} height={site.logo.height} />
+        dark ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={site.logo.light} alt={site.name} width={site.logo.width} height={site.logo.height} />
+        ) : (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="logo-ink" src={site.logo.ink} alt={site.name} width={site.logo.width} height={site.logo.height} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="logo-light" src={site.logo.light} alt="" aria-hidden="true" width={site.logo.width} height={site.logo.height} />
+          </>
+        )
       ) : (
         <>
           <b>
@@ -119,11 +128,11 @@ export function PageIntro({ eyebrow, title, lede, children }) {
  */
 const cloudSets = {
   hero: [
-    { left: -10, top: 74, w: 44, o: 0.62, d: 90 },
-    { left: 30, top: 82, w: 42, o: 0.5, d: 120, flip: true },
-    { left: 66, top: 72, w: 40, o: 0.58, d: 105 },
-    { left: 58, top: -4, w: 24, o: 0.3, d: 140, flip: true },
-    { left: -4, top: 2, w: 20, o: 0.26, d: 150 },
+    { left: -12, top: 76, w: 48, o: 0.95, d: 90 },
+    { left: 26, top: 84, w: 50, o: 0.9, d: 120, flip: true },
+    { left: 62, top: 74, w: 46, o: 0.95, d: 105 },
+    { left: 4, top: 30, w: 22, o: 0.14, d: 150, flip: true },
+    { left: 72, top: 6, w: 26, o: 0.12, d: 160 },
   ],
   dusk: [
     { left: -8, top: 70, w: 40, o: 0.14, d: 120 },

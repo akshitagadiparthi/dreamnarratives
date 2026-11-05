@@ -15,7 +15,26 @@ export default function MoonCursor() {
   useEffect(() => {
     const fine = window.matchMedia('(pointer: fine)').matches;
     const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!fine || calm) return;
+    if (calm) return;
+
+    // A little burst of gold sparkles wherever you click or tap.
+    const STAR = 'M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z';
+    const onBurst = (e) => {
+      const b = document.createElement('div');
+      b.className = 'burst';
+      b.style.left = `${e.clientX}px`;
+      b.style.top = `${e.clientY}px`;
+      const n = 7;
+      for (let i = 0; i < n; i++) {
+        const a = (i / n) * Math.PI * 2 + Math.random() * 0.5;
+        const r = 26 + Math.random() * 22;
+        b.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 24 24" style="--bx:${Math.cos(a) * r}px;--by:${Math.sin(a) * r}px"><path d="${STAR}"/></svg>`);
+      }
+      document.body.appendChild(b);
+      setTimeout(() => b.remove(), 900);
+    };
+    window.addEventListener('pointerdown', onBurst);
+    if (!fine) return () => window.removeEventListener('pointerdown', onBurst);
 
     const root = document.documentElement;
     const el = ref.current;
@@ -70,6 +89,7 @@ export default function MoonCursor() {
 
     return () => {
       cancelAnimationFrame(raf);
+      window.removeEventListener('pointerdown', onBurst);
       root.classList.remove('moon-cursor');
       window.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerleave', onLeave);
@@ -83,7 +103,7 @@ export default function MoonCursor() {
       <div className="dust-layer" ref={dustRef} aria-hidden="true" />
       <div className="cursor" ref={ref} aria-hidden="true">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/moon-cursor.webp" alt="" width="80" height="80" />
+        <img src="/images/moon-cursor.webp" alt="" width="96" height="96" />
         <span className="label">View</span>
       </div>
     </>

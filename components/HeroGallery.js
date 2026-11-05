@@ -47,6 +47,9 @@ export default function HeroGallery({ eyebrow, title, lede, primary, secondary, 
     const schedule = () => { if (!raf) raf = requestAnimationFrame(apply); };
 
     const onMove = (e) => {
+      const hb = hero.getBoundingClientRect();
+      hero.style.setProperty('--mx', ((e.clientX - hb.left) / hb.width - 0.5).toFixed(3));
+      hero.style.setProperty('--my', ((e.clientY - hb.top) / hb.height - 0.5).toFixed(3));
       pieceRefs.current.forEach((el, i) => {
         if (!el) return;
         const r = el.getBoundingClientRect();
@@ -82,11 +85,17 @@ export default function HeroGallery({ eyebrow, title, lede, primary, secondary, 
   }, []);
 
   return (
-    <section className="hero" ref={heroRef} aria-labelledby="hero-title">
-      <div className="hero-glow" aria-hidden="true" />
-      <Stardust count={46} seed={5} />
+    <section className="hero night" ref={heroRef} aria-labelledby="hero-title" data-cursor-dark>
+      <div className="hero-sky" aria-hidden="true" />
+      <Stardust count={110} seed={5} />
+      <div className="shooting-stars" aria-hidden="true"><i /><i /><i /></div>
+      <div className="moon-wrap" aria-hidden="true">
+        <div className="moon-halo" />
+        <Image className="hero-moon" src="/images/moon.webp" alt="" width={1254} height={1254} priority sizes="(max-width: 760px) 90vw, 620px" />
+      </div>
+      <Sparkles items={[[30, 24, 18, 0], [64, 16, 12, 1.6], [72, 46, 20, 0.8], [27, 52, 11, 2.4], [45, 12, 10, 3.1], [56, 62, 13, 1.2], [14, 36, 9, 4], [86, 30, 10, 2.9], [40, 66, 8, 3.6], [78, 64, 9, 0.3]]} />
       <Clouds set="hero" />
-      <Sparkles items={[[33, 30, 16, 0], [66, 28, 11, 1.6], [69, 52, 18, 0.8], [30, 56, 10, 2.4], [47, 20, 9, 3.1], [58, 70, 12, 1.2], [20, 46, 8, 4], [80, 40, 9, 2.9]]} />
+      <div className="hero-fade" aria-hidden="true" />
 
       {heroPieces.map((p, i) => (
         <div
@@ -109,18 +118,17 @@ export default function HeroGallery({ eyebrow, title, lede, primary, secondary, 
       ))}
 
       <div className="hero-copy">
-        <span className="eyebrow">{eyebrow}</span>
         <h1 id="hero-title" className="hero-logo">
           {logo ? (
-            <Image src={logo.ink} alt={title.join(' ')} width={logo.width} height={logo.height} priority sizes="(max-width: 760px) 86vw, 640px" />
+            <Image src={logo.light} alt={title.join(' ')} width={logo.width} height={logo.height} priority sizes="(max-width: 760px) 86vw, 640px" />
           ) : (
             <span className="display-xl">{title[0]} <em>{title[1]}</em></span>
           )}
         </h1>
         <p className="lede">{lede}</p>
         <div className="btn-row">
-          <Link href={primary.href} className="btn btn-fill">{primary.label}</Link>
-          <Link href={secondary.href} className="btn btn-ghost" style={{ background: 'rgba(248,244,236,.6)' }}>{secondary.label}</Link>
+          <Link href={primary.href} className="btn btn-moon">{primary.label}</Link>
+          <Link href={secondary.href} className="btn btn-ghost-dusk">{secondary.label}</Link>
         </div>
       </div>
 

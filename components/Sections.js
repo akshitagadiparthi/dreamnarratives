@@ -7,12 +7,11 @@ import { getService } from '@/content/services';
 /** One service on the home scroll: image beside name, promise and offers. */
 export function ServiceRow({ service, index }) {
   const flip = index % 2 === 1;
-  const arch = index === 0 || index === 4; // the arch frame, used sparingly
   return (
     <section className={`service-row${flip ? ' flip ground-bone' : ''}`} aria-labelledby={`svc-${service.slug}`}>
       <div className="container split">
         <Link href={`/what-we-do/${service.slug}`} className="media reveal" data-cursor="view" tabIndex={-1} aria-hidden="true">
-          <Slot item={service.hero} arch={arch} tone={flip ? 'bone' : ''} />
+          <Slot item={service.hero} tone={flip ? 'bone' : ''} />
         </Link>
         <div className="reveal" style={{ '--delay': '150ms' }}>
           <span className="eyebrow">{service.label}</span>
@@ -20,7 +19,7 @@ export function ServiceRow({ service, index }) {
             {service.name[0]} <em>{service.name[1]}</em>
           </h2>
           <p className="lede" style={{ marginTop: 'var(--space-4)' }}>{service.promise}</p>
-          <hr className="rule" />
+          <MoonPhasesLeft />
           <p className="subs">{service.offers.slice(0, 4).join(' · ')}</p>
           <Link href={`/what-we-do/${service.slug}`} className="text-link">
             See the work<span className="visually-hidden"> for {service.name.join(' ')}</span>
@@ -124,14 +123,14 @@ export function FeaturedClient({ featured }) {
             const inner = (
               <>
                 <div className="media">
-                  {l.href ? (
+                  {l.href && !l.image ? (
                     <div className="ig-card">
                       <span className="eyebrow" style={{ margin: 0 }}>Instagram</span>
                       <b>@{l.href.split('/').filter(Boolean).pop()}</b>
                       <span className="text-link">View the feed</span>
                     </div>
                   ) : (
-                    <Slot item={s.hero} sizes="(max-width: 900px) 100vw, 33vw" />
+                    <Slot item={l.image ? { src: l.image, caption: l.label } : s.hero} sizes="(max-width: 900px) 100vw, 33vw" />
                   )}
                 </div>
                 <span className="eyebrow" style={{ margin: 'var(--space-3) 0 4px' }}>{s.name.join(' ')}</span>
@@ -186,5 +185,40 @@ export function Accounts({ accounts, id }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/** A full-width band of night sky with one piece of work floating in it. */
+export function NightStrip({ item }) {
+  const ratio = item?.width && item?.height ? item.width / item.height : 4 / 3;
+  return (
+    <section className="night-strip" aria-label={item?.caption || 'Featured work'} data-cursor-dark>
+      <div className="hero-sky" aria-hidden="true" />
+      <Stardust count={60} seed={21} />
+      <Sparkles items={[[14, 22, 14, 0.2], [84, 18, 11, 1.4], [76, 66, 16, 2.2], [22, 70, 10, 3], [50, 10, 9, 0.9]]} />
+      <div className="strip-piece reveal" style={{ aspectRatio: String(ratio) }}>
+        <Slot item={item} float sizes="(max-width: 900px) 90vw, 900px" priority />
+      </div>
+      {item?.caption && item?.src ? <p className="strip-caption">{item.caption}</p> : null}
+    </section>
+  );
+}
+
+/** The moon's phases in a row, used as a divider. */
+export function MoonPhases() {
+  return (
+    <div className="moon-phases" aria-hidden="true">
+      {[0.05, 0.3, 1, 0.3, 0.05].map((p, i) => (
+        <Crescent key={i} phase={p} size={i === 2 ? 18 : 14} />
+      ))}
+    </div>
+  );
+}
+
+function MoonPhasesLeft() {
+  return (
+    <div className="moon-phases left" aria-hidden="true">
+      {[0.05, 0.3, 1].map((p, i) => <Crescent key={i} phase={p} size={i === 2 ? 18 : 14} />)}
+    </div>
   );
 }

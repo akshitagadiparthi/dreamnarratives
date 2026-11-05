@@ -153,21 +153,19 @@ export const bespoke = {
 // Each piece shows real work from its service once there is some.
 // Positions are % of the hero.
 const pieces = [
-  { service: 'invitation', caption: 'E-invite', src: null, left: 5, top: 17, w: 170, h: 230, tone: '', d: 22, x: 12, y: -14, r0: -2, r1: 1, m: [5, 13] },
-  { service: 'identity', caption: 'Stationery', src: null, left: 25, top: 14, w: 120, h: 84, tone: 'line', d: 27, x: 12, y: 10, r0: -2, r1: 1 },
-  { service: 'space', caption: 'Interior', src: null, left: 71, top: 14, w: 210, h: 150, tone: '', d: 26, x: -16, y: 10, r0: 1, r1: 3 },
-  { service: 'gift', caption: 'Keepsake', src: null, left: 88, top: 31, w: 110, h: 130, tone: 'bone', d: 19, x: -8, y: 14, r0: 3, r1: 0, front: true },
-  { service: 'invitation', caption: 'Video invite', src: null, left: 2, top: 50, w: 110, h: 150, tone: 'line', d: 32, x: 16, y: 8, r0: -1, r1: 1, front: true },
-  { service: 'gift', caption: 'Hamper', src: null, left: 18, top: 62, w: 150, h: 190, tone: 'bone', d: 28, x: -10, y: 12, r0: 2, r1: -1, m: [64, 79] },
-  { service: 'identity', caption: 'Brand mark', src: null, left: 35, top: 80, w: 120, h: 86, tone: '', d: 30, x: 14, y: -8, r0: 0, r1: 2, front: true },
-  { service: 'identity', caption: 'Social', src: null, left: 60, top: 72, w: 180, h: 130, tone: 'bone', d: 24, x: -12, y: -10, r0: 2, r1: -2, m: [6, 81] },
-  { service: 'invitation', caption: 'Physical card', src: null, left: 81, top: 55, w: 140, h: 190, tone: 'line', d: 20, x: 10, y: -12, r0: -3, r1: 0, m: [72, 15] },
+  { service: 'invitation', caption: 'E-invite', src: null, left: 4, top: 14, w: 150, h: 200, tone: '', d: 22, x: 12, y: -14, r0: -3, r1: 1, m: [3, 13] },
+  { service: 'gift', caption: 'Hamper', src: null, left: 2, top: 50, w: 140, h: 170, tone: 'bone', d: 28, x: -10, y: 12, r0: 2, r1: -1 },
+  { service: 'space', caption: 'Interior', src: null, left: 17, top: 66, w: 170, h: 130, tone: '', d: 26, x: -16, y: 10, r0: 1, r1: 3, m: [4, 80] },
+  { service: 'invitation', caption: 'Physical card', src: null, left: 82, top: 10, w: 150, h: 190, tone: 'line', d: 20, x: 10, y: -12, r0: 3, r1: 0, m: [68, 13] },
+  { service: 'identity', caption: 'Brand', src: null, left: 86, top: 44, w: 120, h: 120, tone: '', d: 30, x: 14, y: -8, r0: 0, r1: 2, front: true },
+  { service: 'gift', caption: 'Keepsake', src: null, left: 72, top: 64, w: 160, h: 130, tone: 'bone', d: 24, x: -12, y: -10, r0: -2, r1: 2, m: [64, 80] },
+  { service: 'invitation', caption: 'Invite', src: null, left: 16, top: 30, w: 110, h: 140, tone: 'line', d: 32, x: 16, y: 8, r0: -1, r1: 1, front: true },
 ];
 
 // Once there is real work, the floating tiles show only real work: the best
 // pieces (heroes, then cut-out product shots) take the largest positions, and
 // services are interleaved so the hero always shows the studio's range.
-const rank = (w) => (w.hero ? 0 : w.cutout ? 1 : 2);
+const rank = (w) => (w.cutout ? 0 : w.hero ? 2 : 1);
 const queues = services
   .map((s) => (realWork[s.slug] || []).filter((w) => w.src && w.inHero !== false).map((w) => ({ ...w, service: s.slug })).sort((a, b) => rank(a) - rank(b)))
   .filter((q) => q.length);
@@ -180,7 +178,7 @@ export const heroPieces = pool.length
       .slice(0, pool.length)
       .map((p, i) => {
         const w = pool[i];
-        const width = Math.round(p.w * 1.25);
+        const width = Math.round(p.w * 1.15);
         const natural = Math.round((width * w.height) / w.width);
         // Photos are cropped to at most 4:5 so tall shots don't run off the screen.
         return { ...p, ...w, w: width, h: w.cutout ? natural : Math.min(natural, Math.round(width * 1.25)) };
