@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import WorkGallery from '@/components/WorkGallery';
-import { Closing, PairedWith, Accounts, NightStrip } from '@/components/Sections';
+import { Closing, PairedWith, Accounts, Constellation } from '@/components/Sections';
+import { Clouds, Sparkles } from '@/components/Basics';
+import { JsonLd, serviceSchema } from '@/components/Seo';
+import MonogramTeaser from '@/components/MonogramTeaser';
 import { services, getService } from '@/content/services';
 import { founders } from '@/content/studio';
 import { site } from '@/content/site';
@@ -15,8 +18,10 @@ export async function generateMetadata({ params }) {
   const s = getService(slug);
   if (!s) return {};
   return {
-    title: `${s.name.join(' ')} · ${s.label}`,
-    description: `${s.promise} ${s.intro}`.slice(0, 158),
+    title: s.seoName,
+    description: s.seoDescription,
+    alternates: { canonical: `/what-we-do/${s.slug}` },
+    openGraph: { title: `${s.seoName} · Dream Narratives`, description: s.seoDescription, url: `/what-we-do/${s.slug}` },
   };
 }
 
@@ -33,7 +38,10 @@ export default async function ServicePage({ params }) {
 
   return (
     <>
-      <section className="service-hero">
+      <JsonLd data={serviceSchema(s)} />
+      <section className="service-hero has-clouds">
+        <Clouds set="corner" />
+        <Sparkles items={[[88, 34, 14, 0.4], [70, 70, 9, 1.8], [52, 26, 8, 2.6]]} />
         <div className="container service-head">
           <div className="reveal">
             <Link href="/what-we-do" className="crumb">What do we do? /</Link>
@@ -54,8 +62,6 @@ export default async function ServicePage({ params }) {
         </div>
       </section>
 
-      <NightStrip item={s.hero} />
-
       {s.accounts ? <Accounts accounts={s.accounts} id={hasRealWork ? 'accounts' : 'work'} /> : null}
 
       {hasRealWork || !s.accounts ? (
@@ -75,21 +81,8 @@ export default async function ServicePage({ params }) {
         </section>
       ) : null}
 
-      <section className="section tight ground-bone" aria-labelledby="offers-title">
-        <div className="container split top">
-          <div className="reveal">
-            <span className="eyebrow">What we create</span>
-            <h2 id="offers-title" className="heading">
-              Every piece,
-              <br />
-              <em>made for you alone.</em>
-            </h2>
-          </div>
-          <ul className="offer-list reveal" style={{ '--delay': '150ms' }}>
-            {s.offers.map((o) => <li key={o}>{o}</li>)}
-          </ul>
-        </div>
-      </section>
+      <Constellation offers={s.offers} />
+      {s.slug === 'invitation' ? <MonogramTeaser /> : null}
 
       <PairedWith slugs={s.pairs} />
       <Closing

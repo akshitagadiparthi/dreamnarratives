@@ -13,6 +13,8 @@ import realWork from './work.json';
 export const services = [
   {
     slug: 'invitation',
+    seoName: 'Wedding Invitations & E-invites in Vijayawada',
+    seoDescription: "Wedding invitations, e-invites, video invites and printed invitation boxes designed in Vijayawada by Dream Narratives: Telugu pelli pathrika, save-the-dates and stationery for every function.",
     name: ['The', 'Invitation'],
     label: 'Invites',
     promise: 'The first page of your story.',
@@ -42,6 +44,8 @@ export const services = [
   },
   {
     slug: 'gift',
+    seoName: 'Wedding Hampers & Gifting in Vijayawada',
+    seoDescription: "Curated wedding hampers, welcome boxes, bridesmaids' gifts and corporate gifting designed in Vijayawada by Dream Narratives, personalised for every guest.",
     name: ['The', 'Gift'],
     label: 'Gifting',
     promise: 'What your guests carry home.',
@@ -68,6 +72,8 @@ export const services = [
   },
   {
     slug: 'identity',
+    seoName: 'Branding & Social Media Management in Vijayawada',
+    seoDescription: "Brand identity, logo design, packaging and social media management from Vijayawada. Dream Narratives builds brands and the Instagram feeds that carry them, led by Nimisha.",
     name: ['The', 'Identity'],
     label: 'Branding & Social',
     leadBy: 'Nimisha',
@@ -103,6 +109,8 @@ export const services = [
   },
   {
     slug: 'space',
+    seoName: 'Interior Design & Architecture in Vijayawada',
+    seoDescription: "Interior design, architecture consultation and space styling in Vijayawada, led by Driti of Dream Narratives: homes, studios and commercial spaces with warmth and proportion.",
     name: ['The', 'Space'],
     label: 'Interiors',
     leadBy: 'Driti',

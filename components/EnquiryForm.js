@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { forms, formOrder, sharedTop, sharedBottom } from '@/content/forms';
 import { services } from '@/content/services';
-import { whatsappHref } from '@/content/site';
+import { site } from '@/content/site';
+import { DirectLinesList, rememberDirectLines } from './DirectLines';
 
 const idFor = (label) => 'f-' + label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
@@ -96,6 +97,7 @@ export default function EnquiryForm() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | done | failed
   const [message, setMessage] = useState('');
+  const [contact, setContact] = useState(null);
   const [startedAt] = useState(() => Date.now());
   const formRef = useRef(null);
   const doneRef = useRef(null);
@@ -172,6 +174,10 @@ export default function EnquiryForm() {
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error(json.error || 'Something went wrong.');
+      if (json.contact) {
+        setContact(json.contact);
+        rememberDirectLines(json.contact);
+      }
       setStatus('done');
     } catch (err) {
       setStatus('failed');
@@ -189,10 +195,15 @@ export default function EnquiryForm() {
           <em>reached us.</em>
         </h2>
         <p className="lede" style={{ marginTop: 'var(--space-4)' }}>
-          We respond to every enquiry within 24–48 hours. If it can’t wait, write to us on WhatsApp.
+          We respond to every enquiry within 24–48 hours. {contact ? 'If it can’t wait, here’s how to reach Driti and Nimisha directly.' : ''}
         </p>
+        {contact ? (
+          <div style={{ marginTop: 'var(--space-5)', maxWidth: 720 }}>
+            <span className="eyebrow">Our direct lines, just for you</span>
+            <DirectLinesList contact={contact} name={(values.Name || '').split(' ')[0]} />
+          </div>
+        ) : null}
         <div className="btn-row" style={{ marginTop: 'var(--space-5)' }}>
-          <a className="btn btn-fill" href={whatsappHref('Hello Dream Narratives, I just sent an enquiry on your website.')} target="_blank" rel="noopener noreferrer">WhatsApp us</a>
           <Link className="btn btn-ghost" href="/">Back to home</Link>
         </div>
       </div>
@@ -250,8 +261,9 @@ export default function EnquiryForm() {
             <p className="form-error" role="alert" style={{ width: '100%', margin: 0 }}>
               {status === 'failed' ? (
                 <>
-                  {message} Please try again, or{' '}
-                  <a href={whatsappHref('Hello Dream Narratives, I tried to send an enquiry on your website.')} target="_blank" rel="noopener noreferrer">message us on WhatsApp</a>.
+                  {message} Please try again, or send us a message on{' '}
+                  <a href={`https://instagram.com/${site.contact.instagram}`} target="_blank" rel="noopener noreferrer">Instagram</a>{' '}
+                  or <a href={`mailto:${site.contact.email}`}>email</a>.
                 </>
               ) : null}
             </p>

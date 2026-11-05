@@ -91,3 +91,25 @@ Already in place: the logo (`public/images/logo-ink.webp` for light grounds, `lo
 - Fonts are self-hosted (Bodoni Moda and Jost via Fontsource): no Google Fonts request, no licence cost.
 - The moon cursor turns itself off on touch screens and for visitors who prefer reduced motion; all animations respect that setting.
 - `/api/enquiry` validates each enquiry, filters spam (hidden field and timing) and forwards it to the Apps Script, which writes it to the service's tab and to "All enquiries", adding any new columns automatically.
+
+
+## Search (SEO) and sharing
+
+- Every page has its own title and description naming Dream Narratives, Vijayawada and Driti & Nimisha, plus structured data (organisation, founders, services) that Google reads.
+- The share preview (WhatsApp, Instagram, LinkedIn) is `app/opengraph-image.jpg`; the tab icon is `app/icon.png`.
+- The site's address is read from `NEXT_PUBLIC_SITE_URL`. It defaults to `https://dreamnarratives.vercel.app`. When a custom domain is connected, set `NEXT_PUBLIC_SITE_URL` in Vercel to it and redeploy.
+- After launch: add the site to Google Search Console (search.google.com/search-console), submit `/sitemap.xml`, and create a free Google Business Profile for "Dream Narratives, Vijayawada" linking to the site. That profile does more for local search than anything on the page.
+
+## Monogram studio
+
+`/monogram` is a free tool: visitors type two initials, pick a style and download or share a monogram. It runs entirely in their browser, so it costs nothing to host. Shared links reopen the same monogram. Styles are drawn in `components/monogram.js`.
+
+## Phone numbers (private)
+
+Driti and Nimisha's numbers never appear on the site or in the code visitors download. They're kept on the server and shown only on the thank-you screen after someone sends an enquiry (and on the Contact page for that visitor afterwards).
+
+Set the real numbers in Vercel → Settings → Environment Variables as `PRIVATE_CONTACT` (format in `.env.example`) and redeploy, or edit `lib/private-contact.js`. The environment variable is better: the numbers then aren't in GitHub either.
+
+## FAQ
+
+Questions and answers live in `content/studio.js` (`faq`). They show on the Contact page, and Google can show them in search results. Two answers are marked `// confirm`; check them with the founders.

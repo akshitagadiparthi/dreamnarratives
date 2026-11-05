@@ -4,8 +4,10 @@ import { Closing } from '@/components/Sections';
 import { services, bespoke } from '@/content/services';
 
 export const metadata = {
-  title: 'What do we do?',
-  description: 'Invitations, gifting, branding, social media and interiors: four ways Dream Narratives tells your story.',
+  title: 'Wedding Invitations, Hampers, Branding & Interiors in Vijayawada',
+  description: 'What Dream Narratives designs in Vijayawada: wedding invitations and e-invites, curated hampers and gifting, branding and social media, and interiors and architecture.',
+  alternates: { canonical: '/what-we-do' },
+  openGraph: { url: '/what-we-do' },
 };
 
 export default function WhatWeDo() {

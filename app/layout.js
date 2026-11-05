@@ -10,22 +10,37 @@ import MoonCursor from '@/components/MoonCursor';
 import RevealObserver from '@/components/RevealObserver';
 import { ScrollMoon } from '@/components/Dreamy';
 import { site } from '@/content/site';
+import { JsonLd, organisationSchema } from '@/components/Seo';
 
 export const metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} · ${site.byline}`,
-    template: `%s · ${site.name}`,
+    default: 'Dream Narratives · Design House in Vijayawada by Driti & Nimisha',
+    template: '%s · Dream Narratives',
   },
   description: site.description,
+  applicationName: site.name,
+  keywords: site.keywords,
+  authors: [{ name: 'Driti' }, { name: 'Nimisha' }],
+  creator: 'Dream Narratives',
+  publisher: 'Dream Narratives',
+  category: 'Design',
+  alternates: { canonical: '/' },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large' } },
   openGraph: {
     type: 'website',
-    siteName: site.name,
-    title: `${site.name} · ${site.tagline}`,
-    description: site.description,
+    url: '/',
+    siteName: 'Dream Narratives',
+    title: 'Dream Narratives · Design House in Vijayawada by Driti & Nimisha',
+    description: 'Wedding invitations, curated gifting, branding & social media, and interiors, designed in Vijayawada by Driti & Nimisha. Narrating dreams through design.',
     locale: 'en_IN',
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Dream Narratives · Design House in Vijayawada',
+    description: 'Wedding invitations, gifting, branding & social, and interiors by Driti & Nimisha.',
+  },
+  other: { 'geo.region': 'IN-AP', 'geo.placename': 'Vijayawada' },
 };
 
 export const viewport = {
@@ -37,7 +52,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="no-js" suppressHydrationWarning>
+    <html lang="en-IN" className="no-js" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -48,6 +63,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
+        <JsonLd data={organisationSchema()} />
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />

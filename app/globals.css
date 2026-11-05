@@ -1040,3 +1040,127 @@ body { transition: background-color 400ms var(--ease), color 400ms var(--ease); 
   :root:not([data-theme="light"]) .hero.night .clouds { opacity: calc(0.55 - var(--part, 0) * 0.4); }
   :root:not([data-theme="light"]) .hero-fade { height: 16%; }
 }
+
+/* ==========================================================================
+   v13: free-flowing sections (no hard edges)
+   ========================================================================== */
+
+/* The hero's clouds spill over into the next section and dissolve */
+.hero.night { overflow-x: clip; overflow-y: visible; }
+.hero.night .clouds {
+  inset: 0 0 -30vh 0; overflow: visible;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 64%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 64%, transparent 100%);
+}
+.hero.night .hero-fade { height: 14%; }
+.hero.night + * { position: relative; z-index: 1; }
+
+/* Clouds inside sections fade at the section's edges instead of being cut */
+.has-clouds .clouds {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+/* Night bands melt into the page: dusk rises out of the ivory */
+.closing {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 160px);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 160px);
+  padding-top: calc(var(--section) + 60px);
+}
+.story-night, .constellation {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 140px, #000 calc(100% - 140px), transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 140px, #000 calc(100% - 140px), transparent 100%);
+  padding-top: calc(var(--section) + 40px); padding-bottom: calc(var(--section) + 40px);
+}
+
+/* Constellation of offers */
+.constellation { position: relative; overflow: hidden; isolation: isolate; }
+.constellation > .container { position: relative; z-index: 2; }
+.constellation .stardust i { background: var(--glow); box-shadow: 0 0 6px 1px rgba(241, 222, 180, 0.8); animation-name: twinkle-night; }
+.constellation .heading { color: var(--on-dusk); }
+.constellation-map { position: relative; height: 340px; margin-top: var(--space-6); }
+.constellation-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.constellation-lines polyline { fill: none; stroke: var(--champagne); stroke-width: 1; vector-effect: non-scaling-stroke; opacity: 0.55; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 3.2s var(--ease) 0.3s; }
+.constellation-map.in .constellation-lines polyline { stroke-dashoffset: 0; }
+.constellation-map ul { list-style: none; margin: 0; padding: 0; }
+.constellation-map li { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; width: 0; }
+.constellation-map li .star { width: 22px; height: 22px; fill: var(--glow); filter: drop-shadow(0 0 8px rgba(241, 222, 180, 0.95)); opacity: 0; transform: scale(0.3) rotate(-30deg); transition: opacity 600ms var(--ease), transform 900ms var(--ease); transition-delay: calc(0.4s + var(--i) * 0.45s); animation: star-pulse 4s ease-in-out infinite; animation-delay: calc(var(--i) * 0.7s); }
+.constellation-map.in li .star { opacity: 1; transform: scale(1) rotate(0deg); }
+@keyframes star-pulse { 50% { filter: drop-shadow(0 0 14px rgba(241, 222, 180, 1)); } }
+.constellation-map li span { position: absolute; white-space: nowrap; font: 400 clamp(17px, 1.5vw, 22px)/1.2 var(--font-display); color: var(--on-dusk); opacity: 0; transition: opacity 900ms var(--ease); transition-delay: calc(0.7s + var(--i) * 0.45s); }
+.constellation-map.in li span { opacity: 1; }
+.constellation-map li.down span { top: 26px; }
+.constellation-map li.up span { bottom: 26px; }
+@media (max-width: 900px) {
+  .constellation-map { height: auto; margin-top: var(--space-5); }
+  .constellation-lines { display: none; }
+  .constellation-map ul { display: flex; flex-direction: column; gap: 22px; padding-left: 8px; border-left: 1px solid rgba(201, 169, 110, 0.4); margin-left: 10px; }
+  .constellation-map li { position: relative; left: auto !important; top: auto !important; transform: none; flex-direction: row; width: auto; gap: 16px; margin-left: -20px; }
+  .constellation-map li span, .constellation-map li.up span, .constellation-map li.down span { position: static; white-space: normal; }
+}
+.service-hero { position: relative; overflow: hidden; }
+.service-hero > .container { position: relative; z-index: 1; }
+
+/* Monogram studio */
+.monogram-studio { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--space-6); align-items: start; }
+.monogram-controls { display: flex; flex-direction: column; gap: var(--space-4); }
+.monogram-controls .initials { display: flex; align-items: end; gap: var(--space-4); }
+.monogram-controls .initials .field { flex: 1; }
+.monogram-controls .initials input { font: 400 56px/1 var(--font-display); text-align: center; padding: 6px 0 10px; }
+.monogram-controls .amp { font: italic 400 40px/1 var(--font-display); color: var(--gilt); padding-bottom: 14px; }
+.monogram-controls .help { margin: -12px 0 0; }
+.monogram-preview { position: sticky; top: 110px; }
+.monogram-preview canvas { width: 100%; height: auto; aspect-ratio: 1; display: block; box-shadow: var(--shadow-float); border: 1px solid var(--hairline); }
+.monogram-cta { border-top: 1px solid var(--hairline); padding-top: var(--space-4); margin-top: var(--space-3); }
+.monogram-cta p { margin: 0 0 var(--space-3); color: var(--taupe); }
+@media (max-width: 900px) {
+  .monogram-studio { grid-template-columns: 1fr; gap: var(--space-5); }
+  .monogram-preview { position: static; order: -1; }
+}
+
+/* Home: monogram teaser */
+.monogram-teaser { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: center; }
+.monogram-teaser canvas { width: 100%; max-width: 460px; aspect-ratio: 1; height: auto; display: block; margin: 0 auto; box-shadow: var(--shadow-float); }
+@media (max-width: 900px) { .monogram-teaser { grid-template-columns: 1fr; } }
+
+.monogram-teaser .moon-phases { justify-content: flex-start; }
+
+/* Make a wish on the moon */
+.moon-wish {
+  position: absolute; z-index: 2; left: 60%; top: 40%; width: min(30vw, 380px); aspect-ratio: 1; transform: translate(-30%, -60%);
+  border: 0; background: transparent; border-radius: 50%; cursor: pointer; padding: 0;
+}
+.moon-wish:focus-visible { outline: 1px solid var(--champagne); outline-offset: 6px; }
+.wish-note {
+  position: absolute; z-index: 9; left: 50%; top: 16%; transform: translateX(-50%);
+  text-align: center; padding: 18px 28px; background: rgba(23, 18, 14, 0.72); border: 1px solid rgba(201, 169, 110, 0.5);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  animation: wish-in 900ms var(--ease) both, wish-out 900ms var(--ease) 6.5s forwards;
+}
+.wish-note p { margin: 0 0 10px; font: 400 22px/1.3 var(--font-display); color: var(--on-dusk); }
+.wish-note p em { color: var(--champagne); }
+.wish-note .text-link { color: var(--champagne); }
+@keyframes wish-in { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes wish-out { to { opacity: 0; visibility: hidden; } }
+.wish-shower { position: fixed; inset: 0; pointer-events: none; }
+.wish-shower i {
+  position: fixed; top: -10px; left: var(--x); width: 3px; height: 3px; border-radius: 50%; background: var(--glow);
+  box-shadow: 0 0 8px 2px rgba(241, 222, 180, 0.9); animation: shower 1.8s ease-in var(--d) forwards;
+}
+@keyframes shower { from { opacity: 1; transform: translate(0, 0); } to { opacity: 0; transform: translate(-120px, 70vh); } }
+@media (max-width: 760px) { .moon-wish { width: 60vw; left: 58%; top: 34%; } .wish-note { top: 22%; width: 86vw; } }
+
+/* Work tilts gently towards you */
+.work-piece .frame { transition: transform 700ms var(--ease), box-shadow 700ms var(--ease); }
+.work-piece:hover .frame { transform: perspective(1000px) rotateX(2deg) rotateY(-3deg) translateY(-6px); box-shadow: 0 30px 50px -30px rgba(0, 0, 0, 0.45); }
+@media (prefers-reduced-motion: reduce) { .work-piece:hover .frame { transform: none; } .wish-shower { display: none; } }
+.constellation-lines polyline { vector-effect: none; stroke-width: 1.2; }
+.constellation-map li span { width: 220px; white-space: normal; text-align: center; }
+
+/* Direct lines: locked until an enquiry is sent */
+.locked-lines { display: grid; grid-template-columns: 28px 1fr; gap: var(--space-4); align-items: start; padding: 28px 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+.locked-lines svg { width: 22px; height: 22px; fill: var(--champagne); margin-top: 2px; filter: drop-shadow(0 0 6px rgba(241, 222, 180, 0.8)); }
+.locked-lines p { margin: 10px 0 16px; max-width: 40em; color: var(--taupe); }
+.direct-lines { margin-top: var(--space-3); }
+.form-done .direct-lines .value { font-size: clamp(22px, 2.2vw, 30px); }
+.locked-lines .eyebrow::before { display: none; }

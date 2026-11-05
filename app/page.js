@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import HeroGallery from '@/components/HeroGallery';
+import MonogramTeaser from '@/components/MonogramTeaser';
 import { ServiceRow, ProcessSteps, Closing, FeaturedClient, MoonPhases } from '@/components/Sections';
 import { Slot, TwoLine, Clouds, Sparkles } from '@/components/Basics';
 import { services } from '@/content/services';
@@ -42,6 +43,8 @@ export default function Home() {
       </div>
 
       <FeaturedClient featured={featured} />
+
+      <MonogramTeaser />
 
 
       {/* Founders preview */}

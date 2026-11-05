@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { site, nav, whatsappHref } from '@/content/site';
+import { site, nav } from '@/content/site';
 import { services } from '@/content/services';
 import { Wordmark } from './Basics';
 
@@ -12,6 +12,7 @@ export default function SiteFooter() {
           <div>
             <Wordmark dark />
             <p className="tagline">{site.footerLine}</p>
+            <p className="tagline" style={{ marginTop: 'var(--space-3)' }}>A design house in {site.city}, {site.region}, by Driti &amp; Nimisha.</p>
           </div>
           <div>
             <h2>Navigate</h2>
@@ -20,6 +21,7 @@ export default function SiteFooter() {
                 <li key={n.href}><Link href={n.href}>{n.label}</Link></li>
               ))}
               <li><Link href="/enquiries">Enquiries</Link></li>
+              <li><Link href="/monogram">Monogram studio</Link></li>
             </ul>
           </div>
           <div>
@@ -38,10 +40,7 @@ export default function SiteFooter() {
             <h2>Connect</h2>
             <ul>
               <li><a href={`https://instagram.com/${contact.instagram}`} target="_blank" rel="noopener noreferrer">Instagram @{contact.instagram}</a></li>
-              <li><a href={whatsappHref()} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
-              {contact.phones.map((p) => (
-                <li key={p.name}><a href={`tel:+${p.tel}`}>{p.name} · {p.display}</a></li>
-              ))}
+              <li><Link href="/enquiries">Phone &amp; WhatsApp, after you enquire</Link></li>
               <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
             </ul>
           </div>

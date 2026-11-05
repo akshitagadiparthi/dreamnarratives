@@ -5,8 +5,10 @@ import { getService } from '@/content/services';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Who are we?',
-  description: 'Dream Narratives is the creative studio of childhood best friends Driti and Nimisha: architecture, interiors, branding and marketing under one roof.',
+  title: 'Driti & Nimisha · The Founders of Dream Narratives, Vijayawada',
+  description: 'Meet Driti and Nimisha, the childhood best friends behind Dream Narratives in Vijayawada. Driti leads architecture and interiors; Nimisha leads branding, marketing and social media.',
+  alternates: { canonical: '/who-we-are' },
+  openGraph: { url: '/who-we-are', title: 'Driti & Nimisha · Founders of Dream Narratives', description: 'The childhood best friends behind Dream Narratives, a design house in Vijayawada.' },
 };
 
 export default function WhoWeAre() {
@@ -21,9 +23,9 @@ export default function WhoWeAre() {
       <section className="section" style={{ paddingTop: 'var(--space-7)' }} aria-label="The founders">
         <div className="container founders">
           {founders.map((f, i) => (
-            <article key={f.name} className="founder reveal" style={{ '--delay': `${i * 150}ms` }}>
+            <article key={f.name} id={f.name.toLowerCase()} className="founder reveal" style={{ '--delay': `${i * 150}ms` }}>
               <div className="media">
-                <Slot item={{ src: f.portrait, caption: `Portrait of ${f.name}` }} sizes="(max-width: 900px) 100vw, 50vw" />
+                <Slot item={{ src: f.portrait, caption: `Portrait of ${f.name}`, alt: `${f.name}, ${f.role} and co-founder of Dream Narratives, Vijayawada` }} sizes="(max-width: 900px) 100vw, 50vw" />
               </div>
               <span className="eyebrow">{f.role}</span>
               <h2 className="display-l" style={{ fontSize: 'clamp(44px, 5vw, 72px)' }}>{f.name}</h2>

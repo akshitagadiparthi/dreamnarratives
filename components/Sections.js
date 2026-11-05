@@ -222,3 +222,45 @@ function MoonPhasesLeft() {
     </div>
   );
 }
+
+/**
+ * What a service offers, drawn as a constellation: each offer is a star,
+ * joined by fine gold lines that draw themselves as the band scrolls in.
+ */
+export function Constellation({ offers, eyebrow = 'What we create', title = ['Every piece,', 'made for you alone.'] }) {
+  const n = offers.length;
+  const ys = [64, 30, 58, 26, 60, 34, 56];
+  const pts = offers.map((o, i) => ({
+    x: n === 1 ? 50 : 10 + (i * 80) / (n - 1),
+    y: ys[i % ys.length] + ((i * 7) % 5) - 2,
+    label: o,
+  }));
+  return (
+    <section className="section ground-dusk constellation" aria-labelledby="offers-title" data-cursor-dark>
+      <Stardust count={80} seed={33} />
+      <div className="container">
+        <div className="center reveal">
+          <span className="eyebrow">{eyebrow}</span>
+          <h2 id="offers-title" className="heading">
+            {title[0]} <em>{title[1]}</em>
+          </h2>
+        </div>
+        <div className="constellation-map reveal">
+          <svg className="constellation-lines" viewBox="0 0 1000 340" preserveAspectRatio="none" aria-hidden="true">
+            <polyline points={pts.map((p) => `${p.x * 10},${p.y * 3.4}`).join(' ')} pathLength="1" />
+          </svg>
+          <ul>
+            {pts.map((p, i) => (
+              <li key={p.label} className={p.y < 45 ? 'up' : 'down'} style={{ left: `${p.x}%`, top: `${p.y}%`, '--i': i }}>
+                <svg className="star" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z" />
+                </svg>
+                <span>{p.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}

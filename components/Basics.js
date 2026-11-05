@@ -127,12 +127,15 @@ export function PageIntro({ eyebrow, title, lede, children }) {
  * a section. Use only on light grounds. The parent needs `position: relative`.
  */
 const cloudSets = {
+  // The hero's cloud layer runs past the bottom of the hero and fades out,
+  // so the clouds drift into the next section instead of stopping at a line.
   hero: [
-    { left: -12, top: 76, w: 48, o: 0.95, d: 90 },
-    { left: 26, top: 84, w: 50, o: 0.9, d: 120, flip: true },
-    { left: 62, top: 74, w: 46, o: 0.95, d: 105 },
-    { left: 4, top: 30, w: 22, o: 0.14, d: 150, flip: true },
-    { left: 72, top: 6, w: 26, o: 0.12, d: 160 },
+    { left: -14, top: 60, w: 50, o: 0.95, d: 90 },
+    { left: 24, top: 66, w: 54, o: 0.9, d: 120, flip: true },
+    { left: 60, top: 58, w: 50, o: 0.95, d: 105 },
+    { left: 40, top: 74, w: 40, o: 0.6, d: 140 },
+    { left: 4, top: 24, w: 22, o: 0.14, d: 150, flip: true },
+    { left: 72, top: 5, w: 26, o: 0.12, d: 160 },
   ],
   dusk: [
     { left: -8, top: 70, w: 40, o: 0.14, d: 120 },

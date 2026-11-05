@@ -1,20 +1,22 @@
 import Link from 'next/link';
 import { PageIntro } from '@/components/Basics';
 import { Closing } from '@/components/Sections';
-import { site, whatsappHref } from '@/content/site';
+import { site } from '@/content/site';
+import DirectLines from '@/components/DirectLines';
+import { JsonLd } from '@/components/Seo';
 import { faq } from '@/content/studio';
 
 export const metadata = {
-  title: 'Contact us',
-  description: 'Reach Dream Narratives on WhatsApp, by phone, on Instagram or by email.',
+  title: 'Contact & FAQ · Dream Narratives, Vijayawada',
+  description: 'Contact Driti and Nimisha at Dream Narratives, a design house in Vijayawada: send an enquiry, or reach us on Instagram or by email. Answers to common questions about invitations, gifting, branding and interiors.',
+  alternates: { canonical: '/contact' },
+  openGraph: { url: '/contact' },
 };
 
 export default function Contact() {
   const { contact } = site;
   const answered = faq.filter((f) => f.a);
   const rows = [
-    { label: 'WhatsApp', value: 'Chat with us directly', href: whatsappHref('Hello Dream Narratives!'), external: true },
-    ...contact.phones.map((p) => ({ label: `Call ${p.name}`, value: p.display, href: `tel:+${p.tel}` })),
     { label: 'Instagram', value: `@${contact.instagram}`, href: `https://instagram.com/${contact.instagram}`, external: true },
     { label: 'Email', value: contact.email, href: `mailto:${contact.email}` },
   ];
@@ -29,7 +31,10 @@ export default function Contact() {
 
       <section className="section" style={{ paddingTop: 'var(--space-7)' }} aria-label="Ways to reach us">
         <div className="container">
-          <ul className="contact-list reveal">
+          <div className="reveal">
+            <DirectLines />
+          </div>
+          <ul className="contact-list reveal" style={{ borderTop: 0 }}>
             {rows.map((r) => (
               <li key={r.label}>
                 <a href={r.href} {...(r.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
@@ -44,7 +49,8 @@ export default function Contact() {
       </section>
 
       {answered.length ? (
-        <section className="section ground-bone" aria-labelledby="faq-title">
+        <section id="faq" className="section ground-bone" aria-labelledby="faq-title">
+          <JsonLd data={{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: answered.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }} />
           <div className="container split top">
             <div className="reveal">
               <span className="eyebrow">FAQ</span>

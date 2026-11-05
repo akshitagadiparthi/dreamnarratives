@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { forms } from '@/content/forms';
+import { privateContact } from '@/lib/private-contact';
 
 // Receives an enquiry from the site and writes it to the Google Sheet through
 // the Apps Script web app (see google-apps-script/Code.gs). The script URL and
@@ -47,7 +48,7 @@ export async function POST(request) {
   if (!url) {
     if (process.env.NODE_ENV !== 'production') {
       console.log('[enquiry] SHEETS_WEBHOOK_URL not set; enquiry not saved:', payload.sheet, payload.data);
-      return NextResponse.json({ ok: true, dryRun: true });
+      return NextResponse.json({ ok: true, dryRun: true, contact: privateContact() });
     }
     console.error('[enquiry] SHEETS_WEBHOOK_URL is not configured');
     return NextResponse.json({ ok: false, error: 'Our enquiry form is resting for a moment.' }, { status: 503 });
@@ -68,7 +69,8 @@ export async function POST(request) {
       console.error('[enquiry] sheet write failed', res.status, text.slice(0, 300));
       return NextResponse.json({ ok: false, error: 'Your enquiry didn’t go through.' }, { status: 502 });
     }
-    return NextResponse.json({ ok: true });
+    // The enquiry is saved: now, and only now, share the founders' numbers.
+    return NextResponse.json({ ok: true, contact: privateContact() });
   } catch (err) {
     console.error('[enquiry] network error', err);
     return NextResponse.json({ ok: false, error: 'Your enquiry didn’t go through.' }, { status: 502 });

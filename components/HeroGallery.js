@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { heroPieces } from '@/content/services';
 import { Slot, Clouds, Stardust, Sparkles } from './Basics';
 
@@ -14,6 +14,7 @@ import { Slot, Clouds, Stardust, Sparkles } from './Basics';
 export default function HeroGallery({ eyebrow, title, lede, primary, secondary, logo }) {
   const heroRef = useRef(null);
   const pieceRefs = useRef([]);
+  const [wish, setWish] = useState(0);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -93,6 +94,16 @@ export default function HeroGallery({ eyebrow, title, lede, primary, secondary, 
         <div className="moon-halo" />
         <Image className="hero-moon" src="/images/moon.webp" alt="" width={1254} height={1254} priority sizes="(max-width: 760px) 90vw, 620px" />
       </div>
+      <button type="button" className="moon-wish" aria-label="Make a wish on the moon" data-cursor onClick={() => setWish((w) => w + 1)} />
+      {wish ? (
+        <div key={wish} className="wish-note" role="status">
+          <div className="wish-shower" aria-hidden="true">
+            {Array.from({ length: 18 }, (_, i) => <i key={i} style={{ '--x': `${(i * 37) % 100}%`, '--d': `${(i % 6) * 0.12}s` }} />)}
+          </div>
+          <p>Wish made. <em>Every dream has a story.</em></p>
+          <Link href="/enquiries" className="text-link">Tell us yours</Link>
+        </div>
+      ) : null}
       <Sparkles items={[[30, 24, 18, 0], [64, 16, 12, 1.6], [72, 46, 20, 0.8], [27, 52, 11, 2.4], [45, 12, 10, 3.1], [56, 62, 13, 1.2], [14, 36, 9, 4], [86, 30, 10, 2.9], [40, 66, 8, 3.6], [78, 64, 9, 0.3]]} />
       <Clouds set="hero" />
       <div className="hero-fade" aria-hidden="true" />
@@ -120,7 +131,10 @@ export default function HeroGallery({ eyebrow, title, lede, primary, secondary, 
       <div className="hero-copy">
         <h1 id="hero-title" className="hero-logo">
           {logo ? (
-            <Image src={logo.light} alt={title.join(' ')} width={logo.width} height={logo.height} priority sizes="(max-width: 760px) 86vw, 640px" />
+            <>
+              <Image src={logo.light} alt="Dream Narratives" width={logo.width} height={logo.height} priority sizes="(max-width: 760px) 86vw, 640px" />
+              <span className="visually-hidden"> — a design house in Vijayawada by Driti &amp; Nimisha</span>
+            </>
           ) : (
             <span className="display-xl">{title[0]} <em>{title[1]}</em></span>
           )}

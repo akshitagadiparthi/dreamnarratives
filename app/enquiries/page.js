@@ -1,10 +1,12 @@
 import EnquiryForm from '@/components/EnquiryForm';
 import { PageIntro } from '@/components/Basics';
-import { site, whatsappHref } from '@/content/site';
+import { site } from '@/content/site';
 
 export const metadata = {
-  title: 'Enquiries',
-  description: 'Begin your story with Dream Narratives: tell us about your invitation, gift, brand, social media or space.',
+  title: 'Enquire · Invitations, Gifting, Branding & Interiors',
+  description: 'Start a project with Dream Narratives in Vijayawada: wedding invitations, hampers, branding and social media, or interiors. Tell us your dream and we reply within 48 hours.',
+  alternates: { canonical: '/enquiries' },
+  openGraph: { url: '/enquiries' },
 };
 
 export default function Enquiries() {
@@ -19,8 +21,7 @@ export default function Enquiries() {
         <div className="container">
           <EnquiryForm />
           <p className="caption" style={{ marginTop: 'var(--space-6)', maxWidth: '40em' }}>
-            {site.contact.responseTime} For wedding and event projects, we recommend reaching out as early as possible to ensure availability. Prefer to talk?{' '}
-            <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gilt)' }}>Message us on WhatsApp</a>.
+            {site.contact.responseTime} For wedding and event projects, we recommend reaching out as early as possible to ensure availability. Once you send it, you’ll see Driti and Nimisha’s direct numbers and WhatsApp.
           </p>
         </div>
       </section>

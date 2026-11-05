@@ -82,17 +82,44 @@ export const testimonials = {
   ],
 };
 
-// FAQ: only questions with an answer are shown. The Figma draft listed these
-// questions without answers; fill them in to make them appear.
+// FAQ, shown on Contact (and read by Google as an FAQ).
+// ⚠️ CONFIRM BEFORE LAUNCH: answers marked "confirm" describe how the studio
+// works; check them with Driti & Nimisha.
 export const faq = [
   {
-    q: 'How does the process work?',
-    a: 'We start with a discovery call to understand your vision, timeline and budget. From there, we build a bespoke creative direction, share concepts for your feedback, and refine until everything feels exactly right. Every project is collaborative and personal.',
+    q: 'How does a project with Dream Narratives work?',
+    a: 'It starts with your enquiry and a discovery call, where we listen to your vision, timeline and budget. We then share a creative direction and concepts, refine them with you until everything feels right, and deliver the finished piece, whether that’s an invitation suite, a hamper, a brand or a room.',
   },
-  { q: 'Do you work internationally?', a: null },
-  { q: 'Can I request custom designs?', a: null },
-  { q: 'How far in advance should I book?', a: null },
-  { q: 'Do you offer printing services?', a: null },
-  { q: 'Do you offer architecture consultations online?', a: null },
-  { q: 'What is your pricing like?', a: null },
+  {
+    q: 'Do you only work in Vijayawada?',
+    a: 'We’re based in Vijayawada and design for families and brands across Andhra Pradesh, Telangana and beyond. E-invites, video invites and branding are delivered digitally, so distance is no barrier. Interiors and physical deliveries depend on the location, so tell us where you are in your enquiry.',
+  },
+  {
+    q: 'Can you design invitations in Telugu?',
+    a: 'Yes. Many of our invitations are bilingual, in Telugu and English, from the traditional pelli pathrika to e-invites for every function. Let us know the languages you’d like and we’ll design the typography for both.',
+  },
+  {
+    q: 'What’s the difference between an e-invite, a video invite and a physical card?',
+    a: 'An e-invite is a designed image or set of images you share on WhatsApp. A video invite brings your story to life with motion and music. A physical card or invitation box is printed and handed over. Many families choose a mix: physical suites for close family, and e-invites for everyone else.',
+  },
+  {
+    q: 'How far in advance should I book?', // confirm
+    a: 'As early as you can, especially for weddings. As a guide, allow a few weeks for e-invites, and more for printed suites, invitation boxes and large hamper orders, which need time for production. If your date is close, enquire anyway and we’ll tell you honestly what’s possible.',
+  },
+  {
+    q: 'Can you do wedding favours and corporate gifting in bulk?',
+    a: 'Yes. We curate hampers from a handful of keepsakes to large wedding and corporate orders, personalised with names, monograms or a note, and delivered to one address or many.',
+  },
+  {
+    q: 'Do you manage social media on an ongoing basis?', // confirm
+    a: 'Yes. Beyond building your brand identity, Nimisha and the team plan, design and run Instagram for brands like Adika Vijayawada, Verdant and Sassynary. Tell us about your brand and goals and we’ll suggest the right scope.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'Every project is designed from scratch, so we quote each one individually. The enquiry form has optional budget ranges to help us suggest what fits, and we’ll always be clear about cost before any work begins.',
+  },
+  {
+    q: 'How do I get your phone number?',
+    a: 'Send us an enquiry, and Driti and Nimisha’s direct numbers and WhatsApp appear as soon as it’s sent. Until then, you can always reach us on Instagram or by email.',
+  },
 ];
