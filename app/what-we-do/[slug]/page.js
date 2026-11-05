@@ -82,6 +82,16 @@ export default async function ServicePage({ params }) {
       ) : null}
 
       <Constellation offers={s.offers} />
+      {s.slug === 'invitation' ? (
+        <section className="section tight center" aria-label="Video invites">
+          <div className="container reveal">
+            <span className="eyebrow">Invites in motion</span>
+            <h2 className="heading">Video <em>invites</em></h2>
+            <p className="lede" style={{ margin: 'var(--space-3) auto var(--space-4)' }}>Save-the-date reels, invitation films and a reel for every function.</p>
+            <Link href="/what-we-do/video-invites" className="btn btn-ghost">See video invites</Link>
+          </div>
+        </section>
+      ) : null}
       {s.slug === 'invitation' ? <MonogramTeaser /> : null}
 
       <PairedWith slugs={s.pairs} />

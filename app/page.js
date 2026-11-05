@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import HeroGallery from '@/components/HeroGallery';
 import MonogramTeaser from '@/components/MonogramTeaser';
-import { ServiceRow, ProcessSteps, Closing, FeaturedClient, MoonPhases } from '@/components/Sections';
-import { Slot, TwoLine, Clouds, Sparkles } from '@/components/Basics';
+import { ServiceCards, Closing, FeaturedClient } from '@/components/Sections';
+import { Slot, TwoLine } from '@/components/Basics';
 import { services } from '@/content/services';
 import { story, testimonials, featured } from '@/content/studio';
 import { site } from '@/content/site';
@@ -19,32 +19,11 @@ export default function Home() {
         logo={site.logo}
       />
 
-      {/* Studio statement */}
-      <section id="studio" className="section center has-clouds" aria-labelledby="statement">
-        <Clouds set="section" />
-        <Sparkles items={[[18, 22, 10, 0.5], [82, 30, 13, 1.8], [74, 78, 8, 2.6]]} />
-        <div className="container reveal">
-          <span className="eyebrow">A design house</span>
-          <h2 id="statement" className="heading" style={{ maxWidth: '18em', margin: '0 auto' }}>
-            From invitations and keepsakes to spaces and brands, we transform ideas into <em>stories worth remembering.</em>
-          </h2>
-          <MoonPhases />
-          <p className="lede">
-            Across every form of design, our starting point is always the person behind the brief—their ideas, memories, taste, and hopes for what we can create together.
-          </p>
-        </div>
-      </section>
-
-      {/* The five services, equal weight, unnumbered */}
-      <div aria-label="What we do">
-        {services.map((s, i) => (
-          <ServiceRow key={s.slug} service={s} index={i} />
-        ))}
-      </div>
-
-      <FeaturedClient featured={featured} />
+      <ServiceCards services={services} />
 
       <MonogramTeaser />
+
+      <FeaturedClient featured={featured} />
 
 
       {/* Founders preview */}
@@ -58,16 +37,12 @@ export default function Home() {
           <div className="copy reveal" style={{ '--delay': '300ms' }}>
             <span className="eyebrow">{story.eyebrow}</span>
             <TwoLine parts={story.title} id="story-title" />
-            <div className="body" style={{ marginTop: 'var(--space-4)' }}>
-              {story.body.map((p) => <p key={p.slice(0, 20)}>{p}</p>)}
-            </div>
-            <blockquote className="pull" style={{ fontSize: 'clamp(24px, 2.4vw, 32px)', margin: 'var(--space-4) 0 var(--space-5)' }}>“{story.quote}”</blockquote>
+            <p className="lede" style={{ marginTop: 'var(--space-4)' }}>{story.body[0]}</p>
+            <p className="story-sign" style={{ margin: 'var(--space-4) 0 var(--space-5)' }}>{story.quote}</p>
             <Link href="/who-we-are#our-story" className="text-link">Read our story</Link>
           </div>
         </div>
       </section>
-
-      <ProcessSteps />
 
       {testimonials.show ? (
         <section className="section ground-bone" aria-labelledby="quotes-title">

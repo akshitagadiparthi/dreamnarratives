@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { PageIntro, Slot } from '@/components/Basics';
-import { Closing } from '@/components/Sections';
+import { Closing, ProcessSteps } from '@/components/Sections';
 import { services, bespoke } from '@/content/services';
 
 export const metadata = {
@@ -47,6 +47,7 @@ export default function WhatWeDo() {
         </div>
       </section>
 
+      <ProcessSteps ground="ground-bone" />
       <Closing />
     </>
   );

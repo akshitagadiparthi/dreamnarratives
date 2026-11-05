@@ -113,3 +113,11 @@ Set the real numbers in Vercel → Settings → Environment Variables as `PRIVAT
 ## FAQ
 
 Questions and answers live in `content/studio.js` (`faq`). They show on the Contact page, and Google can show them in search results. Two answers are marked `// confirm`; check them with the founders.
+
+## Video invites
+
+The Video invites page (`/what-we-do/video-invites`) plays the studio's video invites in phone frames. Put the videos in `incoming/video-invites/` and run `npm run images` (needs ffmpeg). Until videos are added, the frames show e-invite stills, labelled as stills.
+
+## If the tab icon doesn't update
+
+Browsers keep tab icons for a long time. Open the site in a private window to see the new one. The icon files are `app/icon.png`, `app/icon.svg`, `app/favicon.ico` and `app/apple-icon.png`; replace all four together if the logo changes.

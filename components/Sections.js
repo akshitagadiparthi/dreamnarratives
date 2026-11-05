@@ -264,3 +264,36 @@ export function Constellation({ offers, eyebrow = 'What we create', title = ['Ev
     </section>
   );
 }
+
+/** The services as one compact row of cards (swipe on phones). */
+export function ServiceCards({ services }) {
+  return (
+    <section id="studio" className="section services-strip" aria-labelledby="services-title">
+      <div className="container">
+        <div className="section-head reveal">
+          <div>
+            <span className="eyebrow">A design house</span>
+            <h2 id="services-title" className="heading">
+              Invitations to interiors, <em>one story.</em>
+            </h2>
+          </div>
+          <Link href="/what-we-do" className="text-link">All we do</Link>
+        </div>
+        <div className="service-cards" role="list">
+          {services.map((s, i) => (
+            <Link key={s.slug} href={`/what-we-do/${s.slug}`} className="service-mini reveal" role="listitem" data-cursor="view" style={{ '--delay': `${i * 90}ms` }}>
+              <div className="media">
+                <Slot item={s.hero} sizes="(max-width: 760px) 72vw, 25vw" />
+              </div>
+              <span className="eyebrow">{s.label}</span>
+              <h3>
+                {s.name[0]} <em>{s.name[1]}</em>
+              </h3>
+              <p>{s.promise}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

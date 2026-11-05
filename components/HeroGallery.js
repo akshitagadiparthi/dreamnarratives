@@ -89,7 +89,6 @@ export default function HeroGallery({ eyebrow, title, lede, primary, secondary, 
     <section className="hero night" ref={heroRef} aria-labelledby="hero-title" data-cursor-dark>
       <div className="hero-sky" aria-hidden="true" />
       <Stardust count={110} seed={5} />
-      <div className="shooting-stars" aria-hidden="true"><i /><i /><i /></div>
       <div className="moon-wrap" aria-hidden="true">
         <div className="moon-halo" />
         <Image className="hero-moon" src="/images/moon.webp" alt="" width={1254} height={1254} priority sizes="(max-width: 760px) 90vw, 620px" />
@@ -144,6 +143,10 @@ export default function HeroGallery({ eyebrow, title, lede, primary, secondary, 
           <Link href={primary.href} className="btn btn-moon">{primary.label}</Link>
           <Link href={secondary.href} className="btn btn-ghost-dusk">{secondary.label}</Link>
         </div>
+        <Link href="/monogram" className="hero-mono-link">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z" /></svg>
+          Make your wedding monogram, free
+        </Link>
       </div>
 
       <a href="#studio" className="hero-scroll">Scroll</a>

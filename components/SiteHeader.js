@@ -68,7 +68,8 @@ export default function SiteHeader() {
                   </li>
                 ) : (
                   <li key={item.href} onMouseEnter={closePanelSoon}>
-                    <Link href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                    <Link href={item.href} aria-current={isActive(item.href) ? 'page' : undefined} className={item.sparkle ? 'nav-sparkle' : undefined}>
+                      {item.sparkle ? <svg className="nav-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z" /></svg> : null}
                       {item.label}
                     </Link>
                   </li>
@@ -100,6 +101,9 @@ export default function SiteHeader() {
                   <span>{s.promise}</span>
                   <i>{s.short}</i>
                 </Link>
+                {s.slug === 'invitation' ? (
+                  <Link href="/what-we-do/video-invites" className="panel-sub" tabIndex={panel ? 0 : -1}>Video invites →</Link>
+                ) : null}
               </li>
             ))}
           </ul>
@@ -110,7 +114,10 @@ export default function SiteHeader() {
         <ul>
           {nav.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} tabIndex={menu ? 0 : -1}>{item.label}</Link>
+              <Link href={item.href} tabIndex={menu ? 0 : -1} className={item.sparkle ? 'nav-sparkle' : undefined}>
+                {item.label}
+                {item.sparkle ? <small> · free</small> : null}
+              </Link>
               {item.services ? (
                 <ul className="sub">
                   {services.map((s) => (
@@ -120,6 +127,11 @@ export default function SiteHeader() {
                       </Link>
                     </li>
                   ))}
+                  <li>
+                    <Link href="/what-we-do/video-invites" tabIndex={menu ? 0 : -1}>
+                      Video <em>invites</em>
+                    </Link>
+                  </li>
                 </ul>
               ) : null}
             </li>

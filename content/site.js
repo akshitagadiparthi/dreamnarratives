@@ -33,7 +33,7 @@ export const site = {
 
   contact: {
     // Phone and WhatsApp numbers are private: see lib/private-contact.js.
-    instagram: 'dreamnarratives',
+    instagram: 'dream.narratives',
     email: 'hello@dreamnarratives.co',
     responseTime: 'We respond to all enquiries within 24–48 hours.',
   },
@@ -43,6 +43,7 @@ export const nav = [
   { label: 'Home', href: '/' },
   { label: 'Who are we?', href: '/who-we-are' },
   { label: 'What do we do?', href: '/what-we-do', services: true },
+  { label: 'Monogram', href: '/monogram', sparkle: true },
   { label: 'Contact us', href: '/contact' },
 ];
 
