@@ -10,7 +10,7 @@ export default function SiteFooter() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <Wordmark />
+            <Wordmark dark />
             <p className="tagline">{site.footerLine}</p>
           </div>
           <div>

@@ -8,6 +8,7 @@ import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import MoonCursor from '@/components/MoonCursor';
 import RevealObserver from '@/components/RevealObserver';
+import { ScrollMoon } from '@/components/Dreamy';
 import { site } from '@/content/site';
 
 export const metadata = {
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
+        <ScrollMoon />
         <MoonCursor />
         <RevealObserver />
       </body>

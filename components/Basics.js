@@ -34,7 +34,7 @@ export function Crescent({ phase = 0, className, size = 28 }) {
 }
 
 /** The lit part of a 16-radius moon at (20,20), shaded by a 15-radius disc. Drawn as a path (no masks). */
-function crescentPath(phase) {
+export function crescentPath(phase) {
   const R = 16, r = 15, ax = 20, ay = 20;
   const s = 6 + phase * 30;
   const bx = ax + s, by = ay - s * 0.25;
@@ -53,8 +53,9 @@ function crescentPath(phase) {
  * A frame for work. Shows the image or video when there is one, otherwise a
  * quiet placeholder labelled with what belongs there.
  */
-export function Slot({ item = {}, tone = '', arch = false, sizes = '(max-width: 900px) 100vw, 50vw', priority = false, className = '' }) {
-  const cls = ['slot', tone && `tone-${tone}`, arch && 'arch', className].filter(Boolean).join(' ');
+export function Slot({ item = {}, tone = '', arch = false, sizes = '(max-width: 900px) 100vw, 50vw', priority = false, className = '', float = false }) {
+  const cutout = item.cutout && item.src;
+  const cls = ['slot', tone && `tone-${tone}`, arch && 'arch', cutout && 'is-cutout', cutout && float && 'floating', className].filter(Boolean).join(' ');
   if (item.video) {
     return (
       <div className={cls}>
@@ -65,7 +66,7 @@ export function Slot({ item = {}, tone = '', arch = false, sizes = '(max-width: 
   if (item.src) {
     return (
       <div className={cls}>
-        <Image src={item.src} alt={item.alt || item.caption || ''} fill sizes={sizes} priority={priority} style={{ objectFit: 'cover' }} />
+        <Image src={item.src} alt={item.alt || item.caption || ''} fill sizes={sizes} priority={priority} style={{ objectFit: cutout ? 'contain' : 'cover' }} />
       </div>
     );
   }
@@ -82,7 +83,7 @@ export function Wordmark({ dark = false }) {
     <Link href="/" className="wordmark" aria-label={`${site.name}, home`}>
       {site.logo ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={site.logo} alt={site.name} />
+        <img src={dark ? site.logo.light : site.logo.ink} alt={site.name} width={site.logo.width} height={site.logo.height} />
       ) : (
         <>
           <b>
@@ -97,7 +98,9 @@ export function Wordmark({ dark = false }) {
 
 export function PageIntro({ eyebrow, title, lede, children }) {
   return (
-    <section className="page-top">
+    <section className="page-top has-clouds">
+      <Clouds set="corner" />
+      <Sparkles items={[[86, 30, 12, 0.6], [74, 58, 8, 2]]} />
       <div className="container">
         <div className="reveal">
           {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
@@ -107,5 +110,78 @@ export function PageIntro({ eyebrow, title, lede, children }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * Soft clouds, cut from the studio's own moon artwork, drifting slowly behind
+ * a section. Use only on light grounds. The parent needs `position: relative`.
+ */
+const cloudSets = {
+  hero: [
+    { left: -10, top: 74, w: 44, o: 0.62, d: 90 },
+    { left: 30, top: 82, w: 42, o: 0.5, d: 120, flip: true },
+    { left: 66, top: 72, w: 40, o: 0.58, d: 105 },
+    { left: 58, top: -4, w: 24, o: 0.3, d: 140, flip: true },
+    { left: -4, top: 2, w: 20, o: 0.26, d: 150 },
+  ],
+  dusk: [
+    { left: -8, top: 70, w: 40, o: 0.14, d: 120 },
+    { left: 60, top: 78, w: 44, o: 0.12, d: 140, flip: true },
+  ],
+  section: [
+    { left: -12, top: 8, w: 34, o: 0.55, d: 120 },
+    { left: 76, top: 58, w: 30, o: 0.45, d: 140, flip: true },
+  ],
+  low: [{ left: 58, top: 46, w: 44, o: 0.6, d: 130, flip: true }],
+  corner: [{ left: 70, top: -6, w: 36, o: 0.55, d: 120 }],
+};
+
+export function Clouds({ set = 'section' }) {
+  return (
+    <div className="clouds" aria-hidden="true">
+      {cloudSets[set].map((c, i) => (
+        <span key={i} className="cloud" style={{ left: `${c.left}%`, top: `${c.top}%`, width: `${c.w}vw`, opacity: c.o, '--d': `${c.d}s`, '--flip': c.flip ? -1 : 1, animationDelay: `${-i * 23}s` }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/cloud.webp" alt="" width="900" height="456" loading="lazy" decoding="async" />
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * A few four-point gold sparkles, placed by hand (positions in %). They
+ * twinkle slowly, out of step with each other.
+ */
+export function Sparkles({ items }) {
+  return (
+    <div className="sparkles" aria-hidden="true">
+      {items.map(([l, t, s, delay], i) => (
+        <svg key={i} viewBox="0 0 24 24" width={s} height={s} style={{ left: `${l}%`, top: `${t}%`, animationDelay: `${delay}s` }}>
+          <path d="M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+/** Faint twinkling stardust. Deterministic positions so server and client agree. */
+export function Stardust({ count = 26, seed = 7 }) {
+  let s = seed;
+  const rand = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  const stars = Array.from({ length: count }, () => ({
+    left: rand() * 100,
+    top: rand() * 100,
+    size: 1.5 + rand() * 2.5,
+    delay: rand() * 6,
+    dur: 3 + rand() * 4,
+  }));
+  return (
+    <div className="stardust" aria-hidden="true">
+      {stars.map((st, i) => (
+        <i key={i} style={{ left: `${st.left.toFixed(2)}%`, top: `${st.top.toFixed(2)}%`, width: st.size.toFixed(1) + 'px', height: st.size.toFixed(1) + 'px', animationDelay: `${st.delay.toFixed(2)}s`, animationDuration: `${st.dur.toFixed(2)}s` }} />
+      ))}
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 import { PageIntro, Slot, TwoLine } from '@/components/Basics';
 import { Closing } from '@/components/Sections';
-import { founders, friendship, story, timeline, values } from '@/content/studio';
+import { founders, story, values } from '@/content/studio';
 import { getService } from '@/content/services';
 import Link from 'next/link';
 
@@ -15,7 +15,7 @@ export default function WhoWeAre() {
       <PageIntro
         eyebrow="Who are we?"
         title={['The girls behind', 'the dreams.']}
-        lede="Dream Narratives is the creative studio born from the friendship and imagination of two people who never stopped believing in beautiful things."
+        lede="Two best friends from school, one long-held dream, and a design house in Vijayawada that brings their worlds together."
       />
 
       <section className="section" style={{ paddingTop: 'var(--space-7)' }} aria-label="The founders">
@@ -55,34 +55,32 @@ export default function WhoWeAre() {
         </div>
       </section>
 
-      <section className="section ground-bone" aria-labelledby="friendship-title">
-        <div className="container split top">
-          <div className="reveal">
-            <span className="eyebrow">{friendship.eyebrow}</span>
-            <TwoLine parts={friendship.title} id="friendship-title" />
-            <blockquote className="pull" style={{ marginTop: 'var(--space-6)' }}>“{friendship.quote}”</blockquote>
-          </div>
-          <div className="body reveal" style={{ '--delay': '150ms' }}>
-            {friendship.body.map((p) => <p key={p.slice(0, 20)} className={p === friendship.body[0] ? 'lede' : ''} style={{ marginBottom: '1.1em' }}>{p}</p>)}
-          </div>
-        </div>
-      </section>
+      <figure className="reveal" style={{ margin: 0 }}>
+        <div className="wide-photo"><Slot item={story.wide} sizes="100vw" /></div>
+      </figure>
 
-      <section className="section" aria-labelledby="timeline-title">
-        <div className="container split top">
-          <div className="reveal">
+      <section id="our-story" className="section ground-bone" aria-labelledby="story-title">
+        <div className="container story-layout">
+          <div className="story-aside reveal">
             <span className="eyebrow">{story.eyebrow}</span>
-            <TwoLine parts={story.title} id="timeline-title" />
-            <p className="lede" style={{ marginTop: 'var(--space-4)' }}>{story.body[1]}</p>
+            <TwoLine parts={story.title} id="story-title" />
+            <figure className="story-photo">
+              <Slot item={story.photos[1]} sizes="(max-width: 900px) 100vw, 40vw" />
+            </figure>
           </div>
-          <ol className="timeline">
-            {timeline.map((t, i) => (
-              <li key={t.year} className="reveal" style={{ '--delay': `${i * 100}ms` }}>
-                <span className="year">{t.year}</span>
-                <p>{t.text}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="story-text">
+            {story.full.map((p, i) =>
+              typeof p === 'string' ? (
+                <p key={i} className={`reveal${i === 0 ? ' lede' : ''}`}>{p}</p>
+              ) : p.pull ? (
+                <blockquote key={i} className="pull reveal">{p.pull}</blockquote>
+              ) : (
+                <p key={i} className="story-highlight reveal">{p.highlight}</p>
+              )
+            )}
+            <hr className="rule" />
+            <p className="story-sign reveal">{story.quote}</p>
+          </div>
         </div>
       </section>
 

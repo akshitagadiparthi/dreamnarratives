@@ -1,0 +1,618 @@
+{
+  "gift": [
+    {
+      "src": "/work/gift/hero-adika-vijayawada-hampers.webp",
+      "caption": "Adika Vijayawada hampers, with Boxed Wonders",
+      "width": 2000,
+      "height": 1500,
+      "hero": true,
+      "cutout": false
+    },
+    {
+      "src": "/work/gift/bridesmaids-gift-box.webp",
+      "caption": "Bridesmaids’ gift box, “Dear Driti”",
+      "width": 1008,
+      "height": 849,
+      "hero": false,
+      "cutout": true
+    },
+    {
+      "src": "/work/gift/adika-hamper-contents.webp",
+      "caption": "Adika hamper, unboxed",
+      "width": 1500,
+      "height": 2000,
+      "hero": false,
+      "cutout": false
+    },
+    {
+      "src": "/work/gift/bridesmaids-card.webp",
+      "caption": "Bridesmaids’ card, front and back",
+      "width": 1179,
+      "height": 1668,
+      "hero": false,
+      "cutout": false
+    },
+    {
+      "src": "/work/gift/adika-hamper-thank-you-card.webp",
+      "caption": "Adika hamper and thank-you card",
+      "width": 2000,
+      "height": 1500,
+      "hero": false,
+      "cutout": false
+    },
+    {
+      "src": "/work/gift/bridesmaids-gift-box-and-card.webp",
+      "caption": "Bridesmaids’ box and card",
+      "width": 588,
+      "height": 904,
+      "hero": false,
+      "inHero": false,
+      "cutout": false
+    }
+  ],
+  "identity": [
+    {
+      "src": "/work/identity/social-media-verdant-stationery-feed.webp",
+      "caption": "Verdant Group: brand identity and Instagram",
+      "width": 1206,
+      "height": 1060,
+      "hero": true,
+      "kind": "social-media",
+      "cutout": false
+    },
+    {
+      "src": "/work/identity/social-media-adika-vijayawada-feed.webp",
+      "caption": "Adika Vijayawada: Instagram",
+      "width": 971,
+      "height": 1745,
+      "hero": false,
+      "kind": "social-media",
+      "cutout": false,
+      "inHero": false
+    },
+    {
+      "src": "/work/identity/social-media-sassynary-feed.webp",
+      "caption": "Sassynary: Instagram",
+      "width": 920,
+      "height": 1618,
+      "hero": false,
+      "kind": "social-media",
+      "cutout": false,
+      "inHero": false
+    }
+  ],
+  "invitation": [
+    {
+      "src": "/work/invitation/hero-ravella-pelli-pathrika-box-open.webp",
+      "caption": "Ravella vaari Pelli Pathrika, invitation box",
+      "width": 888,
+      "height": 968,
+      "hero": true,
+      "kind": "physical-cards",
+      "cutout": true
+    },
+    {
+      "src": "/work/invitation/e-invites-ml-engagement.webp",
+      "caption": "Lohith & Sai Manjusha’s Engagement, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/physical-cards-vs-suite-green-cover.webp",
+      "caption": "Vamsi & Sesanka’s suite, the inner cover",
+      "width": 1474,
+      "height": 2000,
+      "hero": false,
+      "kind": "physical-cards",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-joshita-sahith-wedding.webp",
+      "caption": "Joshita & Sahith Chandra’s Wedding, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-aditi-pellikuthuru.webp",
+      "caption": "Aditi’s Pellikuthuru, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-nm-hotline-engagement-after-party.webp",
+      "caption": "“Hotline to the Engagement”, Niharika & Maneesh’s after party",
+      "width": 1421,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/physical-cards-vs-suite-wedding-card.webp",
+      "caption": "Vamsi & Sesanka’s suite, the Wedding Ceremony card",
+      "width": 1459,
+      "height": 2000,
+      "hero": false,
+      "kind": "physical-cards",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-diwali-glow.webp",
+      "caption": "“Glow”, a Diwali invitation",
+      "width": 1333,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/ravella-pelli-pathrika-box.webp",
+      "caption": "Ravella vaari Pelli Pathrika, foiled box lid",
+      "width": 1072,
+      "height": 831,
+      "hero": false,
+      "kind": "physical-cards",
+      "cutout": true
+    },
+    {
+      "src": "/work/invitation/e-invites-vs-vamsi-sesanka-crest.webp",
+      "caption": "Vamsi & Sesanka, the wedding crest",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/physical-cards-vs-suite-cover-spread.webp",
+      "caption": "Vamsi & Sesanka’s suite, the outer cover",
+      "width": 2000,
+      "height": 1357,
+      "hero": false,
+      "kind": "physical-cards",
+      "inHero": false,
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-ss-engagement.webp",
+      "caption": "Sanjana & Sampath’s Engagement, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-ny-haldi-harvest.webp",
+      "caption": "“Haldi Harvest”, e-invite",
+      "width": 1240,
+      "height": 1748,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-sj-sangeeth.webp",
+      "caption": "Janani & Surya’s Sangeeth, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/physical-cards-vs-suite-cocktail-card.webp",
+      "caption": "Vamsi & Sesanka’s suite, the Cocktail card",
+      "width": 1459,
+      "height": 2000,
+      "hero": false,
+      "kind": "physical-cards",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-js-reception.webp",
+      "caption": "Janani & Surya’s Reception, a garden at night",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-la-dolce-vita-bridal-shower.webp",
+      "caption": "“La Dolce Vita”, bridal shower",
+      "width": 1414,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-nishita-pasupu-dampu.webp",
+      "caption": "Nishita’s Pasupu Dampu, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/physical-cards-ravella-suite-spread.webp",
+      "caption": "Ravella vaari Pelli Pathrika, invitation and envelope laid flat",
+      "width": 1832,
+      "height": 774,
+      "hero": false,
+      "kind": "physical-cards",
+      "inHero": false,
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-poker-night.webp",
+      "caption": "“Poker Night”, a party invite",
+      "width": 1528,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-jr-mehendi.webp",
+      "caption": "Rasya & Jaswanth’s Mehendi, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-sj-mehendi.webp",
+      "caption": "Janani & Surya’s Mehendi, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/physical-cards-vs-suite-pellikoduku-card.webp",
+      "caption": "Vamsi & Sesanka’s suite, the Pellikoduku card",
+      "width": 1459,
+      "height": 2000,
+      "hero": false,
+      "kind": "physical-cards",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-vs-cocktail-night.webp",
+      "caption": "Vamsi & Sesanka’s Cocktail Night, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-ny-sangeeth-soiree.webp",
+      "caption": "“Sangeeth Soirée”, e-invite",
+      "width": 1240,
+      "height": 1748,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-ravella-reception.webp",
+      "caption": "Taraka Rasya & Jaswanth’s Reception, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/physical-cards-ravella-envelope.webp",
+      "caption": "Ravella vaari Pelli Pathrika, the envelope",
+      "width": 1158,
+      "height": 2000,
+      "hero": false,
+      "kind": "physical-cards",
+      "inHero": false,
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-aditi-arun-save-the-date.webp",
+      "caption": "Aditi & Arun, save the date",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-ss-engagement-after-party.webp",
+      "caption": "Sanjana & Sampath’s Engagement after party",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-aditi-arun-sangeeth.webp",
+      "caption": "Aditi & Arun’s Sangeeth, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/physical-cards-vs-suite-sleeve.webp",
+      "caption": "Vamsi & Sesanka’s suite, the sleeve",
+      "width": 923,
+      "height": 2000,
+      "hero": false,
+      "kind": "physical-cards",
+      "inHero": false,
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-ny-mehendi-carnival.webp",
+      "caption": "“Mehendi Carnival”, e-invite",
+      "width": 1240,
+      "height": 1748,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-sj-wedding.webp",
+      "caption": "Janani & Surya’s Wedding, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-jr-save-the-date.webp",
+      "caption": "Rasya & Jaswanth, save the date",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-np-nithish-priyanka-sangeeth.webp",
+      "caption": "Nithish & Priyanka’s Sangeeth, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-js-satyanarayana-vratham.webp",
+      "caption": "Janani & Surya’s Satyanarayana Vratham, in mustard",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-chitti-uyyala.webp",
+      "caption": "Chitti’s Uyyala, cradle ceremony",
+      "width": 1414,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-jr-pellikuthuru.webp",
+      "caption": "Rasya’s Pellikuthuru, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-sj-reception.webp",
+      "caption": "Janani & Surya’s Reception, poolside",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-vs-wedding-ceremony.webp",
+      "caption": "Vamsi & Sesanka’s Wedding Ceremony, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-bonjour-bebe-birthday.webp",
+      "caption": "“Bonjour Bébé”, a 26th birthday",
+      "width": 1418,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-np-wedding-invitation.webp",
+      "caption": "Nithish & Priyanka’s Wedding, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-rasya-la-dolce-vita.webp",
+      "caption": "“Rasya said Sì”, bridal shower",
+      "width": 872,
+      "height": 1228,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-aditi-pellikuthuru-purple.webp",
+      "caption": "Aditi’s Pellikuthuru, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-sj-surya-pellikoduku.webp",
+      "caption": "Surya’s Pellikoduku, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-jr-vratham.webp",
+      "caption": "Rasya & Jaswanth’s Vratham, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-js-varalakshmi-vratham.webp",
+      "caption": "Janani & Surya’s Varalakshmi Vratham, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-vs-vamsi-pellikoduku.webp",
+      "caption": "Vamsi’s Pellikoduku, e-invite",
+      "width": 1419,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-sj-satyanarayana-vratham.webp",
+      "caption": "Janani & Surya’s Satyanarayana Vratham, in ivory",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-its-a-girl.webp",
+      "caption": "“It’s a Girl”, birth announcement",
+      "width": 1339,
+      "height": 2000,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-aditi-pellikuthuru-mehendi.webp",
+      "caption": "Aditi’s Pellikuthuru & Mehendi, e-invite",
+      "width": 1407,
+      "height": 1980,
+      "hero": false,
+      "kind": "e-invites",
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/e-invites-jr-event-cards-set.webp",
+      "caption": "Rasya & Jaswanth, the full set of event covers",
+      "width": 1798,
+      "height": 594,
+      "hero": false,
+      "kind": "e-invites",
+      "inHero": false,
+      "cutout": false
+    },
+    {
+      "src": "/work/invitation/ravella-pelli-pathrika-suite.webp",
+      "caption": "Ravella vaari Pelli Pathrika, the full suite",
+      "width": 1328,
+      "height": 770,
+      "hero": false,
+      "kind": "physical-cards",
+      "inHero": false,
+      "cutout": false
+    }
+  ],
+  "space": [
+    {
+      "src": "/work/space/interiors-hero-pilates-studio.webp",
+      "caption": "Adika, Vijayawada: the Pilates studio",
+      "width": 1125,
+      "height": 2000,
+      "hero": true,
+      "kind": "interiors",
+      "cutout": false
+    },
+    {
+      "src": "/work/space/interiors-powder-room.webp",
+      "caption": "Adika: the powder room, with a fan-tile vanity wall",
+      "width": 899,
+      "height": 1599,
+      "hero": false,
+      "kind": "interiors",
+      "cutout": false
+    },
+    {
+      "src": "/work/space/interiors-adika-vijayawada-facade.webp",
+      "caption": "Adika, Vijayawada: façade and signage",
+      "width": 1139,
+      "height": 2000,
+      "hero": false,
+      "kind": "interiors",
+      "cutout": false
+    },
+    {
+      "src": "/work/space/interiors-site-progress-facade.webp",
+      "caption": "Adika: the façade during the build, with sculpted balcony niches",
+      "width": 1320,
+      "height": 1742,
+      "hero": false,
+      "kind": "interiors",
+      "inHero": false,
+      "cutout": false
+    },
+    {
+      "src": "/work/space/interiors-site-progress-interior.webp",
+      "caption": "Adika: the upper floor during the build",
+      "width": 1320,
+      "height": 1731,
+      "hero": false,
+      "kind": "interiors",
+      "inHero": false,
+      "cutout": false
+    }
+  ]
+}

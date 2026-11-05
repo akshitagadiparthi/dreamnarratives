@@ -59,25 +59,14 @@ export const forms = {
     title: ['Shape your', 'identity.'],
     fields: [
       { label: 'Business name', type: 'text', required: true, autoComplete: 'organization' },
-      { label: 'Industry', type: 'text', placeholder: 'e.g. Fashion, hospitality, jewellery' },
-      { label: 'Stage', type: 'single', wide: true, options: ['Brand new', 'Rebrand', 'Refresh'] },
-      { label: 'Deliverables', display: 'What do you need?', type: 'multi', wide: true, options: ['Logo & wordmark', 'Full identity', 'Packaging', 'Stationery', 'Brand guidelines', 'Not sure yet'] },
-      { label: 'Website / Instagram', type: 'text', placeholder: 'Link, if you have one' },
-      { label: 'Launch date', type: 'date' },
-      { label: 'Budget range', display: 'Budget (optional)', type: 'single', wide: true, options: ['Under ₹50,000', '₹50,000 – ₹1,50,000', '₹1,50,000 – ₹3,00,000', '₹3,00,000+', 'Let’s discuss'] },
-    ],
-  },
-  telling: {
-    sheet: 'The Telling',
-    title: ['Let’s tell', 'your story.'],
-    fields: [
-      { label: 'Brand name', type: 'text', required: true, autoComplete: 'organization' },
-      { label: 'Instagram & platforms', type: 'text', placeholder: '@handle, and anywhere else you post' },
-      { label: 'Current followers', type: 'select', options: ['Just starting', 'Under 1,000', '1,000 – 10,000', '10,000 – 50,000', '50,000+'] },
+      { label: 'Industry', type: 'text', placeholder: 'e.g. Fashion, wellness, jewellery' },
+      { label: 'What you need', display: 'What can we help with?', type: 'multi', wide: true, options: ['Logo & wordmark', 'Full brand identity', 'Packaging & stationery', 'Social media management', 'Content creation & shoots', 'Campaigns & launches', 'Not sure yet'] },
+      { label: 'Stage', type: 'single', wide: true, options: ['Brand new', 'Rebrand', 'Refresh', 'Established, needs social'] },
+      { label: 'Website / Instagram', type: 'text', placeholder: 'Links, if you have them' },
+      { label: 'Current followers', type: 'select', options: ['Not on Instagram yet', 'Under 1,000', '1,000 – 10,000', '10,000 – 50,000', '50,000+'] },
+      { label: 'Goals', display: 'What should it achieve?', type: 'multi', wide: true, options: ['Be recognised', 'A launch', 'Sales & enquiries', 'Community', 'A consistent look'] },
       { label: 'Start date', type: 'date' },
-      { label: 'Goals', display: 'What should it achieve?', type: 'multi', wide: true, options: ['Awareness', 'Sales & enquiries', 'A launch', 'Community', 'A consistent look'] },
-      { label: 'Scope', display: 'How can we help?', type: 'multi', wide: true, options: ['Strategy', 'Content creation', 'Shoots', 'Posting & community', 'Paid ads'] },
-      { label: 'Monthly budget', display: 'Monthly budget (optional)', type: 'single', wide: true, options: ['Under ₹25,000', '₹25,000 – ₹50,000', '₹50,000 – ₹1,00,000', '₹1,00,000+', 'Let’s discuss'] },
+      { label: 'Budget range', display: 'Budget (optional)', type: 'single', wide: true, options: ['Under ₹50,000', '₹50,000 – ₹1,50,000', '₹1,50,000 – ₹3,00,000', '₹3,00,000+', 'Monthly retainer', 'Let’s discuss'] },
     ],
   },
   space: {
@@ -106,4 +95,4 @@ export const forms = {
   },
 };
 
-export const formOrder = ['invitation', 'gift', 'identity', 'telling', 'space', 'bespoke'];
+export const formOrder = ['invitation', 'gift', 'identity', 'space', 'bespoke'];

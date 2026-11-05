@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// The studio's story, from the client's Figma draft, lightly extended.
+// The founders, the studio's story, values and process.
 // Portraits: add /public/images/driti.jpg and /public/images/nimisha.jpg and
 // set `portrait` below. Qualifications can be added to `credentials`.
 // ---------------------------------------------------------------------------
@@ -8,7 +8,7 @@ export const founders = [
   {
     name: 'Driti',
     role: 'Creative Director',
-    portrait: null,
+    portrait: '/images/driti.webp',
     bio: [
       'Driti sees stories in spaces. As Creative Director specialising in architecture, interior design and spatial storytelling, she brings an architectural eye to every project, finding beauty in proportion, texture and the quiet language of rooms.',
       'She leads The Space, and her sense of proportion shapes everything the studio makes, from the fold of a card to the layout of a home.',
@@ -20,45 +20,58 @@ export const founders = [
   {
     name: 'Nimisha',
     role: 'Creative & Marketing Director',
-    portrait: null,
+    portrait: '/images/nimisha.webp',
     bio: [
       'Nimisha turns stories into brands people remember. With deep expertise in digital marketing, creative direction and content strategy, she crafts narratives that resonate, translating a brand’s soul into visuals, words and campaigns that stick.',
-      'She leads The Identity and The Telling, and makes sure every story the studio designs finds the people it was meant for.',
+      'She leads The Identity, from the first sketch of a logo to the feed that carries it, and makes sure every story the studio designs finds the people it was meant for.',
     ],
     tags: ['Digital marketing', 'Branding', 'Content strategy', 'Creative campaigns'],
     credentials: [],
-    leads: ['identity', 'telling'],
+    leads: ['identity'],
   },
 ];
 
+// The studio's own words (Our Story, supplied by Driti & Nimisha).
 export const story = {
   eyebrow: 'Our story',
-  title: ['A dream that grew', 'up with us.'],
+  title: ['Before it had a name,', 'it was our “big fish.”'],
+  // Short version, used on the home page.
   body: [
-    'Driti and Nimisha have been dreaming together since childhood: filling notebooks with sketches, crafting gifts for everyone they loved, and imagining a world where every moment felt beautifully designed.',
-    'Years later, those childhood daydreams have become Dream Narratives, a creative studio where every project carries the same warmth, care and intention that started it all.',
+    'Dream Narratives began long before we knew what it would look like—with two best friends in school, dreaming of starting a business together someday.',
+    'In January 2026, the dream we had carried since high school became Dream Narratives—a design house by Driti and Nimisha.',
   ],
-  quote: 'Every dream has a story. We design the narrative.',
+  quote: 'Every dream has a story. We narrate them through our designs.',
+  photos: [
+    { src: '/images/founders-walking.webp', alt: 'Driti and Nimisha laughing together as they walk across a lawn' },
+    { src: '/images/founders-bench.webp', alt: 'Nimisha standing and Driti seated on a mosaic bench, sharing a laugh' },
+  ],
+  wide: { src: '/images/founders-wide.webp', alt: 'Driti and Nimisha sharing a laugh in a garden' },
+  // Full version, used on Who are we? Strings are paragraphs; { pull } is a
+  // pull quote and { highlight } a paragraph set larger.
+  full: [
+    'Dream Narratives began long before we knew what it would look like—with two best friends in school, dreaming of starting a business together someday. It was our little best-friend pact, a future we loved imagining even without knowing how we would get there.',
+    'Life eventually took us in different directions. We left for college, pursued our studies, and found our own creative interests. Driti’s path led to architecture and interiors, while Nimisha’s led to marketing and visual communication. When we both returned to Vijayawada for good, we found ourselves revisiting that familiar dream, this time with different experiences and something of our own to bring to it.',
+    { pull: 'Our project. Our dream. Our “big fish.”' },
+    'That was what we called it in our conversations, while we were still imagining everything it could become. Then, on a seemingly ordinary day, we decided to go for it. Before we had quite caught up with ourselves, we had two clients, a name, and a logo. Everything began taking shape.',
+    { highlight: 'In January 2026, the dream we had carried since high school became Dream Narratives—a design house by Driti and Nimisha.' },
+    'Today, our work brings together the worlds we each love: architecture and interiors, branding and creative communication, wedding invitations, and thoughtful gifting. Across these different forms of design, our starting point is always the person behind the brief—their ideas, memories, taste, and hopes for what we can create together.',
+    'Our name reflects that approach. Every project begins with a dream, whether it is clearly imagined or still finding its shape. We listen, understand, and translate it into something personal and considered. From the atmosphere of a room to the texture of an invitation, each detail helps tell the story.',
+    'We are drawn to warmth, understated elegance, and designs that feel thoughtfully put together, with room for each client’s personality. We want people to recognise a little of themselves in what we create.',
+    'Helping someone bring their vision to life feels especially meaningful because we remember how ours began. At its heart, Dream Narratives still holds those school-day conversations: two best friends, big ideas, and the joy of building something together.',
+  ],
 };
 
-export const friendship = {
-  eyebrow: 'Friendship first',
-  title: ['Best friends before', 'business partners.'],
-  body: [
-    'It started with school notebooks filled with ideas, birthday decorations made by hand, and hours of dreaming about what it would feel like to create something real together. Long before Dream Narratives had a name, it had a feeling.',
-    'Driti and Nimisha grew up making things for the people they loved: crafting gifts, designing invitations, reimagining spaces. Their friendship was always creative at its core.',
-    'Dream Narratives is what happens when two childhood best friends finally say yes to the dream they have been nurturing for years. It is personal. It is intentional. And it is made with love.',
+// A client told across several services, featured on the home page.
+export const featured = {
+  eyebrow: 'One client, many chapters',
+  name: 'Adika, Vijayawada',
+  body: 'For Adika, we designed the space, the branded hampers and the story on its Instagram: one client, told across three of our crafts.',
+  links: [
+    { service: 'space', label: 'A Pilates studio' },
+    { service: 'gift', label: 'Branded hampers' },
+    { service: 'identity', label: 'Its Instagram', href: 'https://www.instagram.com/adika.vijayawada' },
   ],
-  quote: 'Stories deserve beautiful beginnings.',
 };
-
-export const timeline = [
-  { year: '2010', text: 'Two best friends in school who never stopped dreaming, sketching and creating together.' },
-  { year: '2015', text: 'Endless mood boards, handmade gifts, and a quiet promise: someday we’ll build something real.' },
-  { year: '2019', text: 'Different cities, different paths, but the same shared vision kept pulling them back.' },
-  { year: '2022', text: 'Reunited by purpose, they began building what would become Dream Narratives.' },
-  { year: '2024', text: 'Dream Narratives opens its doors: a studio born from friendship, imagination and love.' },
-];
 
 export const values = ['Thoughtful design', 'Meaningful stories', 'Personal connection', 'Timeless creativity', 'Attention to detail'];
 

@@ -7,8 +7,7 @@ export const metadata = {
   description: 'Begin your story with Dream Narratives: tell us about your invitation, gift, brand, social media or space.',
 };
 
-export default async function Enquiries({ searchParams }) {
-  const { service } = await searchParams;
+export default function Enquiries() {
   return (
     <>
       <PageIntro
@@ -18,7 +17,7 @@ export default async function Enquiries({ searchParams }) {
       />
       <section className="section" style={{ paddingTop: 'var(--space-6)' }}>
         <div className="container">
-          <EnquiryForm initial={typeof service === 'string' ? service : null} />
+          <EnquiryForm />
           <p className="caption" style={{ marginTop: 'var(--space-6)', maxWidth: '40em' }}>
             {site.contact.responseTime} For wedding and event projects, we recommend reaching out as early as possible to ensure availability. Prefer to talk?{' '}
             <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gilt)' }}>Message us on WhatsApp</a>.

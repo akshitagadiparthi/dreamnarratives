@@ -10,12 +10,12 @@ export const site = {
   tagline: 'Narrating dreams through design.',
   footerLine: 'A childhood dream, thoughtfully designed into reality.',
   description:
-    'Dream Narratives is a design house by Driti & Nimisha: invitations, gifting, branding, social media and interiors for weddings, families and founders.',
+    'Dream Narratives is a design house in Vijayawada by Driti & Nimisha: invitations, gifting, branding, social media and interiors for weddings, families and founders.',
+  city: 'Vijayawada',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dreamnarratives.co',
 
-  // Set to '/images/logo.svg' (or .png) once the logo file is in /public/images.
-  // Until then the wordmark is set in Bodoni Moda.
-  logo: null,
+  // The studio's logo: dark ink for light grounds, light for the footer.
+  logo: { ink: '/images/logo-ink.webp', light: '/images/logo-light.webp', width: 600, height: 186 },
 
   contact: {
     // Phone numbers: digits only with country code, plus how they are shown.

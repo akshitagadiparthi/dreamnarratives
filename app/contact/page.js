@@ -21,7 +21,7 @@ export default function Contact() {
 
   return (
     <>
-      <PageIntro eyebrow="Contact us" title={['Your dream,', 'beautifully narrated.']} lede={`${contact.responseTime} For wedding and event projects, we recommend reaching out as early as possible.`}>
+      <PageIntro eyebrow="Contact us" title={['Your dream,', 'beautifully narrated.']} lede={`Based in ${site.city}, designing for celebrations, homes and brands across Andhra Pradesh and Telangana. ${contact.responseTime}`}>
         <div className="btn-row" style={{ marginTop: 'var(--space-5)' }}>
           <Link href="/enquiries" className="btn btn-fill">Send an enquiry</Link>
         </div>

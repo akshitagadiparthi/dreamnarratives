@@ -52,19 +52,29 @@ Everything editable lives in `content/`. No layout code needs touching.
 | Enquiry form questions and budget bands | `content/forms.js` |
 | Colours, type, spacing | top of `app/globals.css` |
 
-### Adding work
+### Adding work (photos and videos straight from Google Drive)
 
-1. Put images in `public/work/<service>/`, for example `public/work/invitation/suite-01.jpg`. JPG or WebP, about 2000px on the long side.
-2. In `content/services.js`, set `src` on an item: `{ src: '/work/invitation/suite-01.jpg', caption: 'Hand-foiled suite' }`.
-3. For video invites: `{ video: '/work/invitation/reveal.mp4', poster: '/work/invitation/reveal.jpg', caption: 'Video invite' }`. Keep videos short and under ~8 MB.
-4. Each service's `hero` is its main image. `heroPieces` are the pieces that float around the moon on the home page: use a mix from every service.
+Size doesn't matter: originals are never uploaded. A script shrinks everything first, so the site stays fast and free to host.
 
-Any slot without an image shows a quiet placeholder with a small crescent, so the site never looks broken while work is being added.
+1. In Google Drive, right-click a folder (e-invites, physical cards, video invites, hampers, interiors, social media, branding) → **Download**. Drive gives you a zip.
+2. Unzip it into `incoming/` in this project, keeping the folder name, e.g. `incoming/hampers/…`. Drive's folder names and the site's (`invitation`, `gift`, `identity`, `telling`, `space`) both work.
+3. Run `npm run images`.
+   - Photos become WebP in `public/work/<service>/`: max 2000px, usually 100–400 KB, down from several MB.
+   - Videos become 1080p MP4s (no sound) with a poster frame. This needs ffmpeg installed once: `brew install ffmpeg` on Mac, `winget install ffmpeg` on Windows.
+   - `content/work.json` is rewritten, so the work appears on its service page and floats around the moon on the home page. No code to edit.
+4. Commit and push; Vercel redeploys automatically.
+
+Captions: edit them in `content/work.json`; the script keeps your edits. To keep a busy image (a collage, a presentation board) off the floating tiles on the home page, add `"inHero": false` to it there.
+
+Photos shot on a plain white background are turned into cut-outs automatically if you remove the background first (any free background remover, saved as PNG): they then float on the home page without a frame.
+
+Tips: name a file `hero.jpg` to make it a service's main image. Descriptive file names become captions ("sharma-wedding-suite.jpg" → "Sharma wedding suite"); camera names like IMG_2041 get no caption. Running the script again only converts new files.
+
+Why this is fast and free: the compressed files live in the repository and Vercel serves them from its global network at no cost, and Next.js resizes each for the visitor's screen. If the studio ever outgrows Vercel's free image-resizing allowance, set `images: { unoptimized: true }` in `next.config.mjs`; because the files are already compressed, the site stays fast. Keep the whole `public/work` folder under about 1 GB (roughly 3,000 photos).
 
 ### Logo and portraits
 
-- Logo: save as `public/images/logo.svg` (or .png) and set `logo: '/images/logo.svg'` in `content/site.js`.
-- Portraits: save as `public/images/driti.jpg` and `public/images/nimisha.jpg`, then set `portrait` in `content/studio.js`.
+Already in place: the logo (`public/images/logo-ink.webp` for light grounds, `logo-light.webp` for the footer) and the founders' photos (`driti.webp`, `nimisha.webp`, `founders-*.webp`). To replace one, keep the same file name, or update the path in `content/site.js` / `content/studio.js`.
 
 ## Before launch: please confirm
 

@@ -235,7 +235,7 @@ blockquote.pull {
   transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease), visibility 0s linear var(--t-fast);
 }
 .services-panel.open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
-.services-panel ul { display: grid; grid-template-columns: repeat(5, 1fr); list-style: none; margin: 0 auto; padding: 0 var(--gutter); max-width: var(--max); }
+.services-panel ul { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; list-style: none; margin: 0 auto; padding: 0 var(--gutter); max-width: var(--max); }
 .services-panel li { border-right: 1px solid var(--hairline); }
 .services-panel li:last-child { border-right: 0; }
 .services-panel a { display: block; padding: 30px 24px 34px; text-decoration: none; color: var(--espresso); height: 100%; transition: background var(--t-fast); }
@@ -363,9 +363,8 @@ a:hover .slot img, .slot.zoom:hover img { transform: scale(1.03); }
 }
 
 .service-index { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-5) var(--space-4); }
-.service-card { grid-column: span 2; text-decoration: none; color: inherit; display: block; }
-.service-card:nth-child(4) { grid-column: 2 / span 2; }
-.service-card .media { height: 420px; margin-bottom: var(--space-4); }
+.service-card { grid-column: span 3; text-decoration: none; color: inherit; display: block; }
+.service-card .media { height: clamp(360px, 38vw, 560px); margin-bottom: var(--space-4); }
 .service-card h3 { font-size: 32px; line-height: 1.1; }
 .service-card p { margin: 10px 0 0; color: var(--taupe); }
 @media (max-width: 1000px) {
@@ -601,3 +600,191 @@ html.moon-cursor select, html.moon-cursor input[type='checkbox'], html.moon-curs
 .field > label.check { font: 300 14px/1.4 var(--font-sans); letter-spacing: 0; text-transform: none; color: var(--espresso); margin: 12px 0 0; }
 .field .check input { width: 16px; height: 16px; padding: 0; border: 1px solid var(--hairline); -webkit-appearance: auto; appearance: auto; flex: none; }
 .work-grid { grid-auto-flow: dense; }
+
+/* Logo */
+.wordmark img { height: 52px; width: auto; transition: height var(--t-fast) var(--ease); }
+.scrolled .wordmark img { height: 44px; }
+.site-footer .wordmark img { height: 64px; }
+.hero-logo { margin: 0; line-height: 0; animation: fade-up 1.6s var(--ease) 0.6s both; }
+.hero-copy .hero-logo { animation: fade-up 1.6s var(--ease) 0.6s both; }
+.hero-logo img { width: min(86vw, 640px); height: auto; margin: 0 auto; filter: drop-shadow(0 0 18px rgba(248, 244, 236, 0.9)); }
+.wide-photo { height: clamp(320px, 56vw, 760px); }
+@media (max-width: 760px) { .wordmark img { height: 42px; } }
+
+/* --------------------------------------------------------------------------
+   Dreamy moon elements
+   -------------------------------------------------------------------------- */
+
+/* The moon cursor (the studio's own crescent) */
+.cursor { width: 80px; height: 80px; margin: -40px 0 0 -40px; }
+.cursor img {
+  width: 80px; height: 80px; transform: scale(0.42) rotate(-8deg); transform-origin: center;
+  transition: transform 500ms var(--ease), filter 500ms var(--ease);
+  filter: drop-shadow(0 0 6px rgba(241, 222, 180, 0.7));
+  pointer-events: none; user-select: none;
+}
+.cursor.full img { transform: scale(0.62) rotate(6deg); filter: drop-shadow(0 0 14px rgba(241, 222, 180, 0.95)) drop-shadow(0 0 4px rgba(241, 222, 180, 0.9)); }
+.cursor.press img { transform: scale(0.34) rotate(-8deg); }
+.cursor.full.press img { transform: scale(0.54) rotate(6deg); }
+.cursor .label {
+  inset: auto; position: absolute; left: 50%; top: 100%; display: block; transform: translate(-50%, -6px);
+  padding: 6px 10px; background: var(--ivory); border: 1px solid var(--hairline);
+  font: 500 9px/1 var(--font-sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--espresso);
+  white-space: nowrap; opacity: 0; transition: opacity 300ms, transform 400ms var(--ease);
+}
+.cursor.view .label { opacity: 1; transform: translate(-50%, 2px); }
+.cursor.on-dark img { filter: drop-shadow(0 0 16px rgba(241, 222, 180, 0.9)); }
+
+.dust-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9998; overflow: hidden; }
+.dust {
+  position: absolute; border-radius: 50%; background: var(--champagne);
+  box-shadow: 0 0 6px 1px rgba(241, 222, 180, 0.9);
+  animation: dust-fall 1100ms var(--ease) forwards;
+}
+@keyframes dust-fall {
+  from { opacity: 0.9; transform: translate(0, 0) scale(1); }
+  to { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.3); }
+}
+
+/* Drifting clouds */
+.clouds { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.cloud { position: absolute; display: block; animation: cloud-drift var(--d) ease-in-out infinite alternate; will-change: transform; }
+.cloud img { width: 100%; height: auto; transform: scaleX(var(--flip)); }
+@keyframes cloud-drift { from { transform: translateX(-4vw); } to { transform: translateX(6vw); } }
+.has-clouds { position: relative; overflow: hidden; }
+.has-clouds > .container { position: relative; z-index: 1; }
+.hero .clouds { z-index: 1; }
+
+/* Stardust */
+.stardust { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.stardust i { position: absolute; border-radius: 50%; background: var(--champagne); box-shadow: 0 0 6px rgba(241, 222, 180, 0.9); opacity: 0.2; animation: twinkle 4s ease-in-out infinite; }
+.ground-dusk .stardust i { background: var(--glow); }
+@keyframes twinkle { 0%, 100% { opacity: 0.15; transform: scale(0.8); } 50% { opacity: 0.9; transform: scale(1.15); } }
+
+/* The scroll moon: waxes as you read */
+.scroll-moon {
+  position: fixed; right: 22px; bottom: 22px; z-index: 90; width: 52px; height: 52px; padding: 6px;
+  border: 1px solid var(--hairline); border-radius: 50%; background: rgba(248, 244, 236, 0.85);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); cursor: pointer;
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease), box-shadow 600ms var(--ease);
+}
+.scroll-moon.show { opacity: 1; transform: none; pointer-events: auto; }
+.scroll-moon svg { display: block; width: 100%; height: 100%; }
+.scroll-moon .ghost { fill: none; stroke: var(--hairline); stroke-width: 1; }
+.scroll-moon .lit { fill: var(--champagne); transition: d 300ms; }
+.scroll-moon:hover, .scroll-moon.full { box-shadow: 0 0 22px 4px rgba(241, 222, 180, 0.85); }
+@media (max-width: 760px) { .scroll-moon { right: 14px; bottom: 14px; width: 44px; height: 44px; } }
+
+/* The closing moon rises as its panel scrolls into view */
+@supports (animation-timeline: view()) {
+  .closing .moon-small { animation: moon-climb linear both; animation-timeline: view(); animation-range: entry 0% cover 60%; }
+  @keyframes moon-climb { from { transform: translateY(-10%) rotate(-10deg); opacity: 0; } to { transform: translateY(-50%) rotate(0deg); opacity: 0.85; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud, .stardust i { animation: none !important; }
+  .dust-layer { display: none; }
+}
+
+/* Real work as the hero: no moon or stars behind it */
+.hero { background: var(--ivory); }
+.slot.is-cutout { background: transparent; }
+.slot.is-cutout:not(.floating) { background: var(--sand); }
+.slot.is-cutout:not(.floating) img { padding: 7%; }
+.ground-bone .slot.is-cutout:not(.floating) { background: var(--sand); }
+.slot.floating { overflow: visible; }
+.hero-piece.cutout .drift { box-shadow: none; filter: drop-shadow(0 26px 30px rgba(43, 35, 29, 0.22)); }
+.hero-piece .slot img { transition: transform 900ms var(--ease); }
+.hero-piece:hover .slot img { transform: scale(1.04); }
+.hero-copy { background: radial-gradient(closest-side, rgba(248, 244, 236, 0.92), rgba(248, 244, 236, 0)); padding: var(--space-6) var(--space-7); }
+@media (max-width: 760px) { .hero-copy { padding: var(--space-5) var(--gutter); } }
+
+/* Work: masonry at natural proportions */
+.work-masonry { columns: 3; column-gap: var(--space-4); }
+.work-piece { break-inside: avoid; margin: 0 0 var(--space-5); display: block; }
+.work-piece .frame { position: relative; width: 100%; }
+.work-piece figcaption { margin-top: 10px; }
+@media (max-width: 1000px) { .work-masonry { columns: 2; } }
+@media (max-width: 560px) { .work-masonry { columns: 1; } }
+.work-filter { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 var(--space-5); }
+.work-filter .chip { font-size: 17px; display: inline-flex; align-items: baseline; gap: 10px; }
+.work-filter .count { font: 400 12px/1 var(--font-sans); color: var(--taupe); }
+.work-filter .chip[aria-pressed='true'] .count { color: var(--sand); }
+
+/* Our story (long form) */
+.story-layout { display: grid; grid-template-columns: 5fr 7fr; gap: var(--space-7); align-items: start; }
+.story-aside { position: sticky; top: 120px; }
+.story-photo { margin: var(--space-5) 0 0; aspect-ratio: 3 / 4; max-width: 420px; }
+.story-text { max-width: 36em; }
+.story-text p { margin: 0 0 1.2em; }
+.story-text .lede { font-size: clamp(19px, 1.7vw, 22px); margin-bottom: 1.2em; }
+.story-text .pull { margin: var(--space-6) 0; padding-left: var(--space-4); border-left: 1px solid var(--champagne); }
+.story-highlight { font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 32px); line-height: 1.3; margin: var(--space-6) 0 !important; }
+.story-sign { font-family: var(--font-display); font-style: italic; font-size: clamp(22px, 2vw, 28px); line-height: 1.3; }
+@media (max-width: 900px) {
+  .story-layout { grid-template-columns: 1fr; gap: var(--space-5); }
+  .story-aside { position: static; }
+}
+
+/* A client across services; Instagram cards */
+.featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.featured-item { display: block; text-decoration: none; color: inherit; }
+.featured-item .media { aspect-ratio: 4 / 5; position: relative; }
+.featured-item h3 { font-size: 28px; line-height: 1.1; }
+.ig-card {
+  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px;
+  background: var(--bone); border: 1px solid var(--hairline); text-align: center; padding: var(--space-4);
+  transition: background var(--t-fast);
+}
+.featured-item:hover .ig-card { background: var(--sand); }
+.ig-card b { font: 400 clamp(24px, 2.4vw, 34px)/1.15 var(--font-display); word-break: break-word; }
+.ground-bone .ig-card { background: var(--ivory); }
+@media (max-width: 900px) { .featured-grid { grid-template-columns: 1fr; } .featured-item .media { aspect-ratio: 4 / 3; } }
+
+.featured-item .media.feed { aspect-ratio: 3 / 4; border: 1px solid var(--hairline); }
+.featured-item .media.feed img { object-position: top; }
+
+/* --------------------------------------------------------------------------
+   Muted magic: clouds, stardust and sparkles (v11)
+   Everything here sits behind the work and the logo, at low strength.
+   -------------------------------------------------------------------------- */
+
+.hero { isolation: isolate; }
+.hero-glow {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(38% 34% at 50% 46%, rgba(241, 222, 180, 0.42), rgba(241, 222, 180, 0) 70%),
+    radial-gradient(70% 50% at 50% 100%, rgba(230, 218, 199, 0.45), rgba(230, 218, 199, 0) 70%);
+}
+.hero .stardust { z-index: 1; }
+.hero .clouds { z-index: 1; transform: translateY(calc(var(--part, 0) * -80px)); opacity: calc(1 - var(--part, 0) * 0.6); }
+.hero .sparkles { z-index: 6; }
+
+/* stardust: smaller, quieter */
+.stardust i { opacity: 0.12; box-shadow: 0 0 4px rgba(241, 222, 180, 0.7); animation-name: twinkle-soft; }
+@keyframes twinkle-soft { 0%, 100% { opacity: 0.1; transform: scale(0.7); } 50% { opacity: 0.6; transform: scale(1); } }
+.ground-dusk .stardust i { box-shadow: 0 0 6px rgba(241, 222, 180, 0.6); }
+
+/* clouds: slower, softer */
+.cloud img { filter: saturate(0.85); }
+.ground-dusk .clouds .cloud img { filter: brightness(0.9) saturate(0.6); }
+
+/* sparkles */
+.sparkles { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.sparkles svg { position: absolute; fill: var(--champagne); opacity: 0.18; transform: scale(0.7) rotate(0deg); animation: sparkle 6.5s ease-in-out infinite; filter: drop-shadow(0 0 4px rgba(241, 222, 180, 0.9)); }
+.ground-dusk .sparkles svg { fill: var(--glow); }
+@keyframes sparkle {
+  0%, 100% { opacity: 0.22; transform: scale(0.65) rotate(0deg); }
+  45% { opacity: 0.85; transform: scale(1) rotate(20deg); }
+  60% { opacity: 0.45; transform: scale(0.85) rotate(30deg); }
+}
+.has-clouds > .sparkles { z-index: 0; }
+
+@media (max-width: 760px) {
+  .hero .clouds .cloud { width: 70vw !important; }
+  .sparkles svg:nth-child(n+4) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sparkles svg { animation: none; opacity: 0.35; }
+}

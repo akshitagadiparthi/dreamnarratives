@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import HeroGallery from '@/components/HeroGallery';
-import { ServiceRow, ProcessSteps, Closing } from '@/components/Sections';
-import { Slot, TwoLine } from '@/components/Basics';
+import { ServiceRow, ProcessSteps, Closing, FeaturedClient } from '@/components/Sections';
+import { Slot, TwoLine, Clouds, Sparkles } from '@/components/Basics';
 import { services, bespoke } from '@/content/services';
-import { founders, story, testimonials } from '@/content/studio';
+import { story, testimonials, featured } from '@/content/studio';
 import { site } from '@/content/site';
 
 export default function Home() {
@@ -15,10 +15,13 @@ export default function Home() {
         lede={site.tagline}
         primary={{ label: 'Start your story', href: '/enquiries' }}
         secondary={{ label: 'Explore our work', href: '/what-we-do' }}
+        logo={site.logo}
       />
 
       {/* Studio statement */}
-      <section id="studio" className="section center" aria-labelledby="statement">
+      <section id="studio" className="section center has-clouds" aria-labelledby="statement">
+        <Clouds set="section" />
+        <Sparkles items={[[18, 22, 10, 0.5], [82, 30, 13, 1.8], [74, 78, 8, 2.6]]} />
         <div className="container reveal">
           <span className="eyebrow">A design house</span>
           <h2 id="statement" className="heading" style={{ maxWidth: '18em', margin: '0 auto' }}>
@@ -26,7 +29,7 @@ export default function Home() {
           </h2>
           <hr className="rule center" />
           <p className="lede">
-            One studio, one story told wherever it appears: the card your guests open, the gift they carry home, the brand you build, the feed that carries it, and the room where it all lives.
+            Across every form of design, our starting point is always the person behind the brief—their ideas, memories, taste, and hopes for what we can create together.
           </p>
         </div>
       </section>
@@ -38,8 +41,11 @@ export default function Home() {
         ))}
       </div>
 
+      <FeaturedClient featured={featured} />
+
       {/* Bespoke: an open door */}
-      <section className="section tight center" aria-labelledby="bespoke-title">
+      <section className="section tight center has-clouds" aria-labelledby="bespoke-title">
+        <Clouds set="low" />
         <div className="container reveal">
           <span className="eyebrow">{bespoke.eyebrow}</span>
           <h2 id="bespoke-title" className="heading">
@@ -53,9 +59,9 @@ export default function Home() {
       {/* Founders preview */}
       <section className="section ground-bone" aria-labelledby="story-title">
         <div className="container founder-preview">
-          {founders.map((f, i) => (
-            <figure key={f.name} className={`media reveal${i === 1 ? ' offset' : ''}`} style={{ margin: 0, '--delay': `${i * 150}ms` }}>
-              <Slot item={{ src: f.portrait, caption: f.name }} sizes="(max-width: 1000px) 50vw, 30vw" />
+          {story.photos.map((p, i) => (
+            <figure key={p.src} className={`media reveal${i === 1 ? ' offset' : ''}`} style={{ margin: 0, '--delay': `${i * 150}ms` }}>
+              <Slot item={p} sizes="(max-width: 1000px) 50vw, 30vw" />
             </figure>
           ))}
           <div className="copy reveal" style={{ '--delay': '300ms' }}>
@@ -65,7 +71,7 @@ export default function Home() {
               {story.body.map((p) => <p key={p.slice(0, 20)}>{p}</p>)}
             </div>
             <blockquote className="pull" style={{ fontSize: 'clamp(24px, 2.4vw, 32px)', margin: 'var(--space-4) 0 var(--space-5)' }}>“{story.quote}”</blockquote>
-            <Link href="/who-we-are" className="text-link">Meet Driti &amp; Nimisha</Link>
+            <Link href="/who-we-are#our-story" className="text-link">Read our story</Link>
           </div>
         </div>
       </section>

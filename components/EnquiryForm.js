@@ -89,8 +89,8 @@ function Field({ f, value, onChange, error, whatsapp, setWhatsapp }) {
   );
 }
 
-export default function EnquiryForm({ initial }) {
-  const [service, setService] = useState(formOrder.includes(initial) ? initial : null);
+export default function EnquiryForm() {
+  const [service, setService] = useState(null);
   const [values, setValues] = useState({});
   const [whatsapp, setWhatsapp] = useState(true);
   const [errors, setErrors] = useState({});
@@ -102,6 +102,13 @@ export default function EnquiryForm({ initial }) {
 
   const def = service ? forms[service] : null;
   const fields = useMemo(() => (def ? [...sharedTop, ...def.fields, ...sharedBottom] : []), [def]);
+
+  // Arriving from a service page (?service=space) preselects that form.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get('service');
+    const start = q === 'telling' ? 'identity' : q;
+    if (formOrder.includes(start)) setService(start);
+  }, []);
 
   useEffect(() => {
     if (status === 'done') doneRef.current?.focus();
@@ -145,6 +152,12 @@ export default function EnquiryForm({ initial }) {
     });
     data.WhatsApp = whatsapp ? 'Yes' : 'No';
     try {
+      // Preview builds have no server: show the thank-you without sending.
+      if (process.env.NEXT_PUBLIC_PREVIEW === '1') {
+        await new Promise((r) => setTimeout(r, 600));
+        setStatus('done');
+        return;
+      }
       const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

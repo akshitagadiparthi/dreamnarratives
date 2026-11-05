@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Slot } from '@/components/Basics';
-import { Closing, PairedWith, ProcessSteps } from '@/components/Sections';
+import WorkGallery from '@/components/WorkGallery';
+import { Closing, PairedWith, ProcessSteps, Accounts } from '@/components/Sections';
 import { services, getService } from '@/content/services';
 import { founders } from '@/content/studio';
 import { site } from '@/content/site';
@@ -20,13 +21,15 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// Sizes cycle through an editorial rhythm; works with any number of items.
-const rhythm = ['s-a', 's-b', 's-c', 's-d', 's-e', 's-f'];
 
 export default async function ServicePage({ params }) {
   const { slug } = await params;
   const s = getService(slug);
   if (!s) notFound();
+  // Feeds already shown as account cards aren't repeated in the gallery.
+  const accountImages = new Set((s.accounts || []).map((a) => a.image));
+  const work = s.work.filter((w) => !accountImages.has(w.src));
+  const hasRealWork = work.some((w) => w.src || w.video);
   const lead = s.leadBy ? founders.find((f) => f.name === s.leadBy) : null;
 
   return (
@@ -70,27 +73,24 @@ export default async function ServicePage({ params }) {
         </div>
       </section>
 
-      <section id="work" className="section" aria-labelledby="work-title">
-        <div className="container">
-          <div className="section-head reveal">
-            <div>
-              <span className="eyebrow">Selected work</span>
-              <h2 id="work-title" className="heading">
-                Stories we’ve <em>designed.</em>
-              </h2>
+      {s.accounts ? <Accounts accounts={s.accounts} id={hasRealWork ? 'accounts' : 'work'} /> : null}
+
+      {hasRealWork || !s.accounts ? (
+        <section id="work" className="section" aria-labelledby="work-title">
+          <div className="container">
+            <div className="section-head reveal">
+              <div>
+                <span className="eyebrow">Selected work</span>
+                <h2 id="work-title" className="heading">
+                  Stories we’ve <em>designed.</em>
+                </h2>
+              </div>
+              <a href={`https://instagram.com/${site.contact.instagram}`} className="text-link" target="_blank" rel="noopener noreferrer">More on Instagram</a>
             </div>
-            <a href={`https://instagram.com/${site.contact.instagram}`} className="text-link" target="_blank" rel="noopener noreferrer">More on Instagram</a>
+            <WorkGallery work={work} />
           </div>
-          <div className="work-grid">
-            {s.work.map((w, i) => (
-              <figure key={i} className={`work-item ${rhythm[i % rhythm.length]} reveal`} style={{ '--delay': `${(i % 3) * 100}ms` }} data-cursor="view">
-                <Slot item={w} tone={i % 3 === 1 ? 'bone' : i % 3 === 2 ? 'line' : ''} className="zoom" sizes="(max-width: 900px) 50vw, 40vw" />
-                {w.caption && (w.src || w.video) ? <figcaption className="caption">{w.caption}</figcaption> : null}
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       <ProcessSteps ground="ground-bone" />
       <PairedWith slugs={s.pairs} />

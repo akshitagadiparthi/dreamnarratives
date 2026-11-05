@@ -2,11 +2,13 @@
 // The five services. Order here is the order everywhere on the site, and none
 // is numbered: the studio's rule is that no service outranks another.
 //
-// ADDING WORK: put images in /public/work/<slug>/ and list them in `work`,
-// e.g. { src: '/work/invitation/sharma-suite.jpg', caption: 'Hand-foiled suite' }.
-// Video invites can use { video: '/work/invitation/reveal.mp4', poster: '…jpg' }.
-// Any item without src/video shows an elegant placeholder.
+// ADDING WORK: you don't need to edit this file. Put photos/videos in
+// incoming/<folder>/ and run `npm run images`; it fills content/work.json and
+// the work appears automatically. The `work` lists below are placeholders
+// used only until real work exists for that service.
 // ---------------------------------------------------------------------------
+
+import realWork from './work.json';
 
 export const services = [
   {
@@ -67,55 +69,37 @@ export const services = [
   {
     slug: 'identity',
     name: ['The', 'Identity'],
-    label: 'Branding',
+    label: 'Branding & Social',
     leadBy: 'Nimisha',
-    promise: 'Who you are, made visible.',
+    promise: 'Who you are, and how your story travels.',
     intro:
-      'A brand is a story people recognise before they read a word. We shape the visual language that tells yours: the mark, the colours, the type and the tone, so every place your brand appears feels unmistakably you.',
+      'A brand is a story people recognise before they read a word. We shape the visual language that tells yours, from the mark, colours and type to the tone of every post, then carry it into the world through social media that people want to follow.',
     offers: [
       'Brand identity & visual language',
       'Logo & wordmark',
-      'Creative direction',
       'Brand stationery & packaging',
-      'Brand guidelines',
+      'Social media management',
+      'Content strategy & creation',
+      'Marketing campaigns',
     ],
-    short: 'Branding',
+    short: 'Branding · Social media',
     hero: { src: null, caption: 'Brand identity' },
     work: [
       { src: null, caption: 'Brand identity' },
-      { src: null, caption: 'Wordmark' },
-      { src: null, caption: 'Packaging' },
-      { src: null, caption: 'Stationery' },
-      { src: null, caption: 'Brand guidelines' },
-      { src: null, caption: 'Creative direction' },
-    ],
-    pairs: ['telling', 'space'],
-  },
-  {
-    slug: 'telling',
-    name: ['The', 'Telling'],
-    label: 'Marketing',
-    leadBy: 'Nimisha',
-    promise: 'How your story travels.',
-    intro:
-      'Social media management, content strategy and campaigns that carry your brand into the world with the same care it was made with. We plan, design and tell, so your feed reads like a story people want to follow.',
-    offers: [
-      'Social media management',
-      'Social media design',
-      'Content strategy',
-      'Marketing campaigns',
-    ],
-    short: 'Social media',
-    hero: { src: null, caption: 'Social media' },
-    work: [
       { src: null, caption: 'Instagram feed' },
+      { src: null, caption: 'Packaging' },
       { src: null, caption: 'Campaign' },
-      { src: null, caption: 'Reel' },
+      { src: null, caption: 'Stationery' },
       { src: null, caption: 'Content shoot' },
-      { src: null, caption: 'Launch campaign' },
-      { src: null, caption: 'Social design' },
     ],
-    pairs: ['identity', 'invitation'],
+    pairs: ['invitation', 'space'],
+    // Instagram accounts the studio builds and manages. `image` is a screenshot
+    // of the feed (kept in content/work.json under "identity").
+    accounts: [
+      { handle: 'verdant.stationery', name: 'Verdant Group', note: 'Stationery & office supplies', image: '/work/identity/social-media-verdant-stationery-feed.webp' },
+      { handle: 'adika.vijayawada', name: 'Adika Vijayawada', note: 'Yoga, Pilates & wellness', image: '/work/identity/social-media-adika-vijayawada-feed.webp' },
+      { handle: 'sassynary', name: 'Sassynary', note: 'Notebooks, planners & greetings', image: '/work/identity/social-media-sassynary-feed.webp' },
+    ],
   },
   {
     slug: 'space',
@@ -146,6 +130,16 @@ export const services = [
   },
 ];
 
+// Real work replaces placeholders wherever it exists.
+for (const s of services) {
+  const real = realWork[s.slug];
+  if (real?.length) {
+    real.forEach((w) => { w.alt = w.caption ? `${w.caption}, ${s.name.join(' ')} by Dream Narratives` : `${s.name.join(' ')} work by Dream Narratives`; });
+    s.hero = real.find((w) => w.hero) || real.find((w) => w.src) || real[0];
+    s.work = real.filter((w) => w !== s.hero || real.length === 1);
+  }
+}
+
 export const getService = (slug) => services.find((s) => s.slug === slug);
 
 // The Figma draft's "Bespoke Projects": not a service of its own, but an open door.
@@ -156,8 +150,9 @@ export const bespoke = {
 };
 
 // Pieces that drift around the moon on the home page: a mix from every service.
-// Swap `src` for real images as they arrive. Positions are % of the hero.
-export const heroPieces = [
+// Each piece shows real work from its service once there is some.
+// Positions are % of the hero.
+const pieces = [
   { service: 'invitation', caption: 'E-invite', src: null, left: 5, top: 17, w: 170, h: 230, tone: '', d: 22, x: 12, y: -14, r0: -2, r1: 1, m: [5, 13] },
   { service: 'identity', caption: 'Stationery', src: null, left: 25, top: 14, w: 120, h: 84, tone: 'line', d: 27, x: 12, y: 10, r0: -2, r1: 1 },
   { service: 'space', caption: 'Interior', src: null, left: 71, top: 14, w: 210, h: 150, tone: '', d: 26, x: -16, y: 10, r0: 1, r1: 3 },
@@ -165,6 +160,29 @@ export const heroPieces = [
   { service: 'invitation', caption: 'Video invite', src: null, left: 2, top: 50, w: 110, h: 150, tone: 'line', d: 32, x: 16, y: 8, r0: -1, r1: 1, front: true },
   { service: 'gift', caption: 'Hamper', src: null, left: 18, top: 62, w: 150, h: 190, tone: 'bone', d: 28, x: -10, y: 12, r0: 2, r1: -1, m: [64, 79] },
   { service: 'identity', caption: 'Brand mark', src: null, left: 35, top: 80, w: 120, h: 86, tone: '', d: 30, x: 14, y: -8, r0: 0, r1: 2, front: true },
-  { service: 'telling', caption: 'Social', src: null, left: 60, top: 72, w: 180, h: 130, tone: 'bone', d: 24, x: -12, y: -10, r0: 2, r1: -2, m: [6, 81] },
+  { service: 'identity', caption: 'Social', src: null, left: 60, top: 72, w: 180, h: 130, tone: 'bone', d: 24, x: -12, y: -10, r0: 2, r1: -2, m: [6, 81] },
   { service: 'invitation', caption: 'Physical card', src: null, left: 81, top: 55, w: 140, h: 190, tone: 'line', d: 20, x: 10, y: -12, r0: -3, r1: 0, m: [72, 15] },
 ];
+
+// Once there is real work, the floating tiles show only real work: the best
+// pieces (heroes, then cut-out product shots) take the largest positions, and
+// services are interleaved so the hero always shows the studio's range.
+const rank = (w) => (w.hero ? 0 : w.cutout ? 1 : 2);
+const queues = services
+  .map((s) => (realWork[s.slug] || []).filter((w) => w.src && w.inHero !== false).map((w) => ({ ...w, service: s.slug })).sort((a, b) => rank(a) - rank(b)))
+  .filter((q) => q.length);
+const pool = [];
+while (queues.some((q) => q.length)) queues.forEach((q) => q.length && pool.push(q.shift()));
+
+export const heroPieces = pool.length
+  ? [...pieces]
+      .sort((a, b) => b.w - a.w)
+      .slice(0, pool.length)
+      .map((p, i) => {
+        const w = pool[i];
+        const width = Math.round(p.w * 1.25);
+        const natural = Math.round((width * w.height) / w.width);
+        // Photos are cropped to at most 4:5 so tall shots don't run off the screen.
+        return { ...p, ...w, w: width, h: w.cutout ? natural : Math.min(natural, Math.round(width * 1.25)) };
+      })
+  : pieces;
