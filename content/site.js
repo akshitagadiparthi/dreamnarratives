@@ -6,23 +6,28 @@
 
 export const site = {
   name: 'Dream Narratives',
-  byline: 'by Driti & Nimisha',
+  byline: 'by Nimisha & Driti',
   tagline: 'Narrating dreams through design.',
   footerLine: 'A childhood dream, thoughtfully designed into reality.',
   description:
-    'Dream Narratives is a design house in Vijayawada by Driti and Nimisha: wedding invitations and e-invites, curated hampers, branding and social media, and architecture and interiors, for families and brands across Andhra Pradesh and Telangana.',
+    'Dream Narratives is a design house in Vijayawada by Nimisha Lingamaneni and Driti Thyagaraj: wedding invitations, e-invites, video invites and wedding logos, curated hampers, branding and social media marketing, and architecture and interiors, for families and brands across Andhra Pradesh and Telangana.',
   city: 'Vijayawada',
   region: 'Andhra Pradesh',
   country: 'IN',
   founded: '2026-01',
-  founders: ['Driti', 'Nimisha'],
+  founders: ['Nimisha Lingamaneni', 'Driti Thyagaraj'],
   areaServed: ['Vijayawada', 'Guntur', 'Amaravati', 'Visakhapatnam', 'Hyderabad', 'Andhra Pradesh', 'Telangana'],
   keywords: [
-    'Dream Narratives', 'Dream Narratives Vijayawada', 'Driti', 'Nimisha', 'Driti and Nimisha',
-    'design studio Vijayawada', 'wedding invitations Vijayawada', 'e-invites Vijayawada', 'wedding invitation designer Vijayawada',
-    'video invitations', 'Telugu wedding invitations', 'pelli pathrika', 'wedding hampers Vijayawada', 'gift hampers Vijayawada',
-    'branding agency Vijayawada', 'social media management Vijayawada', 'interior designer Vijayawada', 'architecture Vijayawada',
+    // The studio
+    'Dream Narratives', 'Dream Narratives Vijayawada', 'Dream Narratives Studio', 'design house Vijayawada', 'design studio Vijayawada', 'designer Vijayawada',
+    // The founders: Nimisha for marketing, Driti for architecture, both for design
+    'Nimisha Lingamaneni', 'Nimisha Lingamaneni marketing', 'Nimisha Lingamaneni designer', 'marketing Vijayawada', 'digital marketing Vijayawada', 'social media marketing Vijayawada', 'marketing agency Vijayawada',
+    'Driti Thyagaraj', 'Driti Thyagaraj architect', 'Driti Thyagaraj designer', 'architect Vijayawada', 'architecture Vijayawada', 'interior designer Vijayawada', 'interior design Vijayawada',
+    // Design, which leads to invitations
+    'wedding invitation designer Vijayawada', 'invitation design Vijayawada', 'wedding invitations Vijayawada', 'e-invites Vijayawada', 'video invitations Vijayawada', 'wedding logo design', 'wedding monogram',
+    'Telugu wedding invitations', 'pelli pathrika', 'wedding hampers Vijayawada', 'gift hampers Vijayawada', 'branding agency Vijayawada', 'logo design Vijayawada', 'graphic design Vijayawada',
   ],
+
   // The live address. Set NEXT_PUBLIC_SITE_URL in Vercel once a custom domain is connected.
   url:
     process.env.NEXT_PUBLIC_SITE_URL ||
@@ -43,7 +48,7 @@ export const nav = [
   { label: 'Home', href: '/' },
   { label: 'Who are we?', href: '/who-we-are' },
   { label: 'What do we do?', href: '/what-we-do', services: true },
-  { label: 'Monogram', href: '/monogram', sparkle: true },
+  { label: 'Monogram', href: '/monogram', free: true /* shown with a small “Free” tag */ },
   { label: 'Contact us', href: '/contact' },
 ];
 

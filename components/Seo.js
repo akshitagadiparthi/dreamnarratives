@@ -16,11 +16,14 @@ export function founderSchema(f) {
   return {
     '@type': 'Person',
     '@id': abs(`/who-we-are#${f.name.toLowerCase()}`),
-    name: f.name,
+    name: f.fullName || f.name,
+    givenName: f.name,
+    familyName: f.fullName ? f.fullName.split(' ').slice(1).join(' ') : undefined,
+    alternateName: f.name,
     jobTitle: f.role,
     image: f.portrait ? abs(f.portrait) : undefined,
     worksFor: { '@id': orgId() },
-    knowsAbout: f.tags,
+    knowsAbout: f.knowsAbout || f.tags,
     homeLocation: { '@type': 'City', name: site.city },
   };
 }

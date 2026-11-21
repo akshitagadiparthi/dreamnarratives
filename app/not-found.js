@@ -1,13 +1,10 @@
 import Link from 'next/link';
-import { Crescent, Clouds } from '@/components/Basics';
 
 export default function NotFound() {
   return (
-    <section className="page-top section center has-clouds">
-      <Clouds set="section" />
+    <section className="page-top section center">
       <div className="container">
-        <Crescent size={56} phase={0} />
-        <span className="eyebrow" style={{ marginTop: 'var(--space-4)' }}>Page not found</span>
+        <span className="eyebrow">Page not found</span>
         <h1 className="display-l">
           This page is still
           <br />

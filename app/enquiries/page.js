@@ -21,7 +21,7 @@ export default function Enquiries() {
         <div className="container">
           <EnquiryForm />
           <p className="caption" style={{ marginTop: 'var(--space-6)', maxWidth: '40em' }}>
-            {site.contact.responseTime} For wedding and event projects, we recommend reaching out as early as possible to ensure availability. Once you send it, you’ll see Driti and Nimisha’s direct numbers and WhatsApp.
+            {site.contact.responseTime} For wedding and event projects, we recommend reaching out as early as possible to ensure availability. Once you send it, you’ll see Nimisha and Driti’s direct numbers and WhatsApp.
           </p>
         </div>
       </section>

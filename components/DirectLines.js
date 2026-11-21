@@ -55,10 +55,10 @@ export default function DirectLines() {
   if (contact) return <DirectLinesList contact={contact} />;
   return (
     <div className="locked-lines">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z" /></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2" /><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5M12 14.5v2.5" /></svg>
       <div>
         <span className="eyebrow" style={{ margin: 0 }}>Phone &amp; WhatsApp</span>
-        <p>Driti and Nimisha share their direct numbers once you’ve told us a little about your project. It keeps their phones for the people they’re designing for.</p>
+        <p>Nimisha and Driti share their direct numbers once you’ve told us a little about your project. It keeps their phones for the people they’re designing for.</p>
         <Link href="/enquiries" className="text-link">Send an enquiry to unlock</Link>
       </div>
     </div>

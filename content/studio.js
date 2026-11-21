@@ -7,10 +7,13 @@
 export const founders = [
   {
     name: 'Nimisha',
+    fullName: 'Nimisha Lingamaneni',
     role: 'Creative & Marketing Director',
+    // What search engines are told she is known for (Person schema).
+    knowsAbout: ['Marketing', 'Digital marketing', 'Social media marketing', 'Brand marketing', 'Branding', 'Content strategy', 'Design', 'Graphic design', 'Invitation design', 'Wedding invitation design'],
     portrait: '/images/nimisha.webp',
     bio: [
-      'Nimisha turns stories into brands people remember. With deep expertise in digital marketing, creative direction and content strategy, she crafts narratives that resonate, translating a brand’s soul into visuals, words and campaigns that stick.',
+      'Nimisha Lingamaneni turns stories into brands people remember. A marketer and designer, with deep expertise in digital marketing, creative direction and content strategy, she crafts narratives that resonate, translating a brand’s soul into visuals, words and campaigns that stick.',
       'She leads The Identity, from the first sketch of a logo to the feed that carries it, and makes sure every story the studio designs finds the people it was meant for.',
     ],
     tags: ['Digital marketing', 'Branding', 'Content strategy', 'Creative campaigns'],
@@ -19,10 +22,12 @@ export const founders = [
   },
   {
     name: 'Driti',
+    fullName: 'Driti Thyagaraj',
     role: 'Creative Director',
+    knowsAbout: ['Architecture', 'Architectural design', 'Interior design', 'Interior architecture', 'Space planning', 'Spatial design', 'Design', 'Invitation design', 'Wedding invitation design'],
     portrait: '/images/driti.webp',
     bio: [
-      'Driti sees stories in spaces. As Creative Director specialising in architecture, interior design and spatial storytelling, she brings an architectural eye to every project, finding beauty in proportion, texture and the quiet language of rooms.',
+      'Driti Thyagaraj sees stories in spaces. An architect and designer, and Creative Director specialising in architecture, interior design and spatial storytelling, she brings an architectural eye to every project, finding beauty in proportion, texture and the quiet language of rooms.',
       'She leads The Space, and her sense of proportion shapes everything the studio makes, from the fold of a card to the layout of a home.',
     ],
     tags: ['Architecture', 'Interior design', 'Spatial storytelling', 'Design concepts'],
@@ -37,14 +42,14 @@ export const story = {
   title: ['Before it had a name,', 'it was our “big fish.”'],
   // Short version, used on the home page.
   body: [
-    'In January 2026, the dream we had carried since high school became Dream Narratives—a design house by Driti and Nimisha.',
+    'In January 2026, the dream we had carried since high school became Dream Narratives—a design house by Nimisha Lingamaneni and Driti Thyagaraj.',
   ],
   quote: 'Every dream has a story. We narrate them through our designs.',
   photos: [
     { src: '/images/founders-walking.webp', alt: 'Driti and Nimisha laughing together as they walk across a lawn' },
     { src: '/images/founders-bench.webp', alt: 'Nimisha standing and Driti seated on a mosaic bench, sharing a laugh' },
   ],
-  wide: { src: '/images/founders-wide.webp', alt: 'Driti and Nimisha sharing a laugh in a garden' },
+  wide: { src: '/images/founders-wide.webp', alt: 'Nimisha Lingamaneni and Driti Thyagaraj sharing a laugh in a garden' },
   // Short version for Who are we?, in the founders' own words.
   short: 'Two best friends in school with a little pact: to start a business together someday. College took us in different directions, Driti to architecture and interiors, Nimisha to marketing and visual communication. Back home in Vijayawada, we picked the dream up again, and in January 2026 our “big fish” became Dream Narratives.',
 };

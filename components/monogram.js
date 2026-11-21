@@ -1,72 +1,50 @@
 // Draws a wedding monogram onto a canvas. Pure drawing code, shared by the
-// Monogram Studio page and the little preview on the home page.
+// Monogram Studio page and the preview on the home page.
 
 export const STYLES = [
-  { id: 'moonlit', label: 'Moonlit' },
-  { id: 'classic', label: 'Classic' },
-  { id: 'script', label: 'Script' },
+  { id: 'editorial', label: 'Editorial', css: { fontFamily: '"Bodoni Moda Variable", serif', fontWeight: 700 } },
+  { id: 'heritage', label: 'Heritage', css: { fontFamily: 'Cinzel, serif', fontWeight: 500 } },
+  { id: 'romance', label: 'Romance', css: { fontFamily: '"Great Vibes", cursive', fontSize: '1.5em' } },
+  { id: 'classic', label: 'Classic', css: { fontFamily: '"Cormorant Garamond", serif', fontStyle: 'italic', fontWeight: 500 } },
+  { id: 'modern', label: 'Modern', css: { fontFamily: 'Italiana, serif' } },
+  { id: 'crest', label: 'Crest', css: { fontFamily: '"Playfair Display", serif', fontWeight: 500 } },
 ];
 export const GROUNDS = [
-  { id: 'ivory', label: 'Ivory' },
-  { id: 'night', label: 'Night' },
+  { id: 'cream', label: 'Cream' },
+  { id: 'stone', label: 'Stone' },
+  { id: 'black', label: 'Black' },
 ];
 
-const FONTS = {
-  display: '"Bodoni Moda Variable", "Bodoni Moda", Didot, Georgia, serif',
-  script: '"Pinyon Script", "Snell Roundhand", cursive',
+const F = {
+  bodoni: '"Bodoni Moda Variable", "Bodoni Moda", Didot, Georgia, serif',
+  cinzel: 'Cinzel, "Trajan Pro", Georgia, serif',
+  vibes: '"Great Vibes", "Snell Roundhand", cursive',
+  cormorant: '"Cormorant Garamond", Garamond, Georgia, serif',
+  italiana: 'Italiana, Didot, Georgia, serif',
+  playfair: '"Playfair Display", Georgia, serif',
   sans: 'Jost, "Avenir Next", system-ui, sans-serif',
+};
+
+const PALETTE = {
+  cream: { bg: '#efece7', ink: '#141413', line: '#8a8176', soft: 'rgba(20, 20, 19, 0.45)' },
+  stone: { bg: '#d6cfc4', ink: '#141413', line: '#6b645b', soft: 'rgba(20, 20, 19, 0.5)' },
+  black: { bg: '#151514', ink: '#efece7', line: '#a9a29a', soft: 'rgba(239, 236, 231, 0.55)' },
 };
 
 export async function loadMonogramFonts() {
   if (!document.fonts) return;
   await Promise.all([
-    document.fonts.load(`400 200px ${FONTS.display}`),
-    document.fonts.load(`italic 400 200px ${FONTS.display}`),
-    document.fonts.load(`400 200px ${FONTS.script}`),
-    document.fonts.load(`500 24px ${FONTS.sans}`),
+    document.fonts.load(`700 200px ${F.bodoni}`),
+    document.fonts.load(`italic 400 200px ${F.bodoni}`),
+    document.fonts.load(`500 200px ${F.cinzel}`),
+    document.fonts.load(`400 200px ${F.vibes}`),
+    document.fonts.load(`italic 500 200px ${F.cormorant}`),
+    document.fonts.load(`italic 400 200px ${F.cormorant}`),
+    document.fonts.load(`400 200px ${F.italiana}`),
+    document.fonts.load(`500 200px ${F.playfair}`),
+    document.fonts.load(`italic 500 200px ${F.playfair}`),
+    document.fonts.load(`500 24px ${F.sans}`),
   ]).catch(() => {});
-}
-
-const STAR_D = 'M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z';
-let STAR = null; // created in the browser only
-
-function sparkle(ctx, x, y, size, color) {
-  ctx.save();
-  ctx.translate(x - size / 2, y - size / 2);
-  ctx.scale(size / 24, size / 24);
-  ctx.fillStyle = color;
-  ctx.shadowColor = 'rgba(241, 222, 180, 0.9)';
-  ctx.shadowBlur = 12;
-  if (!STAR) STAR = new Path2D(STAR_D);
-  ctx.fill(STAR);
-  ctx.restore();
-}
-
-function crescent(ctx, cx, cy, r, color, cut = 0.8) {
-  // Draw the disc, bite the shadow out of it on a scratch canvas, then glow it in.
-  const pad = r * 0.4;
-  const size = Math.ceil(2 * (r + pad));
-  const off = document.createElement('canvas');
-  off.width = size;
-  off.height = size;
-  const o = off.getContext('2d');
-  const ox = size / 2, oy = size / 2;
-  const g = o.createLinearGradient(ox - r, oy - r, ox + r, oy + r);
-  g.addColorStop(0, color.light);
-  g.addColorStop(1, color.deep);
-  o.fillStyle = g;
-  o.beginPath();
-  o.arc(ox, oy, r, 0, Math.PI * 2);
-  o.fill();
-  o.globalCompositeOperation = 'destination-out';
-  o.beginPath();
-  o.arc(ox + r * 0.38, oy - r * 0.16, r * cut, 0, Math.PI * 2);
-  o.fill();
-  ctx.save();
-  ctx.shadowColor = 'rgba(241, 222, 180, 0.55)';
-  ctx.shadowBlur = 40;
-  ctx.drawImage(off, cx - size / 2, cy - size / 2);
-  ctx.restore();
 }
 
 function spacedText(ctx, text, x, y, spacing) {
@@ -80,118 +58,145 @@ function spacedText(ctx, text, x, y, spacing) {
   });
 }
 
+function diamond(ctx, x, y, r) {
+  ctx.beginPath();
+  ctx.moveTo(x, y - r);
+  ctx.lineTo(x + r, y);
+  ctx.lineTo(x, y + r);
+  ctx.lineTo(x - r, y);
+  ctx.closePath();
+  ctx.fill();
+}
+
+function line(ctx, x1, y1, x2, y2) {
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+}
+
+/** A shield outline, centred on (cx, cy). */
+function shield(ctx, cx, cy, w, h) {
+  const l = cx - w / 2, r = cx + w / 2, t = cy - h / 2, b = cy + h / 2;
+  ctx.beginPath();
+  ctx.moveTo(l, t + h * 0.06);
+  ctx.quadraticCurveTo(cx, t - h * 0.04, r, t + h * 0.06);
+  ctx.lineTo(r, cy + h * 0.08);
+  ctx.bezierCurveTo(r, cy + h * 0.32, cx + w * 0.18, b - h * 0.06, cx, b);
+  ctx.bezierCurveTo(cx - w * 0.18, b - h * 0.06, l, cy + h * 0.32, l, cy + h * 0.08);
+  ctx.closePath();
+  ctx.stroke();
+}
+
 /**
- * Draws the monogram. `size` is the canvas's pixel size (square).
+ * Draws the monogram. The canvas is square; `size` comes from its width.
  * opts: { a, b, line, style, ground, watermark }
  */
-export function drawMonogram(canvas, { a = 'D', b = 'N', line = '', style = 'moonlit', ground = 'ivory', watermark = true }) {
+export function drawMonogram(canvas, { a = 'D', b = 'N', line: words = '', style = 'editorial', ground = 'cream', watermark = true }) {
   const S = canvas.width;
   const ctx = canvas.getContext('2d');
   const u = S / 1080; // design units
-  const night = ground === 'night';
-  const ink = night ? '#efe6d6' : '#2b231d';
-  const gold = night ? '#d9bb82' : '#a8854c';
-  const goldC = night ? { light: '#f3dfae', deep: '#b8904f' } : { light: '#dcc08a', deep: '#a8854c' };
+  const P = PALETTE[ground] || PALETTE.cream;
   const A = (a || '').trim().slice(0, 1).toUpperCase() || 'A';
   const B = (b || '').trim().slice(0, 1).toUpperCase() || 'B';
+  const cx = S / 2;
+  const cy = S * 0.46;
 
   ctx.clearRect(0, 0, S, S);
+  ctx.fillStyle = P.bg;
+  ctx.fillRect(0, 0, S, S);
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = P.ink;
+  ctx.strokeStyle = P.line;
+  ctx.lineCap = 'round';
 
-  // Ground
-  if (night) {
-    const g = ctx.createLinearGradient(0, 0, 0, S);
-    g.addColorStop(0, '#17120e');
-    g.addColorStop(0.6, '#211b16');
-    g.addColorStop(1, '#2e241c');
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, S, S);
-    const glow = ctx.createRadialGradient(S / 2, S * 0.45, 0, S / 2, S * 0.45, S * 0.5);
-    glow.addColorStop(0, 'rgba(241, 222, 180, 0.16)');
-    glow.addColorStop(1, 'rgba(241, 222, 180, 0)');
-    ctx.fillStyle = glow;
-    ctx.fillRect(0, 0, S, S);
-    let seed = (A.charCodeAt(0) * 31 + B.charCodeAt(0)) % 2147483647 || 7;
-    const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-    for (let i = 0; i < 90; i++) {
-      ctx.globalAlpha = 0.25 + r() * 0.7;
-      ctx.fillStyle = '#f1deb4';
-      ctx.beginPath();
-      ctx.arc(r() * S, r() * S, (0.6 + r() * 1.8) * u, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-  } else {
-    ctx.fillStyle = '#f8f4ec';
-    ctx.fillRect(0, 0, S, S);
-  }
-
-  const cx = S / 2;
-  const cy = S * 0.47;
-
-  if (style === 'moonlit') {
-    crescent(ctx, cx - 30 * u, cy - 10 * u, 330 * u, goldC);
-    ctx.fillStyle = ink;
-    ctx.font = `400 ${300 * u}px ${FONTS.display}`;
-    ctx.fillText(A, cx - 20 * u, cy + 60 * u);
-    ctx.font = `italic 400 ${300 * u}px ${FONTS.display}`;
-    ctx.fillText(B, cx + 150 * u, cy + 150 * u);
-    sparkle(ctx, cx + 250 * u, cy - 230 * u, 46 * u, gold);
-    sparkle(ctx, cx - 300 * u, cy + 230 * u, 28 * u, gold);
-    sparkle(ctx, cx + 300 * u, cy + 40 * u, 20 * u, gold);
-  } else if (style === 'classic') {
-    ctx.strokeStyle = gold;
-    ctx.lineWidth = 3 * u;
-    ctx.beginPath();
-    ctx.ellipse(cx, cy, 300 * u, 380 * u, 0, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.lineWidth = 1.2 * u;
-    ctx.beginPath();
-    ctx.ellipse(cx, cy, 282 * u, 362 * u, 0, 0, Math.PI * 2);
-    ctx.stroke();
-    sparkle(ctx, cx, cy - 380 * u, 44 * u, gold);
-    ctx.fillStyle = ink;
-    ctx.font = `400 ${250 * u}px ${FONTS.display}`;
-    ctx.fillText(A, cx - 110 * u, cy + 70 * u);
-    ctx.fillText(B, cx + 110 * u, cy + 70 * u);
-    ctx.fillStyle = gold;
-    ctx.save();
-    ctx.translate(cx, cy - 18 * u);
-    ctx.rotate(Math.PI / 4);
-    ctx.fillRect(-9 * u, -9 * u, 18 * u, 18 * u);
-    ctx.restore();
-  } else {
-    ctx.strokeStyle = gold;
+  if (style === 'editorial') {
+    // Bold Bodoni, the second letter in italic, split by a fine diagonal rule.
+    ctx.font = `700 ${380 * u}px ${F.bodoni}`;
+    ctx.fillText(A, cx - 150 * u, cy + 120 * u);
+    ctx.font = `italic 400 ${380 * u}px ${F.bodoni}`;
+    ctx.fillText(B, cx + 160 * u, cy + 150 * u);
     ctx.lineWidth = 2 * u;
+    line(ctx, cx + 70 * u, cy - 230 * u, cx - 50 * u, cy + 250 * u);
+  } else if (style === 'heritage') {
+    // Roman capitals in a double square frame with corner diamonds.
+    const half = 300 * u;
+    ctx.lineWidth = 2.5 * u;
+    ctx.strokeRect(cx - half, cy - half, half * 2, half * 2);
+    ctx.lineWidth = 1 * u;
+    ctx.strokeRect(cx - half + 18 * u, cy - half + 18 * u, half * 2 - 36 * u, half * 2 - 36 * u);
+    ctx.fillStyle = P.line;
+    [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([x, y]) => diamond(ctx, cx + x * half, cy + y * half, 12 * u));
+    ctx.fillStyle = P.ink;
+    ctx.font = `500 ${250 * u}px ${F.cinzel}`;
+    ctx.fillText(A, cx - 125 * u, cy + 88 * u);
+    ctx.fillText(B, cx + 125 * u, cy + 88 * u);
+    ctx.fillStyle = P.line;
+    diamond(ctx, cx, cy, 10 * u);
+  } else if (style === 'romance') {
+    // Flowing script, the two letters entwined.
+    ctx.font = `400 ${420 * u}px ${F.vibes}`;
+    ctx.fillText(A, cx - 175 * u, cy + 110 * u);
+    ctx.fillText(B, cx + 190 * u, cy + 170 * u);
+  } else if (style === 'classic') {
+    // Garamond italics inside a double oval.
+    ctx.lineWidth = 2.5 * u;
     ctx.beginPath();
-    ctx.arc(cx, cy, 330 * u, 0, Math.PI * 2);
+    ctx.ellipse(cx, cy, 290 * u, 370 * u, 0, 0, Math.PI * 2);
     ctx.stroke();
-    ctx.fillStyle = ink;
-    ctx.font = `400 ${470 * u}px ${FONTS.script}`;
-    ctx.fillText(A, cx - 70 * u, cy + 120 * u);
-    ctx.fillStyle = gold;
-    ctx.font = `400 ${400 * u}px ${FONTS.script}`;
-    ctx.fillText(B, cx + 110 * u, cy + 190 * u);
-    sparkle(ctx, cx + 330 * u * Math.cos(-0.8), cy + 330 * u * Math.sin(-0.8), 40 * u, gold);
+    ctx.lineWidth = 1 * u;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, 272 * u, 352 * u, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = P.ink;
+    ctx.font = `italic 500 ${300 * u}px ${F.cormorant}`;
+    ctx.fillText(A, cx - 105 * u, cy + 90 * u);
+    ctx.fillText(B, cx + 115 * u, cy + 90 * u);
+    ctx.fillStyle = P.line;
+    ctx.font = `italic 400 ${90 * u}px ${F.cormorant}`;
+    ctx.fillText('&', cx + 4 * u, cy + 200 * u);
+  } else if (style === 'modern') {
+    // Tall, fine capitals with wide spacing between two rules.
+    ctx.font = `400 ${300 * u}px ${F.italiana}`;
+    ctx.fillText(A, cx - 150 * u, cy + 105 * u);
+    ctx.fillText(B, cx + 150 * u, cy + 105 * u);
+    ctx.lineWidth = 1.5 * u;
+    line(ctx, cx, cy - 150 * u, cx, cy + 120 * u);
+    line(ctx, cx - 300 * u, cy - 230 * u, cx + 300 * u, cy - 230 * u);
+    line(ctx, cx - 300 * u, cy + 200 * u, cx + 300 * u, cy + 200 * u);
+  } else {
+    // Crest: a shield, the letters stacked, with an italic ampersand.
+    ctx.lineWidth = 2.5 * u;
+    shield(ctx, cx, cy, 520 * u, 640 * u);
+    ctx.lineWidth = 1 * u;
+    shield(ctx, cx, cy, 484 * u, 600 * u);
+    ctx.fillStyle = P.ink;
+    ctx.font = `500 ${220 * u}px ${F.playfair}`;
+    ctx.fillText(A, cx - 90 * u, cy + 10 * u);
+    ctx.font = `italic 500 ${220 * u}px ${F.playfair}`;
+    ctx.fillText(B, cx + 95 * u, cy + 190 * u);
+    ctx.fillStyle = P.line;
+    ctx.font = `italic 500 ${80 * u}px ${F.playfair}`;
+    ctx.fillText('&', cx + 70 * u, cy - 40 * u);
   }
 
   // The line underneath: a date or a few words
-  const text = (line || '').trim().slice(0, 32);
+  const text = (words || '').trim().slice(0, 32);
   if (text) {
-    ctx.fillStyle = ink;
-    if (style === 'script') {
-      ctx.font = `italic 400 ${44 * u}px ${FONTS.display}`;
+    ctx.fillStyle = P.ink;
+    if (style === 'romance' || style === 'classic') {
+      ctx.font = `italic 400 ${50 * u}px ${F.cormorant}`;
       ctx.fillText(text, cx, S * 0.9);
     } else {
-      ctx.font = `500 ${30 * u}px ${FONTS.sans}`;
+      ctx.font = `500 ${28 * u}px ${F.sans}`;
       spacedText(ctx, text.toUpperCase(), cx, S * 0.9, 9 * u);
     }
   }
 
   if (watermark) {
-    ctx.fillStyle = night ? 'rgba(239, 230, 214, 0.55)' : 'rgba(43, 35, 29, 0.45)';
-    ctx.font = `500 ${17 * u}px ${FONTS.sans}`;
+    ctx.fillStyle = P.soft;
+    ctx.font = `500 ${16 * u}px ${F.sans}`;
     spacedText(ctx, 'DREAM NARRATIVES · VIJAYAWADA', cx, S - 34 * u, 5 * u);
   }
 }

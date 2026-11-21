@@ -48,7 +48,7 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header className={`site-header${scrolled ? ' scrolled' : ''}${panel ? ' panel-open' : ''}${pathname === '/' && !scrolled && !panel && !menu ? ' over-night' : ''}`} onMouseLeave={closePanelSoon}>
+      <header className={`site-header${scrolled ? ' scrolled' : ''}${panel ? ' panel-open' : ''}`} onMouseLeave={closePanelSoon}>
         <div className="container nav-bar">
           <Wordmark />
           <nav aria-label="Main">
@@ -68,9 +68,9 @@ export default function SiteHeader() {
                   </li>
                 ) : (
                   <li key={item.href} onMouseEnter={closePanelSoon}>
-                    <Link href={item.href} aria-current={isActive(item.href) ? 'page' : undefined} className={item.sparkle ? 'nav-sparkle' : undefined}>
-                      {item.sparkle ? <svg className="nav-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z" /></svg> : null}
+                    <Link href={item.href} aria-current={isActive(item.href) ? 'page' : undefined} className={item.free ? 'nav-free' : undefined}>
                       {item.label}
+                      {item.free ? <span className="free-tag">Free</span> : null}
                     </Link>
                   </li>
                 )
@@ -114,9 +114,9 @@ export default function SiteHeader() {
         <ul>
           {nav.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} tabIndex={menu ? 0 : -1} className={item.sparkle ? 'nav-sparkle' : undefined}>
+              <Link href={item.href} tabIndex={menu ? 0 : -1} className={item.free ? 'nav-free' : undefined}>
                 {item.label}
-                {item.sparkle ? <small> · free</small> : null}
+                {item.free ? <span className="free-tag">Free</span> : null}
               </Link>
               {item.services ? (
                 <ul className="sub">

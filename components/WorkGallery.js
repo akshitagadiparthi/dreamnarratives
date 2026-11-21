@@ -8,6 +8,9 @@ const KIND_LABELS = {
   'e-invites': 'E-invites',
   'video-invites': 'Video invites',
   'physical-cards': 'Physical cards',
+  logos: 'Logos',
+  branding: 'Branding',
+  interiors: 'Interiors',
   stationery: 'Stationery',
   hampers: 'Hampers',
   'social-media': 'Social media',
@@ -50,7 +53,7 @@ export default function WorkGallery({ work }) {
         {visible.map((w, i) => (
           <figure key={w.src || w.video || i} className="work-piece reveal in" data-cursor="view">
             <div className="frame" style={{ aspectRatio: w.width && w.height ? `${w.width} / ${w.height}` : ['4 / 5', '1 / 1', '3 / 4'][i % 3] }}>
-              <Slot item={w} tone={i % 3 === 1 ? 'bone' : i % 3 === 2 ? 'line' : ''} className="zoom" sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 33vw" />
+              <Slot item={w} className="zoom" sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 33vw" />
             </div>
             {w.caption && (w.src || w.video) ? <figcaption className="caption">{w.caption}</figcaption> : null}
           </figure>

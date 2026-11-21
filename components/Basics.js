@@ -12,7 +12,7 @@ export function SplitTitle({ parts, as: Tag = 'h2', className = 'display-l', id 
   );
 }
 
-/** A two-line headline whose second line is italic. */
+/** A two-line headline whose second line is set in the italic serif. */
 export function TwoLine({ parts, as: Tag = 'h2', className = 'heading', id }) {
   const [a, b] = parts;
   return (
@@ -24,38 +24,13 @@ export function TwoLine({ parts, as: Tag = 'h2', className = 'heading', id }) {
   );
 }
 
-/** A small code-drawn crescent; phase 0 = thin crescent, 1 = full moon. */
-export function Crescent({ phase = 0, className, size = 28 }) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 40 40" aria-hidden="true">
-      <path d={crescentPath(phase)} fill="var(--champagne)" />
-    </svg>
-  );
-}
-
-/** The lit part of a 16-radius moon at (20,20), shaded by a 15-radius disc. Drawn as a path (no masks). */
-export function crescentPath(phase) {
-  const R = 16, r = 15, ax = 20, ay = 20;
-  const s = 6 + phase * 30;
-  const bx = ax + s, by = ay - s * 0.25;
-  const dx = bx - ax, dy = by - ay, d = Math.hypot(dx, dy);
-  if (d >= R + r) return `M${ax - R} ${ay}a${R} ${R} 0 1 0 ${2 * R} 0a${R} ${R} 0 1 0 ${-2 * R} 0Z`;
-  const a = (d * d - r * r + R * R) / (2 * d);
-  const h = Math.sqrt(Math.max(0, R * R - a * a));
-  const ux = dx / d, uy = dy / d;
-  const px = ax + a * ux, py = ay + a * uy;
-  const p1 = [px - h * uy, py + h * ux], p2 = [px + h * uy, py - h * ux];
-  const f = (n) => n.toFixed(2);
-  return `M${f(p1[0])} ${f(p1[1])}A${R} ${R} 0 ${a > 0 ? 1 : 0} 1 ${f(p2[0])} ${f(p2[1])}A${r} ${r} 0 ${d - a > 0 ? 0 : 1} 0 ${f(p1[0])} ${f(p1[1])}Z`;
-}
-
 /**
  * A frame for work. Shows the image or video when there is one, otherwise a
  * quiet placeholder labelled with what belongs there.
  */
-export function Slot({ item = {}, tone = '', arch = false, sizes = '(max-width: 900px) 100vw, 50vw', priority = false, className = '', float = false }) {
+export function Slot({ item = {}, tone = '', sizes = '(max-width: 900px) 100vw, 50vw', priority = false, className = '', float = false }) {
   const cutout = item.cutout && item.src;
-  const cls = ['slot', tone && `tone-${tone}`, arch && 'arch', cutout && 'is-cutout', cutout && float && 'floating', className].filter(Boolean).join(' ');
+  const cls = ['slot', tone && `tone-${tone}`, cutout && 'is-cutout', cutout && float && 'floating', className].filter(Boolean).join(' ');
   if (item.video) {
     return (
       <div className={cls}>
@@ -72,7 +47,6 @@ export function Slot({ item = {}, tone = '', arch = false, sizes = '(max-width: 
   }
   return (
     <div className={cls} role="img" aria-label={item.caption ? `${item.caption} (image coming soon)` : 'Image coming soon'}>
-      <Crescent className="slot-mark" phase={0.1} size={34} />
       {item.caption ? <span className="slot-label">{item.caption}</span> : null}
     </div>
   );
@@ -81,24 +55,15 @@ export function Slot({ item = {}, tone = '', arch = false, sizes = '(max-width: 
 export function Wordmark({ dark = false }) {
   return (
     <Link href="/" className="wordmark" aria-label={`${site.name}, home`}>
-      {site.logo ? (
-        dark ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={site.logo.light} alt={site.name} width={site.logo.width} height={site.logo.height} />
-        ) : (
-          <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="logo-ink" src={site.logo.ink} alt={site.name} width={site.logo.width} height={site.logo.height} />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="logo-light" src={site.logo.light} alt="" aria-hidden="true" width={site.logo.width} height={site.logo.height} />
-          </>
-        )
+      {dark ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={site.logo.light} alt={site.name} width={site.logo.width} height={site.logo.height} />
       ) : (
         <>
-          <b>
-            Dream <em>Narratives</em>
-          </b>
-          <small>{site.byline}</small>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="logo-ink" src={site.logo.ink} alt={site.name} width={site.logo.width} height={site.logo.height} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="logo-light" src={site.logo.light} alt="" aria-hidden="true" width={site.logo.width} height={site.logo.height} />
         </>
       )}
     </Link>
@@ -107,14 +72,12 @@ export function Wordmark({ dark = false }) {
 
 export function PageIntro({ eyebrow, title, lede, children }) {
   return (
-    <section className="page-top has-clouds">
-      <Clouds set="corner" />
-      <Sparkles items={[[86, 30, 12, 0.6], [74, 58, 8, 2]]} />
+    <section className="page-top">
       <div className="container">
         <div className="reveal">
           {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
           <TwoLine parts={title} as="h1" className="display-l" />
-          {lede ? <p className="lede" style={{ marginTop: 'var(--space-5)' }}>{lede}</p> : null}
+          {lede ? <p className="lede" style={{ marginTop: 'var(--space-4)' }}>{lede}</p> : null}
           {children}
         </div>
       </div>
@@ -122,78 +85,83 @@ export function PageIntro({ eyebrow, title, lede, children }) {
   );
 }
 
-/**
- * Soft clouds, cut from the studio's own moon artwork, drifting slowly behind
- * a section. Use only on light grounds. The parent needs `position: relative`.
- */
-const cloudSets = {
-  // The hero's cloud layer runs past the bottom of the hero and fades out,
-  // so the clouds drift into the next section instead of stopping at a line.
-  hero: [
-    { left: -14, top: 60, w: 50, o: 0.95, d: 90 },
-    { left: 24, top: 66, w: 54, o: 0.9, d: 120, flip: true },
-    { left: 60, top: 58, w: 50, o: 0.95, d: 105 },
-    { left: 40, top: 74, w: 40, o: 0.6, d: 140 },
-    { left: 4, top: 24, w: 22, o: 0.14, d: 150, flip: true },
-    { left: 72, top: 5, w: 26, o: 0.12, d: 160 },
-  ],
-  dusk: [
-    { left: -8, top: 70, w: 40, o: 0.14, d: 120 },
-    { left: 60, top: 78, w: 44, o: 0.12, d: 140, flip: true },
-  ],
-  section: [
-    { left: -12, top: 8, w: 34, o: 0.55, d: 120 },
-    { left: 76, top: 58, w: 30, o: 0.45, d: 140, flip: true },
-  ],
-  low: [{ left: 58, top: 46, w: 44, o: 0.6, d: 130, flip: true }],
-  corner: [{ left: 70, top: -6, w: 36, o: 0.55, d: 120 }],
+// ---------------------------------------------------------------------------
+// Line icons (24 × 24, drawn with a thin stroke in the current text colour).
+// ---------------------------------------------------------------------------
+
+const ICONS = {
+  phone: 'M8 2.5h8a1.5 1.5 0 0 1 1.5 1.5v16a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 20V4A1.5 1.5 0 0 1 8 2.5ZM10.5 18.5h3',
+  play: 'M8 2.5h8a1.5 1.5 0 0 1 1.5 1.5v16a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 20V4A1.5 1.5 0 0 1 8 2.5ZM10.5 9v6l5-3-5-3Z',
+  triangle: 'M8.5 5.5v13l10-6.5-10-6.5Z',
+  envelope: 'M3 6h18v12H3zM3 6l9 7 9-7',
+  card: 'M5 3.5h14v17H5zM8.5 8h7M8.5 11h7M10 14h4',
+  calendar: 'M4 5.5h16v15H4zM4 9.5h16M8 3v4M16 3v4M9 14h2M13 14h2M9 17h2',
+  box: 'M3.5 8 12 4l8.5 4v9L12 21l-8.5-4zM3.5 8 12 12l8.5-4M12 12v9',
+  pen: 'M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19l-4 1ZM14.5 6.5l3 3',
+  gift: 'M3.5 9h17v4h-17zM5 13h14v8H5zM12 9v12M12 9c-1.5-3-5.5-4-5.5-1.5S10 9 12 9Zm0 0c1.5-3 5.5-4 5.5-1.5S14 9 12 9Z',
+  ribbon: 'M12 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM9 12.5 7.5 21l4.5-2.5 4.5 2.5-1.5-8.5',
+  heart: 'M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.6 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10Z',
+  briefcase: 'M3.5 7.5h17v12h-17zM9 7.5V5h6v2.5M3.5 12.5h17',
+  mark: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM8 15.5 12 8l4 7.5M9.4 13h5.2',
+  palette: 'M12 3a9 9 0 0 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-1.4-1.3-1.8-1.3-3 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4c0-4.2-4-7.5-9-7.5ZM7.5 11a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM11 7.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM15.5 8.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z',
+  layout: 'M3.5 4.5h17v15h-17zM3.5 9.5h17M9.5 9.5v10',
+  instagram: 'M7 3.5h10A3.5 3.5 0 0 1 20.5 7v10a3.5 3.5 0 0 1-3.5 3.5H7A3.5 3.5 0 0 1 3.5 17V7A3.5 3.5 0 0 1 7 3.5ZM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM17 6.8v.1',
+  camera: 'M3.5 7.5h4l1.5-2.5h6l1.5 2.5h4v12h-17zM12 17a3.8 3.8 0 1 0 0-7.6 3.8 3.8 0 0 0 0 7.6Z',
+  megaphone: 'M4 10v4h3l8 4.5v-13L7 10H4ZM7 14l1.5 5h2.5l-1.3-4.5M18 9.5a3 3 0 0 1 0 5',
+  chart: 'M4 20h16M6.5 16.5v-4M11 16.5V8M15.5 16.5v-6M20 4l-5 4-4-2.5-4.5 3.5',
+  home: 'M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5M10 20v-5h4v5',
+  compass: 'M12 4v3M8.5 20 12 7l3.5 13M7 15.5h10M12 4a1.5 1.5 0 1 0 0 .01',
+  plan: 'M3.5 3.5h17v17h-17zM3.5 12h8v8.5M11.5 3.5v5h9',
+  sofa: 'M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M3 12a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v5H3zM5 17v2.5M19 17v2.5',
+  moodboard: 'M3.5 4h7v7h-7zM13.5 4h7v4h-7zM13.5 11h7v9h-7zM3.5 14h7v6h-7z',
+  language: 'M3.5 5.5h9M8 3.5v2M5 5.5c.8 3 3 5.5 6 6.5M11 5.5c-.8 3-3 5.5-6 6.5M13 20.5l3.5-9 3.5 9M14.2 17.5h4.6',
+  pin: 'M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11ZM12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z',
+  print: 'M7 9V3.5h10V9M7 17H4.5V9h15v8H17M7 14h10v6.5H7z',
+  user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.5 20.5a7.5 7.5 0 0 1 15 0',
+  arrow: 'M4 12h16M14 6l6 6-6 6',
 };
 
-export function Clouds({ set = 'section' }) {
+export function Icon({ name, size = 26, className = '' }) {
+  const d = ICONS[name] || ICONS.pen;
   return (
-    <div className="clouds" aria-hidden="true">
-      {cloudSets[set].map((c, i) => (
-        <span key={i} className="cloud" style={{ left: `${c.left}%`, top: `${c.top}%`, width: `${c.w}vw`, opacity: c.o, '--d': `${c.d}s`, '--flip': c.flip ? -1 : 1, animationDelay: `${-i * 23}s` }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/cloud.webp" alt="" width="900" height="456" loading="lazy" decoding="async" />
-        </span>
-      ))}
-    </div>
+    <svg className={`icon ${className}`} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d={d} />
+    </svg>
   );
 }
 
-/**
- * A few four-point gold sparkles, placed by hand (positions in %). They
- * twinkle slowly, out of step with each other.
- */
-export function Sparkles({ items }) {
-  return (
-    <div className="sparkles" aria-hidden="true">
-      {items.map(([l, t, s, delay], i) => (
-        <svg key={i} viewBox="0 0 24 24" width={s} height={s} style={{ left: `${l}%`, top: `${t}%`, animationDelay: `${delay}s` }}>
-          <path d="M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z" />
-        </svg>
-      ))}
-    </div>
-  );
-}
-
-/** Faint twinkling stardust. Deterministic positions so server and client agree. */
-export function Stardust({ count = 26, seed = 7 }) {
-  let s = seed;
-  const rand = () => ((s = (s * 16807) % 2147483647) / 2147483647);
-  const stars = Array.from({ length: count }, () => ({
-    left: rand() * 100,
-    top: rand() * 100,
-    size: 1.5 + rand() * 2.5,
-    delay: rand() * 6,
-    dur: 3 + rand() * 4,
-  }));
-  return (
-    <div className="stardust" aria-hidden="true">
-      {stars.map((st, i) => (
-        <i key={i} style={{ left: `${st.left.toFixed(2)}%`, top: `${st.top.toFixed(2)}%`, width: st.size.toFixed(1) + 'px', height: st.size.toFixed(1) + 'px', animationDelay: `${st.delay.toFixed(2)}s`, animationDuration: `${st.dur.toFixed(2)}s` }} />
-      ))}
-    </div>
-  );
+/** Picks a line icon for an offer from its wording. */
+export function iconFor(text = '') {
+  const t = text.toLowerCase();
+  const rules = [
+    [/video|motion|film/, 'play'],
+    [/e-invite|digital/, 'phone'],
+    [/save-the-date|save the date/, 'calendar'],
+    [/box/, 'box'],
+    [/printed|physical|print/, 'print'],
+    [/suite|wedding invitation|event invitation|card/, 'card'],
+    [/stationery/, 'pen'],
+    [/logo|monogram|crest/, 'mark'],
+    [/hamper/, 'gift'],
+    [/welcome/, 'box'],
+    [/favour|favor/, 'heart'],
+    [/corporate/, 'briefcase'],
+    [/collection|festive/, 'ribbon'],
+    [/identity|visual language/, 'palette'],
+    [/guideline/, 'layout'],
+    [/packaging/, 'box'],
+    [/social media/, 'instagram'],
+    [/content|shoot/, 'camera'],
+    [/campaign|launch/, 'megaphone'],
+    [/strategy/, 'chart'],
+    [/interior/, 'home'],
+    [/architect/, 'compass'],
+    [/planning/, 'plan'],
+    [/styling/, 'sofa'],
+    [/moodboard|concept/, 'moodboard'],
+    [/telugu|english|language/, 'language'],
+    [/whatsapp|instagram/, 'phone'],
+  ];
+  const hit = rules.find(([re]) => re.test(t));
+  return hit ? hit[1] : 'pen';
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import '@fontsource/pinyon-script/400.css';
+import './monogram-fonts';
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { drawMonogram, loadMonogramFonts, STYLES, GROUNDS } from './monogram';
@@ -14,7 +14,7 @@ const letter = (v) => (v || '').replace(/[^A-Za-z]/g, '').slice(-1).toUpperCase(
  */
 export default function MonogramStudio() {
   const canvasRef = useRef(null);
-  const [state, setState] = useState({ a: 'D', b: 'N', line: '05 · 03 · 2027', style: 'moonlit', ground: 'night' });
+  const [state, setState] = useState({ a: 'D', b: 'N', line: '05 · 03 · 2027', style: 'editorial', ground: 'cream' });
   const [ready, setReady] = useState(false);
   const [note, setNote] = useState('');
 
@@ -63,7 +63,7 @@ export default function MonogramStudio() {
 
   const share = useCallback(async () => {
     const url = window.location.href;
-    const text = `Our monogram, made with Dream Narratives ✨`;
+    const text = `Our monogram, made with Dream Narratives`;
     try {
       const blob = await toBlob();
       const file = new File([blob], fileName, { type: 'image/png' });
@@ -106,10 +106,11 @@ export default function MonogramStudio() {
 
         <fieldset className="field">
           <legend>Style</legend>
-          <div className="options">
+          <div className="options styles">
             {STYLES.map((s) => (
-              <button key={s.id} type="button" className="chip" aria-pressed={state.style === s.id} onClick={() => setState((st) => ({ ...st, style: s.id }))}>
-                {s.label}
+              <button key={s.id} type="button" className="style-chip" aria-pressed={state.style === s.id} onClick={() => setState((st) => ({ ...st, style: s.id }))}>
+                <span className="sample" style={s.css} aria-hidden="true">{state.a}{state.b}</span>
+                <span className="name">{s.label}</span>
               </button>
             ))}
           </div>
@@ -117,9 +118,10 @@ export default function MonogramStudio() {
 
         <fieldset className="field">
           <legend>Ground</legend>
-          <div className="options">
+          <div className="options grounds">
             {GROUNDS.map((g) => (
               <button key={g.id} type="button" className="chip" aria-pressed={state.ground === g.id} onClick={() => setState((st) => ({ ...st, ground: g.id }))}>
+                <i className={`swatch ${g.id}`} aria-hidden="true" />
                 {g.label}
               </button>
             ))}

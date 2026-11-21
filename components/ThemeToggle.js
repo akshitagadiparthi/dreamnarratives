@@ -8,7 +8,7 @@ const effective = () => {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
-/** Switches between the light (ivory) and dark (night) versions of the site. */
+/** Switches between the light and dark versions of the site. */
 export default function ThemeToggle({ withLabel = false }) {
   const [theme, setTheme] = useState(null);
 
@@ -31,9 +31,8 @@ export default function ThemeToggle({ withLabel = false }) {
   return (
     <span className={withLabel ? 'theme-row' : undefined}>
       <button type="button" className="theme-toggle" onClick={toggle} aria-label={label} title={label}>
-        {/* a crescent in light mode (go to night), a sun in dark mode (go to day) */}
-        <svg className="i-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1Z" /></svg>
-        <svg className="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2" /><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7" /></svg>
+        {/* a half-filled circle: light and dark */}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 3.5a8.5 8.5 0 0 1 0 17Z" fill="currentColor" /></svg>
       </button>
       {withLabel ? <span>{theme === 'dark' ? 'Dark mode' : 'Light mode'}</span> : null}
     </span>

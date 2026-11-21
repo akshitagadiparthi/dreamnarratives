@@ -52,6 +52,42 @@
   ],
   "identity": [
     {
+      "src": "/work/identity/branding-verdant-logo.webp",
+      "caption": "Verdant Group, logo",
+      "width": 400,
+      "height": 532,
+      "hero": false,
+      "kind": "branding",
+      "cutout": false
+    },
+    {
+      "src": "/work/identity/branding-verdant-brand-voice.webp",
+      "caption": "Verdant Group, brand voice",
+      "width": 400,
+      "height": 532,
+      "hero": false,
+      "kind": "branding",
+      "cutout": false
+    },
+    {
+      "src": "/work/identity/branding-verdant-embossed-stationery.webp",
+      "caption": "Verdant Group, embossed stationery",
+      "width": 400,
+      "height": 524,
+      "hero": false,
+      "kind": "branding",
+      "cutout": false
+    },
+    {
+      "src": "/work/identity/branding-verdant-envelope.webp",
+      "caption": "Verdant Group, “Sealed with purpose”",
+      "width": 400,
+      "height": 532,
+      "hero": false,
+      "kind": "branding",
+      "cutout": false
+    },
+    {
       "src": "/work/identity/social-media-verdant-stationery-feed.webp",
       "caption": "Verdant Group: brand identity and Instagram",
       "width": 1206,
@@ -110,6 +146,16 @@
       "cutout": false
     },
     {
+      "src": "/work/invitation/logos-janani-surya-monogram.webp",
+      "caption": "Janani & Surya, wedding monogram",
+      "width": 900,
+      "height": 900,
+      "hero": false,
+      "kind": "logos",
+      "cutout": false,
+      "inHero": false
+    },
+    {
       "src": "/work/invitation/e-invites-joshita-sahith-wedding.webp",
       "caption": "Joshita & Sahith Chandra’s Wedding, e-invite",
       "width": 1419,
@@ -153,6 +199,16 @@
       "hero": false,
       "kind": "e-invites",
       "cutout": false
+    },
+    {
+      "src": "/work/invitation/logos-lohith-sai-manjusha-monogram.webp",
+      "caption": "Lohith & Sai Manjusha, monogram",
+      "width": 900,
+      "height": 900,
+      "hero": false,
+      "kind": "logos",
+      "cutout": false,
+      "inHero": false
     },
     {
       "src": "/work/invitation/ravella-pelli-pathrika-box.webp",
@@ -201,6 +257,16 @@
       "cutout": false
     },
     {
+      "src": "/work/invitation/logos-rasya-jaswanth-monogram.webp",
+      "caption": "Rasya & Jaswanth, wedding monogram",
+      "width": 900,
+      "height": 900,
+      "hero": false,
+      "kind": "logos",
+      "cutout": false,
+      "inHero": false
+    },
+    {
       "src": "/work/invitation/e-invites-sj-sangeeth.webp",
       "caption": "Janani & Surya’s Sangeeth, e-invite",
       "width": 1407,
@@ -244,6 +310,16 @@
       "hero": false,
       "kind": "e-invites",
       "cutout": false
+    },
+    {
+      "src": "/work/invitation/logos-vamsi-sesanka-crest.webp",
+      "caption": "Vamsi & Sesanka, wedding crest",
+      "width": 900,
+      "height": 900,
+      "hero": false,
+      "kind": "logos",
+      "cutout": false,
+      "inHero": false
     },
     {
       "src": "/work/invitation/physical-cards-ravella-suite-spread.webp",

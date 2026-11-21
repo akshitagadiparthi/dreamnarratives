@@ -12,7 +12,7 @@ export default function SiteFooter() {
           <div>
             <Wordmark dark />
             <p className="tagline">{site.footerLine}</p>
-            <p className="tagline" style={{ marginTop: 'var(--space-3)' }}>A design house in {site.city}, {site.region}, by Driti &amp; Nimisha.</p>
+            <p className="tagline" style={{ marginTop: 'var(--space-3)' }}>A design house in {site.city}, {site.region}, by Nimisha Lingamaneni &amp; Driti Thyagaraj.</p>
           </div>
           <div>
             <h2>Navigate</h2>
@@ -21,7 +21,6 @@ export default function SiteFooter() {
                 <li key={n.href}><Link href={n.href}>{n.label}</Link></li>
               ))}
               <li><Link href="/enquiries">Enquiries</Link></li>
-              <li><Link href="/monogram">Monogram studio</Link></li>
             </ul>
           </div>
           <div>

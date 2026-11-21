@@ -14,12 +14,12 @@ export const services = [
   {
     slug: 'invitation',
     seoName: 'Wedding Invitations & E-invites in Vijayawada',
-    seoDescription: "Wedding invitations, e-invites, video invites and printed invitation boxes designed in Vijayawada by Dream Narratives: Telugu pelli pathrika, save-the-dates and stationery for every function.",
+    seoDescription: "Wedding invitations, e-invites, video invites, wedding logos and printed invitation boxes designed in Vijayawada by Dream Narratives: Telugu pelli pathrika, monograms, save-the-dates and stationery for every function.",
     name: ['The', 'Invitation'],
     label: 'Invites',
     promise: 'The first page of your story.',
     intro:
-      'Wedding suites, e-invites, video invitations and printed collections, designed so the people you love feel the celebration before it begins. Every word, texture and fold is chosen to tell your story, and to be kept long after the day.',
+      'Wedding suites, e-invites, video invitations, wedding logos and printed collections, designed so the people you love feel the celebration before it begins. Every word, texture and fold is chosen to tell your story, and to be kept long after the day.',
     offers: [
       'E-invites & digital designs',
       'Video invites',
@@ -28,9 +28,10 @@ export const services = [
       'Event invitations',
       'Physical printed cards',
       'Premium invitation boxes',
+      'Wedding logos & monograms',
       'Custom stationery',
     ],
-    short: 'E-invites · Video · Print',
+    short: 'E-invites · Video · Print · Logos',
     hero: { src: null, caption: 'Invitation suite' },
     work: [
       { src: null, caption: 'Wedding invitation suite' },
@@ -72,31 +73,44 @@ export const services = [
   },
   {
     slug: 'identity',
-    seoName: 'Branding & Social Media Management in Vijayawada',
-    seoDescription: "Brand identity, logo design, packaging and social media management from Vijayawada. Dream Narratives builds brands and the Instagram feeds that carry them, led by Nimisha.",
+    seoName: 'Branding, Logo Design & Social Media Marketing in Vijayawada',
+    seoDescription: "Brand identity, logo design, stationery, packaging and social media marketing from Vijayawada. Dream Narratives designs brands and the Instagram feeds that carry them, led by Nimisha Lingamaneni.",
     name: ['The', 'Identity'],
     label: 'Branding & Social',
     leadBy: 'Nimisha',
     promise: 'Who you are, and how your story travels.',
     intro:
-      'A brand is a story people recognise before they read a word. We shape the visual language that tells yours, from the mark, colours and type to the tone of every post, then carry it into the world through social media that people want to follow.',
+      'A brand is a story people recognise before they read a word. We shape the visual language that tells yours, from the mark, colours and type to the stationery and packaging, then carry it into the world through social media marketing people want to follow.',
     offers: [
       'Brand identity & visual language',
       'Logo & wordmark',
       'Brand stationery & packaging',
+      'Brand guidelines',
       'Social media management',
       'Content strategy & creation',
       'Marketing campaigns',
+      'Launch strategy',
     ],
-    short: 'Branding · Social media',
+    // The page is told in two parts.
+    branding: {
+      eyebrow: 'Branding',
+      title: ['Identities,', 'made to be remembered.'],
+      lede: 'The mark, the colours, the type and the paper it all lives on. We design the whole identity so a brand looks like itself everywhere.',
+      offers: ['Brand identity & visual language', 'Logo & wordmark', 'Brand stationery & packaging', 'Brand guidelines'],
+    },
+    social: {
+      eyebrow: 'Social media marketing',
+      title: ['Brands we', 'tell.'],
+      lede: 'We plan, design and grow Instagram feeds in each brand’s own voice: the strategy, the content calendar, the posts and the campaigns. Tap through to see them live.',
+      offers: ['Social media management', 'Content strategy & creation', 'Marketing campaigns', 'Launch strategy'],
+    },
+    short: 'Branding · Social media marketing',
     hero: { src: null, caption: 'Brand identity' },
     work: [
       { src: null, caption: 'Brand identity' },
       { src: null, caption: 'Instagram feed' },
       { src: null, caption: 'Packaging' },
       { src: null, caption: 'Campaign' },
-      { src: null, caption: 'Stationery' },
-      { src: null, caption: 'Content shoot' },
     ],
     pairs: ['invitation', 'space'],
     // Instagram accounts the studio builds and manages. `image` is a screenshot
@@ -110,7 +124,7 @@ export const services = [
   {
     slug: 'space',
     seoName: 'Interior Design & Architecture in Vijayawada',
-    seoDescription: "Interior design, architecture consultation and space styling in Vijayawada, led by Driti of Dream Narratives: homes, studios and commercial spaces with warmth and proportion.",
+    seoDescription: "Interior design, architecture consultation and space styling in Vijayawada, led by architect Driti Thyagaraj of Dream Narratives: homes, studios and commercial spaces with warmth and proportion.",
     name: ['The', 'Space'],
     label: 'Interiors',
     leadBy: 'Driti',
@@ -157,38 +171,35 @@ export const bespoke = {
   body: 'Our favourite projects are the ones that don’t quite fit a category: custom commissions, art direction, special collaborations and deeply personal projects.',
 };
 
-// Pieces that drift around the moon on the home page: a mix from every service.
-// Each piece shows real work from its service once there is some.
-// Positions are % of the hero.
-const pieces = [
-  { service: 'invitation', caption: 'E-invite', src: null, left: 4, top: 14, w: 150, h: 200, tone: '', d: 22, x: 12, y: -14, r0: -3, r1: 1, m: [3, 13] },
-  { service: 'gift', caption: 'Hamper', src: null, left: 2, top: 50, w: 140, h: 170, tone: 'bone', d: 28, x: -10, y: 12, r0: 2, r1: -1 },
-  { service: 'space', caption: 'Interior', src: null, left: 17, top: 66, w: 170, h: 130, tone: '', d: 26, x: -16, y: 10, r0: 1, r1: 3, m: [4, 80] },
-  { service: 'invitation', caption: 'Physical card', src: null, left: 82, top: 10, w: 150, h: 190, tone: 'line', d: 20, x: 10, y: -12, r0: 3, r1: 0, m: [68, 13] },
-  { service: 'identity', caption: 'Brand', src: null, left: 86, top: 44, w: 120, h: 120, tone: '', d: 30, x: 14, y: -8, r0: 0, r1: 2, front: true },
-  { service: 'gift', caption: 'Keepsake', src: null, left: 72, top: 64, w: 160, h: 130, tone: 'bone', d: 24, x: -12, y: -10, r0: -2, r1: 2, m: [64, 80] },
-  { service: 'invitation', caption: 'Invite', src: null, left: 16, top: 30, w: 110, h: 140, tone: 'line', d: 32, x: 16, y: 8, r0: -1, r1: 1, front: true },
-];
+// The home hero: the signature piece on its plinth, and a few pieces of work
+// around it, one from each of the other services where there is one.
+const allReal = services.flatMap((s) => (realWork[s.slug] || []).map((w) => ({ ...w, service: s.slug })));
+export const heroFeature = allReal.find((w) => w.src && w.cutout && w.hero) || null;
 
-// Once there is real work, the floating tiles show only real work: the best
-// pieces (heroes, then cut-out product shots) take the largest positions, and
-// services are interleaved so the hero always shows the studio's range.
-const rank = (w) => (w.cutout ? 0 : w.hero ? 2 : 1);
-const queues = services
-  .map((s) => (realWork[s.slug] || []).filter((w) => w.src && w.inHero !== false).map((w) => ({ ...w, service: s.slug })).sort((a, b) => rank(a) - rank(b)))
-  .filter((q) => q.length);
-const pool = [];
-while (queues.some((q) => q.length)) queues.forEach((q) => q.length && pool.push(q.shift()));
+const pickTile = (slug, test = () => true) => (realWork[slug] || []).map((w) => ({ ...w, service: slug })).find((w) => w.src && !w.cutout && w.inHero !== false && test(w));
+export const heroTiles = [
+  pickTile('invitation', (w) => w.kind === 'e-invites'),
+  pickTile('space'),
+  pickTile('gift'),
+  pickTile('invitation', (w) => w.kind === 'physical-cards'),
+].filter(Boolean);
 
-export const heroPieces = pool.length
-  ? [...pieces]
-      .sort((a, b) => b.w - a.w)
-      .slice(0, pool.length)
-      .map((p, i) => {
-        const w = pool[i];
-        const width = Math.round(p.w * 1.15);
-        const natural = Math.round((width * w.height) / w.width);
-        // Photos are cropped to at most 4:5 so tall shots don't run off the screen.
-        return { ...p, ...w, w: width, h: w.cutout ? natural : Math.min(natural, Math.round(width * 1.25)) };
-      })
-  : pieces;
+// "Best of": a short selection across the house for the home page.
+export const bestOf = (() => {
+  const want = [
+    ['invitation', (w) => w.kind === 'e-invites'],
+    ['space', () => true],
+    ['invitation', (w) => w.kind === 'logos'],
+    ['gift', (w) => !w.cutout],
+    ['identity', (w) => w.kind === 'branding'],
+    ['invitation', (w) => w.kind === 'physical-cards' && !w.cutout],
+  ];
+  const used = new Set([heroFeature?.src, ...heroTiles.map((t) => t.src), ...services.map((s) => s.hero?.src)]);
+  return want
+    .map(([slug, test]) => {
+      const w = (realWork[slug] || []).find((x) => x.src && !used.has(x.src) && test(x));
+      if (w) used.add(w.src);
+      return w ? { ...w, service: slug } : null;
+    })
+    .filter(Boolean);
+})();

@@ -13,9 +13,13 @@
   },
   "dependencies": {
     "@fontsource-variable/bodoni-moda": "5.3.0",
+    "@fontsource/cinzel": "5.3.0",
+    "@fontsource/cormorant-garamond": "5.3.0",
+    "@fontsource/great-vibes": "5.3.0",
+    "@fontsource/italiana": "5.3.0",
     "@fontsource/jost": "5.3.0",
-    "@fontsource/pinyon-script": "5.3.0",
-    "next": "16.4.2",
+    "@fontsource/playfair-display": "5.3.0",
+    "next": "16.4.6",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },

@@ -1,30 +1,138 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { Slot, SplitTitle, TwoLine, Crescent, Stardust, Sparkles } from './Basics';
+import { Slot, SplitTitle, TwoLine, Icon, iconFor } from './Basics';
 import { process } from '@/content/studio';
 import { getService } from '@/content/services';
 
-/** One service on the home scroll: image beside name, promise and offers. */
-export function ServiceRow({ service, index }) {
-  const flip = index % 2 === 1;
+/** Section heading: an eyebrow, an uppercase title with an italic serif phrase, and an optional link. */
+export function Head({ eyebrow, title, id, lede, link, center = false, className = '' }) {
   return (
-    <section className={`service-row${flip ? ' flip ground-bone' : ''}`} aria-labelledby={`svc-${service.slug}`}>
-      <div className="container split">
-        <Link href={`/what-we-do/${service.slug}`} className="media reveal" data-cursor="view" tabIndex={-1} aria-hidden="true">
-          <Slot item={service.hero} tone={flip ? 'bone' : ''} />
-        </Link>
-        <div className="reveal" style={{ '--delay': '150ms' }}>
-          <span className="eyebrow">{service.label}</span>
-          <h2 id={`svc-${service.slug}`} className="display-l">
-            {service.name[0]} <em>{service.name[1]}</em>
+    <div className={`section-head${center ? ' center' : ''} ${className} reveal`}>
+      <div>
+        {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
+        <h2 id={id} className="heading">
+          {title[0]} {title[1] ? <em>{title[1]}</em> : null}
+        </h2>
+        {lede ? <p className="lede" style={{ marginTop: 'var(--space-3)' }}>{lede}</p> : null}
+      </div>
+      {link ? (
+        link.external ? (
+          <a href={link.href} className="text-link" target="_blank" rel="noopener noreferrer">{link.label}</a>
+        ) : (
+          <Link href={link.href} className="text-link">{link.label}</Link>
+        )
+      ) : null}
+    </div>
+  );
+}
+
+/** The services on a black band, each with a piece of its work. */
+export function ServiceBand({ services, exclude = [] }) {
+  // Each card shows a piece not already in the hero above it.
+  const cover = (s) => [s.hero, ...s.work].find((w) => w.src && !w.cutout && w.kind !== 'logos' && !exclude.includes(w.src)) || s.hero;
+  return (
+    <section id="studio" className="band" aria-labelledby="services-title" data-cursor-dark>
+      <div className="band-inner">
+        <div className="section-head reveal">
+          <div>
+            <span className="eyebrow">What we do</span>
+            <h2 id="services-title" className="heading">
+              Invitations to interiors, <em>one story.</em>
+            </h2>
+          </div>
+          <Link href="/what-we-do" className="text-link">All we do</Link>
+        </div>
+        <div className="service-cards" role="list">
+          {services.map((s, i) => (
+            <Link key={s.slug} href={`/what-we-do/${s.slug}`} className="service-card reveal" role="listitem" data-cursor="view" style={{ '--delay': `${i * 90}ms` }}>
+              <div className="media">
+                <Slot item={cover(s)} sizes="(max-width: 760px) 72vw, 25vw" />
+              </div>
+              <div className="service-card-copy">
+                <span className="kicker">{s.label}</span>
+                <h3>{s.name[0]} <em>{s.name[1]}</em></h3>
+                <p>{s.short}</p>
+                <span className="more">See the work <Icon name="arrow" size={14} /></span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** What a service offers: a rounded dark block with a grid of line icons. */
+export function Offers({ offers, eyebrow = 'What we create', title = ['Every piece,', 'made for you alone.'], id = 'offers-title' }) {
+  return (
+    <section className="section" aria-labelledby={id}>
+      <div className="container">
+        <div className="block-dark" data-cursor-dark>
+          <div className="center reveal">
+            <span className="eyebrow">{eyebrow}</span>
+            <h2 id={id} className="heading">
+              {title[0]} <em>{title[1]}</em>
+            </h2>
+          </div>
+          <ul className={`icon-grid n${Math.min(offers.length, 8)}`}>
+            {offers.map((o, i) => (
+              <li key={o} className="reveal" style={{ '--delay': `${i * 70}ms` }}>
+                <span className="icon-ring"><Icon name={iconFor(o)} /></span>
+                <span>{o}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** A quiet row of features with line icons (home page). */
+export function IconRow({ items }) {
+  return (
+    <section className="section tight" aria-label="Why Dream Narratives">
+      <div className="container">
+        <ul className="icon-row">
+          {items.map((it, i) => (
+            <li key={it.title} className="reveal" style={{ '--delay': `${i * 90}ms` }}>
+              <Icon name={it.icon} size={30} />
+              <h3>{it.title}</h3>
+              <p>{it.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/** About the studio, with a photo and a grid of numbers. */
+export function AboutStats({ eyebrow, title, body, photo, stats, link }) {
+  return (
+    <section className="section" aria-labelledby="about-title">
+      <div className="container about-stats">
+        <div className="about-copy reveal">
+          <span className="eyebrow">{eyebrow}</span>
+          <h2 id="about-title" className="display-l about-title">
+            {title[0]}
+            <br />
+            <em>{title[1]}</em>
           </h2>
-          <p className="lede" style={{ marginTop: 'var(--space-4)' }}>{service.promise}</p>
-          <MoonPhasesLeft />
-          <p className="subs">{service.offers.slice(0, 4).join(' · ')}</p>
-          <Link href={`/what-we-do/${service.slug}`} className="text-link">
-            See the work<span className="visually-hidden"> for {service.name.join(' ')}</span>
-          </Link>
-          {service.leadBy ? <span className="lead-by" style={{ display: 'block' }}>Led by {service.leadBy}</span> : null}
+          <p className="lede" style={{ marginTop: 'var(--space-4)' }}>{body}</p>
+          {link ? <Link href={link.href} className="text-link" style={{ marginTop: 'var(--space-4)' }}>{link.label}</Link> : null}
+        </div>
+        <div className="about-grid reveal" style={{ '--delay': '150ms' }}>
+          <div className="about-photo">
+            <Slot item={photo} sizes="(max-width: 900px) 100vw, 40vw" />
+          </div>
+          <dl className="stats">
+            {stats.map((s, i) => (
+              <div key={s.label} className={i === stats.length - 1 ? 'dark' : ''}>
+                <dt>{s.label}</dt>
+                <dd>{s.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>
@@ -36,16 +144,11 @@ export function ProcessSteps({ ground = '' }) {
   return (
     <section className={`section ${ground}`} aria-labelledby="process-title">
       <div className="container">
-        <div className="section-head reveal">
-          <div>
-            <span className="eyebrow">The dream process</span>
-            <TwoLine parts={['How we bring', 'dreams to life.']} as="h2" />
-          </div>
-        </div>
+        <Head eyebrow="The dream process" title={['How we bring', 'dreams to life.']} id="process-title" />
         <ol className="steps">
           {process.map((step, i) => (
             <li key={step.title} className="reveal" style={{ '--delay': `${i * 120}ms` }}>
-              <Crescent className="phase" phase={i / 4} />
+              <span className="step-no">{String(i + 1).padStart(2, '0')}</span>
               <h3>{step.title}</h3>
               <p>{step.text}</p>
             </li>
@@ -56,24 +159,27 @@ export function ProcessSteps({ ground = '' }) {
   );
 }
 
-/** The one dusk moment per page: "What story shall we tell next?" */
+/** The closing invitation at the foot of every page: a rounded black block. */
 export function Closing({ eyebrow = 'The next chapter awaits', title = ['What story shall we', 'tell next?'], body = 'Every great story begins with a conversation. Let’s start yours.', cta = { label: 'Begin your story', href: '/enquiries' } }) {
   return (
-    <section className="section ground-dusk closing" data-cursor-dark aria-labelledby="closing-title">
-      <Stardust count={34} seed={11} />
-      <Sparkles items={[[62, 18, 12, 0.4], [80, 70, 9, 2], [12, 12, 8, 1.3]]} />
-      <Image className="moon-small" src="/images/moon.webp" alt="" width={1254} height={1254} sizes="360px" />
-      <div className="container content reveal">
-        <span className="eyebrow">{eyebrow}</span>
-        <h2 id="closing-title" className="display-l">
-          {title[0]}
-          <br />
-          <em>{title[1]}</em>
-        </h2>
-        <p className="lede" style={{ marginTop: 'var(--space-4)', color: 'var(--on-dusk-muted)' }}>{body}</p>
-        <div className="btn-row" style={{ marginTop: 'var(--space-5)' }}>
-          <Link href={cta.href} className="btn btn-moon">{cta.label}</Link>
-          <Link href="/contact" className="btn btn-ghost-dusk">Contact us</Link>
+    <section className="section closing-wrap" aria-labelledby="closing-title">
+      <div className="container">
+        <div className="block-dark closing" data-cursor-dark>
+          <div className="reveal">
+            <span className="eyebrow">{eyebrow}</span>
+            <h2 id="closing-title" className="display-l">
+              {title[0]}
+              <br />
+              <em>{title[1]}</em>
+            </h2>
+          </div>
+          <div className="closing-side reveal" style={{ '--delay': '120ms' }}>
+            <p className="lede">{body}</p>
+            <div className="btn-row">
+              <Link href={cta.href} className="btn btn-light">{cta.label}</Link>
+              <Link href="/contact" className="btn btn-ghost-light">Contact us</Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -104,82 +210,26 @@ export function PairedWith({ slugs }) {
   );
 }
 
-/** A client told across several services (home page). */
-export function FeaturedClient({ featured }) {
-  return (
-    <section className="section featured" aria-labelledby="featured-title">
-      <div className="container">
-        <div className="section-head reveal">
-          <div>
-            <span className="eyebrow">{featured.eyebrow}</span>
-            <h2 id="featured-title" className="display-l">{featured.name}</h2>
-            <p className="lede" style={{ marginTop: 'var(--space-4)' }}>{featured.body}</p>
-          </div>
-        </div>
-        <div className="featured-grid">
-          {featured.links.map((l, i) => {
-            const s = getService(l.service);
-            const external = !!l.href;
-            const inner = (
-              <>
-                <div className="media">
-                  {l.href && !l.image ? (
-                    <div className="ig-card">
-                      <span className="eyebrow" style={{ margin: 0 }}>Instagram</span>
-                      <b>@{l.href.split('/').filter(Boolean).pop()}</b>
-                      <span className="text-link">View the feed</span>
-                    </div>
-                  ) : (
-                    <Slot item={l.image ? { src: l.image, caption: l.label } : s.hero} sizes="(max-width: 900px) 100vw, 33vw" />
-                  )}
-                </div>
-                <span className="eyebrow" style={{ margin: 'var(--space-3) 0 4px' }}>{s.name.join(' ')}</span>
-                <h3>{l.label}</h3>
-              </>
-            );
-            return external ? (
-              <a key={i} href={l.href} target="_blank" rel="noopener noreferrer" className="featured-item reveal" style={{ '--delay': `${i * 120}ms` }} data-cursor="view">{inner}</a>
-            ) : (
-              <Link key={i} href={`/what-we-do/${l.service}`} className="featured-item reveal" style={{ '--delay': `${i * 120}ms` }} data-cursor="view">{inner}</Link>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/** Instagram accounts the studio builds and manages (The Identity). */
-export function Accounts({ accounts, id }) {
+/** Instagram accounts the studio plans, designs and grows (The Identity). */
+export function Accounts({ accounts, id, eyebrow = 'Social media marketing', title = ['Brands we', 'tell.'], lede }) {
   return (
     <section id={id} className="section" aria-labelledby="accounts-title">
       <div className="container">
-        <div className="section-head reveal">
-          <div>
-            <span className="eyebrow">Selected work</span>
-            <h2 id="accounts-title" className="heading">
-              Brands we <em>tell.</em>
-            </h2>
-            <p className="lede" style={{ marginTop: 'var(--space-4)' }}>Feeds we plan, design and grow, in each brand’s own voice. Tap through to see them live.</p>
-          </div>
-        </div>
+        <Head
+          eyebrow={eyebrow}
+          title={title}
+          id="accounts-title"
+          lede={lede || 'Feeds we plan, design and grow, in each brand’s own voice. Tap through to see them live.'}
+        />
         <div className="featured-grid">
           {accounts.map((a, i) => (
             <a key={a.handle} href={`https://www.instagram.com/${a.handle}`} target="_blank" rel="noopener noreferrer" className="featured-item reveal" style={{ '--delay': `${i * 120}ms` }} data-cursor="view">
               <div className="media feed">
-                {a.image ? (
-                  <Slot item={{ src: a.image, caption: `The @${a.handle} Instagram feed` }} sizes="(max-width: 900px) 100vw, 33vw" />
-                ) : (
-                  <div className="ig-card">
-                    <span className="eyebrow" style={{ margin: 0 }}>Instagram</span>
-                    <b>@{a.handle}</b>
-                    <span className="text-link">View the feed</span>
-                  </div>
-                )}
+                <Slot item={{ src: a.image, caption: `The @${a.handle} Instagram feed` }} sizes="(max-width: 900px) 100vw, 33vw" />
               </div>
-              <span className="eyebrow" style={{ margin: 'var(--space-3) 0 4px' }}>@{a.handle}</span>
+              <span className="kicker" style={{ marginTop: 'var(--space-3)' }}>@{a.handle}</span>
               <h3>{a.name}</h3>
-              {a.note ? <p className="caption" style={{ margin: '6px 0 0' }}>{a.note}</p> : null}
+              {a.note ? <p className="caption" style={{ margin: '4px 0 0' }}>{a.note}</p> : null}
             </a>
           ))}
         </div>
@@ -188,112 +238,4 @@ export function Accounts({ accounts, id }) {
   );
 }
 
-/** A full-width band of night sky with one piece of work floating in it. */
-export function NightStrip({ item }) {
-  const ratio = item?.width && item?.height ? item.width / item.height : 4 / 3;
-  return (
-    <section className="night-strip" aria-label={item?.caption || 'Featured work'} data-cursor-dark>
-      <div className="hero-sky" aria-hidden="true" />
-      <Stardust count={60} seed={21} />
-      <Sparkles items={[[14, 22, 14, 0.2], [84, 18, 11, 1.4], [76, 66, 16, 2.2], [22, 70, 10, 3], [50, 10, 9, 0.9]]} />
-      <div className="strip-piece reveal" style={{ aspectRatio: String(ratio) }}>
-        <Slot item={item} float sizes="(max-width: 900px) 90vw, 900px" priority />
-      </div>
-      {item?.caption && item?.src ? <p className="strip-caption">{item.caption}</p> : null}
-    </section>
-  );
-}
-
-/** The moon's phases in a row, used as a divider. */
-export function MoonPhases() {
-  return (
-    <div className="moon-phases" aria-hidden="true">
-      {[0.05, 0.3, 1, 0.3, 0.05].map((p, i) => (
-        <Crescent key={i} phase={p} size={i === 2 ? 18 : 14} />
-      ))}
-    </div>
-  );
-}
-
-function MoonPhasesLeft() {
-  return (
-    <div className="moon-phases left" aria-hidden="true">
-      {[0.05, 0.3, 1].map((p, i) => <Crescent key={i} phase={p} size={i === 2 ? 18 : 14} />)}
-    </div>
-  );
-}
-
-/**
- * What a service offers, drawn as a constellation: each offer is a star,
- * joined by fine gold lines that draw themselves as the band scrolls in.
- */
-export function Constellation({ offers, eyebrow = 'What we create', title = ['Every piece,', 'made for you alone.'] }) {
-  const n = offers.length;
-  const ys = [64, 30, 58, 26, 60, 34, 56];
-  const pts = offers.map((o, i) => ({
-    x: n === 1 ? 50 : 10 + (i * 80) / (n - 1),
-    y: ys[i % ys.length] + ((i * 7) % 5) - 2,
-    label: o,
-  }));
-  return (
-    <section className="section ground-dusk constellation" aria-labelledby="offers-title" data-cursor-dark>
-      <Stardust count={80} seed={33} />
-      <div className="container">
-        <div className="center reveal">
-          <span className="eyebrow">{eyebrow}</span>
-          <h2 id="offers-title" className="heading">
-            {title[0]} <em>{title[1]}</em>
-          </h2>
-        </div>
-        <div className="constellation-map reveal">
-          <svg className="constellation-lines" viewBox="0 0 1000 340" preserveAspectRatio="none" aria-hidden="true">
-            <polyline points={pts.map((p) => `${p.x * 10},${p.y * 3.4}`).join(' ')} pathLength="1" />
-          </svg>
-          <ul>
-            {pts.map((p, i) => (
-              <li key={p.label} className={p.y < 45 ? 'up' : 'down'} style={{ left: `${p.x}%`, top: `${p.y}%`, '--i': i }}>
-                <svg className="star" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z" />
-                </svg>
-                <span>{p.label}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/** The services as one compact row of cards (swipe on phones). */
-export function ServiceCards({ services }) {
-  return (
-    <section id="studio" className="section services-strip" aria-labelledby="services-title">
-      <div className="container">
-        <div className="section-head reveal">
-          <div>
-            <span className="eyebrow">A design house</span>
-            <h2 id="services-title" className="heading">
-              Invitations to interiors, <em>one story.</em>
-            </h2>
-          </div>
-          <Link href="/what-we-do" className="text-link">All we do</Link>
-        </div>
-        <div className="service-cards" role="list">
-          {services.map((s, i) => (
-            <Link key={s.slug} href={`/what-we-do/${s.slug}`} className="service-mini reveal" role="listitem" data-cursor="view" style={{ '--delay': `${i * 90}ms` }}>
-              <div className="media">
-                <Slot item={s.hero} sizes="(max-width: 760px) 72vw, 25vw" />
-              </div>
-              <span className="eyebrow">{s.label}</span>
-              <h3>
-                {s.name[0]} <em>{s.name[1]}</em>
-              </h3>
-              <p>{s.promise}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+export { TwoLine };

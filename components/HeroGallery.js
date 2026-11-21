@@ -2,154 +2,95 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
-import { heroPieces } from '@/content/services';
-import { Slot, Clouds, Stardust, Sparkles } from './Basics';
+import { useEffect, useRef } from 'react';
+import { Slot, Icon } from './Basics';
 
 /**
- * The landing hook. The crescent glows behind the name while pieces of work
- * drift around it at different depths. The pointer gently pushes nearby
- * pieces aside, and on scroll they part outward like clouds.
+ * The landing hero, in the manner of a product page: the logo set very large,
+ * the studio's signature piece standing on a plinth in front of it, and a few
+ * pieces of work around it that lean gently away from the pointer.
  */
-export default function HeroGallery({ eyebrow, title, lede, primary, secondary, logo }) {
-  const heroRef = useRef(null);
-  const pieceRefs = useRef([]);
-  const [wish, setWish] = useState(0);
+export default function HeroGallery({ lede, primary, secondary, feature, tiles = [], meta = [] }) {
+  const ref = useRef(null);
 
   useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return;
-    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (calm) return;
-    const fine = window.matchMedia('(pointer: fine)').matches;
-
-    const push = pieceRefs.current.map(() => ({ x: 0, y: 0 }));
-    let part = 0;
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
     let raf = null;
-
-    const apply = () => {
-      raf = null;
-      const b = hero.getBoundingClientRect();
-      const cx = b.left + b.width / 2;
-      const cy = b.top + b.height / 2;
-      pieceRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        const ox = r.left + r.width / 2 - cx;
-        const oy = r.top + r.height / 2 - cy;
-        const len = Math.hypot(ox, oy) || 1;
-        const px = (ox / len) * part * 260;
-        const py = (oy / len) * part * 260 - part * 60;
-        el.style.transform = `translate3d(${push[i].x + px}px, ${push[i].y + py}px, 0)`;
-        el.style.opacity = String(1 - part * 0.9);
-      });
-      hero.style.setProperty('--part', part.toFixed(3));
-    };
-    const schedule = () => { if (!raf) raf = requestAnimationFrame(apply); };
-
     const onMove = (e) => {
-      const hb = hero.getBoundingClientRect();
-      hero.style.setProperty('--mx', ((e.clientX - hb.left) / hb.width - 0.5).toFixed(3));
-      hero.style.setProperty('--my', ((e.clientY - hb.top) / hb.height - 0.5).toFixed(3));
-      pieceRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        const dx = r.left + r.width / 2 - e.clientX;
-        const dy = r.top + r.height / 2 - e.clientY;
-        const dist = Math.hypot(dx, dy);
-        const reach = 240;
-        const k = dist < reach ? ((1 - dist / reach) * 26) / (dist || 1) : 0;
-        push[i] = { x: dx * k, y: dy * k };
+      const b = el.getBoundingClientRect();
+      const x = ((e.clientX - b.left) / b.width - 0.5).toFixed(3);
+      const y = ((e.clientY - b.top) / b.height - 0.5).toFixed(3);
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.setProperty('--mx', x);
+        el.style.setProperty('--my', y);
       });
-      schedule();
     };
-    const onLeave = () => {
-      push.forEach((p) => { p.x = 0; p.y = 0; });
-      schedule();
-    };
-    const onScroll = () => {
-      part = Math.min(1, Math.max(0, window.scrollY / (hero.offsetHeight * 0.8)));
-      schedule();
-    };
-
-    if (fine) {
-      hero.addEventListener('pointermove', onMove);
-      hero.addEventListener('pointerleave', onLeave);
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
+    const onLeave = () => { el.style.setProperty('--mx', 0); el.style.setProperty('--my', 0); };
+    el.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerleave', onLeave);
     return () => {
-      hero.removeEventListener('pointermove', onMove);
-      hero.removeEventListener('pointerleave', onLeave);
-      window.removeEventListener('scroll', onScroll);
+      el.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerleave', onLeave);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
 
   return (
-    <section className="hero night" ref={heroRef} aria-labelledby="hero-title" data-cursor-dark>
-      <div className="hero-sky" aria-hidden="true" />
-      <Stardust count={110} seed={5} />
-      <div className="moon-wrap" aria-hidden="true">
-        <div className="moon-halo" />
-        <Image className="hero-moon" src="/images/moon.webp" alt="" width={1254} height={1254} priority sizes="(max-width: 760px) 90vw, 620px" />
-      </div>
-      <button type="button" className="moon-wish" aria-label="Make a wish on the moon" data-cursor onClick={() => setWish((w) => w + 1)} />
-      {wish ? (
-        <div key={wish} className="wish-note" role="status">
-          <div className="wish-shower" aria-hidden="true">
-            {Array.from({ length: 18 }, (_, i) => <i key={i} style={{ '--x': `${(i * 37) % 100}%`, '--d': `${(i % 6) * 0.12}s` }} />)}
-          </div>
-          <p>Wish made. <em>Every dream has a story.</em></p>
-          <Link href="/enquiries" className="text-link">Tell us yours</Link>
-        </div>
-      ) : null}
-      <Sparkles items={[[30, 24, 18, 0], [64, 16, 12, 1.6], [72, 46, 20, 0.8], [27, 52, 11, 2.4], [45, 12, 10, 3.1], [56, 62, 13, 1.2], [14, 36, 9, 4], [86, 30, 10, 2.9], [40, 66, 8, 3.6], [78, 64, 9, 0.3]]} />
-      <Clouds set="hero" />
-      <div className="hero-fade" aria-hidden="true" />
-
-      {heroPieces.map((p, i) => (
-        <div
-          key={i}
-          ref={(el) => (pieceRefs.current[i] = el)}
-          className={`hero-piece${p.front ? ' front' : ''}${p.m ? '' : ' hide-mobile'}${p.cutout ? ' cutout' : ''}`}
-          style={{ '--l': `${p.left}%`, '--t': `${p.top}%`, '--ml': `${(p.m || [p.left])[0]}%`, '--mt': `${(p.m || [0, p.top])[1]}%`, width: `clamp(${Math.round(p.w * 0.55)}px, ${(p.w / 14.4).toFixed(2)}vw, ${p.w}px)`, aspectRatio: `${p.w} / ${p.h}` }}
-          aria-hidden="true"
-        >
-          <Link
-            href={`/what-we-do/${p.service}`}
-            className="drift"
-            tabIndex={-1}
-            data-cursor="view"
-            style={{ display: 'block', '--d': `${p.d}s`, '--x': `${p.x}px`, '--y': `${p.y}px`, '--r0': `${p.r0}deg`, '--r1': `${p.r1}deg`, '--delay': `${0.8 + i * 0.12}s` }}
-          >
-            <Slot item={p} tone={p.tone} float sizes="(max-width: 760px) 40vw, 280px" priority={i < 3} />
-          </Link>
-        </div>
-      ))}
-
-      <div className="hero-copy">
-        <h1 id="hero-title" className="hero-logo">
-          {logo ? (
-            <>
-              <Image src={logo.light} alt="Dream Narratives" width={logo.width} height={logo.height} priority sizes="(max-width: 760px) 86vw, 640px" />
-              <span className="visually-hidden"> — a design house in Vijayawada by Driti &amp; Nimisha</span>
-            </>
-          ) : (
-            <span className="display-xl">{title[0]} <em>{title[1]}</em></span>
-          )}
+    <section className="hero" ref={ref} aria-labelledby="hero-title">
+      <div className="hero-inner">
+        <h1 id="hero-title" className="hero-mark">
+          <Image className="logo-ink" src="/images/logo-ink-xl.webp" alt="Dream Narratives" width={1332} height={401} priority sizes="(max-width: 1400px) 92vw, 1300px" />
+          <Image className="logo-light" src="/images/logo-light-xl.webp" alt="" aria-hidden="true" width={1332} height={401} priority sizes="(max-width: 1400px) 92vw, 1300px" />
+          <span className="visually-hidden"> — a design house in Vijayawada by Nimisha Lingamaneni &amp; Driti Thyagaraj</span>
         </h1>
-        <p className="lede">{lede}</p>
-        <div className="btn-row">
-          <Link href={primary.href} className="btn btn-moon">{primary.label}</Link>
-          <Link href={secondary.href} className="btn btn-ghost-dusk">{secondary.label}</Link>
-        </div>
-        <Link href="/monogram" className="hero-mono-link">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C12.9 7.6 16.4 11.1 24 12C16.4 12.9 12.9 16.4 12 24C11.1 16.4 7.6 12.9 0 12C7.6 11.1 11.1 7.6 12 0Z" /></svg>
-          Make your wedding monogram, free
-        </Link>
-      </div>
 
-      <a href="#studio" className="hero-scroll">Scroll</a>
+        <div className="hero-stage">
+          {tiles.map((t, i) => (
+            <Link
+              key={t.src}
+              href={`/what-we-do/${t.service}`}
+              className={`hero-tile t${i + 1}`}
+              tabIndex={-1}
+              aria-hidden="true"
+              data-cursor="view"
+              style={{ aspectRatio: `${t.width} / ${Math.min(t.height, t.width * 1.3)}`, '--k': [1, -0.8, 0.7, -1.1][i % 4] }}
+            >
+              <Slot item={t} sizes="(max-width: 760px) 30vw, 220px" priority={i < 2} />
+            </Link>
+          ))}
+
+          {feature ? (
+            <Link href={`/what-we-do/${feature.service}`} className="hero-feature" data-cursor="view" aria-label={feature.caption}>
+              <span className="plinth" aria-hidden="true" />
+              <span className="feature-img" style={{ aspectRatio: `${feature.width} / ${feature.height}` }}>
+                <Image src={feature.src} alt={feature.alt || feature.caption} fill priority sizes="(max-width: 760px) 62vw, 380px" style={{ objectFit: 'contain' }} />
+              </span>
+            </Link>
+          ) : null}
+        </div>
+
+        <div className="hero-foot">
+          <div className="hero-copy">
+            <p className="hero-lede">{lede}</p>
+            <div className="btn-row">
+              <Link href={primary.href} className="btn btn-fill">{primary.label}</Link>
+              <Link href={secondary.href} className="btn btn-ghost">{secondary.label}</Link>
+            </div>
+          </div>
+          <div className="hero-meta">
+            <ul>
+              {meta.map((m) => <li key={m}>{m}</li>)}
+            </ul>
+            <Link href="/monogram" className="hero-mono-link">
+              <Icon name="mark" size={18} /> Make your wedding monogram, free
+            </Link>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

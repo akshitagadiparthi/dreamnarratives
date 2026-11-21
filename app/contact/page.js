@@ -8,7 +8,7 @@ import { faq } from '@/content/studio';
 
 export const metadata = {
   title: 'Contact & FAQ · Dream Narratives, Vijayawada',
-  description: 'Contact Driti and Nimisha at Dream Narratives, a design house in Vijayawada: send an enquiry, or reach us on Instagram or by email. Answers to common questions about invitations, gifting, branding and interiors.',
+  description: 'Contact Nimisha Lingamaneni and Driti Thyagaraj at Dream Narratives, a design house in Vijayawada: send an enquiry, or reach us on Instagram or by email. Answers to common questions about invitations, gifting, branding and interiors.',
   alternates: { canonical: '/contact' },
   openGraph: { url: '/contact' },
 };
@@ -49,7 +49,7 @@ export default function Contact() {
       </section>
 
       {answered.length ? (
-        <section id="faq" className="section ground-bone" aria-labelledby="faq-title">
+        <section id="faq" className="section" aria-labelledby="faq-title">
           <JsonLd data={{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: answered.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }} />
           <div className="container split top">
             <div className="reveal">

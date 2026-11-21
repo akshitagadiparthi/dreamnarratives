@@ -1,14 +1,20 @@
 'use client';
 
-import '@fontsource/pinyon-script/400.css';
+import './monogram-fonts';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { drawMonogram, loadMonogramFonts } from './monogram';
-import { MoonPhases } from './Sections';
 
-const PAIRS = [['D', 'N', 'moonlit', 'night'], ['A', 'R', 'classic', 'ivory'], ['S', 'K', 'script', 'night'], ['T', 'J', 'moonlit', 'ivory']];
+const PAIRS = [
+  ['N', 'D', 'editorial', 'cream'],
+  ['A', 'R', 'heritage', 'black'],
+  ['S', 'K', 'romance', 'stone'],
+  ['T', 'J', 'crest', 'cream'],
+  ['M', 'L', 'modern', 'black'],
+  ['P', 'V', 'classic', 'stone'],
+];
 
-/** Home page invitation to try the Monogram Studio, cycling through examples. */
+/** An invitation to try the Monogram Studio, cycling through its styles. */
 export default function MonogramTeaser() {
   const ref = useRef(null);
   useEffect(() => {
@@ -21,34 +27,31 @@ export default function MonogramTeaser() {
     };
     loadMonogramFonts().then(() => {
       paint();
-      if (!calm) timer = setInterval(paint, 2600);
+      if (!calm) timer = setInterval(paint, 2400);
     });
     return () => clearInterval(timer);
   }, []);
   return (
-    <section className="section has-clouds" aria-labelledby="monogram-title">
-      <div className="container monogram-teaser">
-        <div className="reveal">
-          <span className="eyebrow">Try it, it’s free</span>
-          <h2 id="monogram-title" className="display-l">
-            Your initials,
-            <br />
-            <em>entwined.</em>
-          </h2>
-          <MoonPhasesLeftSmall />
-          <p className="lede">Type two initials and our Monogram Studio turns them into a wedding monogram you can download and share in seconds.</p>
-          <div className="btn-row" style={{ marginTop: 'var(--space-5)' }}>
-            <Link href="/monogram" className="btn btn-fill">Make your monogram</Link>
+    <section className="section" aria-labelledby="monogram-title">
+      <div className="container">
+        <div className="monogram-teaser block-stone">
+          <div className="reveal">
+            <span className="eyebrow">Monogram studio · free</span>
+            <h2 id="monogram-title" className="display-l">
+              Your initials,
+              <br />
+              <em>entwined.</em>
+            </h2>
+            <p className="lede">Type two initials, choose from six styles, and download a wedding monogram to share, in seconds.</p>
+            <div className="btn-row" style={{ marginTop: 'var(--space-4)' }}>
+              <Link href="/monogram" className="btn btn-fill">Make your monogram</Link>
+            </div>
           </div>
+          <Link href="/monogram" className="teaser-canvas reveal" data-cursor="view" aria-label="Open the Monogram Studio" style={{ '--delay': '150ms' }}>
+            <canvas ref={ref} width={720} height={720} aria-hidden="true" />
+          </Link>
         </div>
-        <Link href="/monogram" className="reveal" data-cursor="view" aria-label="Open the Monogram Studio" style={{ '--delay': '150ms' }}>
-          <canvas ref={ref} width={720} height={720} aria-hidden="true" />
-        </Link>
       </div>
     </section>
   );
-}
-
-function MoonPhasesLeftSmall() {
-  return <div style={{ display: 'flex' }}><MoonPhases /></div>;
 }

@@ -1,22 +1,21 @@
 import Link from 'next/link';
-import { Clouds, Sparkles } from '@/components/Basics';
-import { Closing, Constellation, PairedWith } from '@/components/Sections';
-import VideoReels from '@/components/VideoReels';
+import { Closing, Offers, PairedWith, Head } from '@/components/Sections';
+import VideoInvites from '@/components/VideoInvites';
 import { JsonLd } from '@/components/Seo';
 import { getService } from '@/content/services';
 import { site } from '@/content/site';
 
 export const metadata = {
   title: 'Video Wedding Invitations in Vijayawada',
-  description: 'Video invites by Dream Narratives, Vijayawada: wedding invitation films, save-the-date reels and a reel for every function, in Telugu, English or both, made for WhatsApp and Instagram.',
+  description: 'Video invites by Dream Narratives, Vijayawada: wedding invitation films, save-the-date videos and a video invite for every function, illustrated and animated in Telugu, English or both, ready for WhatsApp and Instagram.',
   alternates: { canonical: '/what-we-do/video-invites' },
   openGraph: { url: '/what-we-do/video-invites', title: 'Video Wedding Invitations · Dream Narratives, Vijayawada' },
 };
 
 const formats = [
-  'Save-the-date reels',
   'Wedding invitation films',
-  'A reel for every function',
+  'Save-the-date videos',
+  'A video for every function',
   'Illustrated story invites',
   'Telugu, English or both',
   'Made for WhatsApp & Instagram',
@@ -29,10 +28,10 @@ const steps = [
   { t: 'Ready to send', d: 'Delivered in vertical HD, sized for WhatsApp, Instagram and status.' },
 ];
 
-export default function VideoInvites() {
+export default function VideoInvitesPage() {
   const inv = getService('invitation');
   const videos = inv.work.filter((w) => w.video || w.kind === 'video-invites');
-  const stills = inv.work.filter((w) => w.src && w.kind === 'e-invites' && w.height > w.width).slice(0, 3);
+  const stills = inv.work.filter((w) => w.src && w.kind === 'e-invites' && w.height > w.width).slice(4, 7);
 
   return (
     <>
@@ -47,9 +46,7 @@ export default function VideoInvites() {
           url: new URL('/what-we-do/video-invites', site.url).toString(),
         }}
       />
-      <section className="service-hero has-clouds">
-        <Clouds set="corner" />
-        <Sparkles items={[[88, 34, 14, 0.4], [70, 70, 9, 1.8], [52, 26, 8, 2.6]]} />
+      <section className="service-hero">
         <div className="container service-head">
           <div className="reveal">
             <Link href="/what-we-do/invitation" className="crumb">The Invitation /</Link>
@@ -70,36 +67,27 @@ export default function VideoInvites() {
         </div>
       </section>
 
-      <section id="work" className="section reels-section" aria-labelledby="reels-title">
+      <section id="work" className="section" aria-labelledby="motion-title">
         <div className="container">
-          <div className="section-head reveal">
-            <div>
-              <span className="eyebrow">Selected work</span>
-              <h2 id="reels-title" className="heading">
-                Stories in <em>motion.</em>
-              </h2>
-            </div>
-            <a href={`https://instagram.com/${site.contact.instagram}`} className="text-link" target="_blank" rel="noopener noreferrer">Watch on Instagram</a>
-          </div>
-          <VideoReels videos={videos} stills={stills} />
+          <Head
+            eyebrow="Selected work"
+            title={['Stories in', 'motion.']}
+            id="motion-title"
+            link={{ href: `https://instagram.com/${site.contact.instagram}`, label: 'Watch on Instagram', external: true }}
+          />
+          <VideoInvites videos={videos} stills={stills} />
         </div>
       </section>
 
-      <Constellation offers={formats} eyebrow="What a video invite can be" title={['Every frame,', 'made for you alone.']} />
+      <Offers offers={formats} eyebrow="What a video invite can be" title={['Every frame,', 'made for you alone.']} />
 
       <section className="section" aria-labelledby="video-steps">
         <div className="container">
-          <div className="section-head reveal">
-            <div>
-              <span className="eyebrow">How it comes together</span>
-              <h2 id="video-steps" className="heading">
-                From story <em>to screen.</em>
-              </h2>
-            </div>
-          </div>
+          <Head eyebrow="How it comes together" title={['From story', 'to screen.']} id="video-steps" />
           <ol className="steps four">
             {steps.map((s, i) => (
               <li key={s.t} className="reveal" style={{ '--delay': `${i * 120}ms` }}>
+                <span className="step-no">{String(i + 1).padStart(2, '0')}</span>
                 <h3>{s.t}</h3>
                 <p>{s.d}</p>
               </li>
