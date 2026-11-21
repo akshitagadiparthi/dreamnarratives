@@ -7,7 +7,7 @@
 //      branding) or the site's own (invitation, gift, identity, telling, space).
 //   2. Run:  npm run images
 //   3. Photos become .webp in public/work/<service>/ (max 2000px, ~100–400 KB).
-//      Videos become .mp4 (max 1080p, no sound) with a poster image, if ffmpeg
+//      Videos become .mp4 (720px wide, with sound) and a poster image, if ffmpeg
 //      is installed (https://ffmpeg.org/download.html, or `brew install ffmpeg`).
 //   4. content/work.json is rewritten, so the new work appears on the site
 //      with no code changes. A file named hero.* becomes the service's main image.
@@ -31,6 +31,7 @@ const VIDEO = new Set(['.mp4', '.mov', '.m4v', '.webm']);
 const ALIASES = {
   invitation: 'invitation', invites: 'invitation', 'e-invites': 'invitation', einvites: 'invitation',
   'physical-cards': 'invitation', 'video-invites': 'invitation', cards: 'invitation', stationery: 'invitation',
+  logos: 'invitation', 'wedding-logos': 'invitation', monograms: 'invitation',
   gift: 'gift', gifting: 'gift', hampers: 'gift',
   identity: 'identity', branding: 'identity', brand: 'identity',
   telling: 'identity', marketing: 'identity', 'social-media': 'identity', social: 'identity', instagram: 'identity',
@@ -88,7 +89,9 @@ for (const file of files) {
     const poster = path.join(outDir, `${base}.jpg`);
     if (existsSync(out)) continue;
     if (!hasFfmpeg) { skippedVideos++; continue; }
-    spawnSync('ffmpeg', ['-y', '-i', file, '-vf', "scale='min(1080,iw)':-2", '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '28', '-an', '-movflags', '+faststart', out], { stdio: 'ignore' });
+    // 720px wide is sharp in a phone frame and keeps the repository small.
+    // The sound is kept (video invites have music); the site starts them muted.
+    spawnSync('ffmpeg', ['-y', '-i', file, '-vf', "scale='min(720,iw)':-2", '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '27', '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', out], { stdio: 'ignore' });
     spawnSync('ffmpeg', ['-y', '-i', out, '-frames:v', '1', '-q:v', '4', poster], { stdio: 'ignore' });
     if (existsSync(out)) {
       const [a, b] = await Promise.all([stat(file), stat(out)]);
